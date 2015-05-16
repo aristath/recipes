@@ -37,7 +37,10 @@ class Maera_Recipes_Template {
                 $unit            = get_sub_field( 'unit' );
                 $ingredient      = get_term_by( 'id', get_sub_field( 'ingredient' ), 'ingredient' );
 
-                $ingredients .= '<li><strong>' . $quantity . '</strong> ' . $unit . ' ' . '<a href="' . get_term_link( $ingredient ) . '">' . $ingredient->name . '</a></li>';
+                $ingredients .= '<li>';
+                $ingredients .= '<span class="quantity">' . $quantity . '<span class="unit">' . $unit . '</span></span>';
+                $ingredients .= '<a href="' . get_term_link( $ingredient ) . '">' . $ingredient->name . '</a>';
+                $ingredients .= '</li>';
 
             }
 
