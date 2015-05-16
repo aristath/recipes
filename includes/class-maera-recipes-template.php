@@ -15,7 +15,9 @@ class Maera_Recipes_Template {
             return $content;
         }
 
-        $template = '<div style="display: flex;">';
+        $template  = '';
+        $template .= $this->the_info();
+        $template .= '<div style="display: flex;">';
         $template .= '<div class="ingredients-wrapper" style="border-right: 1px solid #dedede; padding: 0 1em; min-width: 175px; font-size: .85em;">' . $this->the_ingredients() . '</div>';
         $template .= '<div class="execution" style="padding: 0 1em;">' . $content . '</div>';
         $template .= '</div>';
@@ -48,7 +50,23 @@ class Maera_Recipes_Template {
 
         }
 
-        return $ingredients;
+        return apply_filters( 'maera_recipes/template/ingredients', $ingredients );
+
+    }
+
+    public function the_info() {
+
+        $servings  = get_field( 'servings' );
+        $calories  = get_field( 'calories' );
+        $prep_time = get_field( 'preparation_time' );
+
+        $template  = '<div class="recipe-info">';
+        $template .= '<div class="servings">' . __( 'Servings:', 'maera-recipes' ) . '<span class="value">' . $servings . '</span></div>';
+        $template .= '<div class="calories">' . __( 'Calories:', 'maera-recipes' ) . '<span class="value">' . $calories . '</span>' . __( 'Kcal', 'maera-recipes' ) . '</div>';
+        $template .= '<div class="prep_time">' . __( 'Preparation Time:', 'maera-recipes' ) . '<span class="value">' . $prep_time . '</span>' . __( 'minutes', 'maera-recipes' ) . '</div>';
+        $template .= '</div>';
+
+        return apply_filters( 'maera_recipes/template/info', $template );
 
     }
 
