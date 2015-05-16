@@ -327,15 +327,15 @@
  						'id' => '',
  					),
  					'choices' => array (
- 						'half' => '1/2',
- 						'one-third' => '1/3',
- 						'two-thirds' => '2/3',
- 						'one-fourth' => '1/4',
- 						'three-fourths' => '3/4',
- 						'one-fifth' => '1/5',
- 						'two-fifths' => '2/5',
- 						'three-fifths' => '3/5',
- 						'four-fifths' => '4/5',
+ 						'1/2' => '1/2',
+ 						'1/3' => '1/3',
+ 						'2/3' => '2/3',
+ 						'1/4' => '1/4',
+ 						'3/4' => '3/4',
+ 						'1/5' => '1/5',
+ 						'2/5' => '2/5',
+ 						'3/5' => '3/5',
+ 						'4/5' => '4/5',
  					),
  					'default_value' => array (
  						'half' => 'half',
@@ -540,3 +540,49 @@
  ));
 
  endif;
+
+class Maera_Recipes_Template {
+
+    public function __construct() {
+
+        add_filter( 'the_content', array( $this, 'single_recipe_content' ) );
+
+    }
+
+    public function single_recipe_content( $content ) {
+
+        // No need to proceed any further if this in not a recipe.
+        if ( ! is_singular( 'recipe' ) ) {
+            return $content;
+        }
+
+        return $this->the_ingredients() . $content;
+
+    }
+
+    public function the_ingredients() {
+
+        if ( have_rows( 'ingredients' ) ) {
+
+            $ingredients = '<ul>';
+            while ( have_rows( 'ingredients' ) ) {
+                the_row();
+                $whole_fraction  = get_sub_field( 'whole_fraction' );
+                $quantity        = ( 'whole' == $whole_fraction ) ? get_sub_field( 'quantity_whole' ) : get_sub_field( 'quantity_fraction' );
+                $unit            = get_sub_field( 'unit' );
+                $ingredient      = get_term_by( 'id', get_sub_field( 'ingredient' ), 'ingredient' );
+
+                $ingredients .= '<li><strong>' . $quantity . '</strong> ' . $unit . ' ' . '<a href="' . get_term_link( $ingredient ) . '">' . $ingredient->name . '</a></li>';
+
+            }
+
+            $ingredients .= '</ul>';
+
+        }
+
+        return $ingredients;
+
+    }
+
+}
+$single_recipe_template = new Maera_Recipes_Template();
