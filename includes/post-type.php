@@ -39,6 +39,9 @@ function maera_recipes_recipe_post_type() {
         'exclude_from_search' => false,
         'publicly_queryable'  => true,
         'capability_type'     => 'post',
+        'rewrite'             => array(
+            'slug' =>'recipes',
+        )
     );
     register_post_type( 'recipe', $args );
 
