@@ -15,7 +15,12 @@ class Maera_Recipes_Template {
             return $content;
         }
 
-        return $this->the_ingredients() . $content;
+        $template = '<div style="display: flex;">';
+        $template .= '<div class="ingredients-wrapper" style="border-right: 1px solid #dedede; padding: 0 1em; min-width: 175px; font-size: .85em;">' . $this->the_ingredients() . '</div>';
+        $template .= '<div class="execution" style="padding: 0 1em;">' . $content . '</div>';
+        $template .= '</div>';
+
+        return $template;
 
     }
 
