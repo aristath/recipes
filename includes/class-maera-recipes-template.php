@@ -36,7 +36,7 @@ class Maera_Recipes_Template {
 
                 the_row();
                 $whole_fraction  = get_sub_field( 'whole_fraction' );
-                $quantity        = ( 'whole' == $whole_fraction ) ? get_sub_field( 'quantity_whole' ) : get_sub_field( 'quantity_fraction' );
+                $quantity        = get_sub_field( 'quantity' );
                 $unit            = get_sub_field( 'unit' );
                 $ingredient      = get_term_by( 'id', get_sub_field( 'ingredient' ), 'ingredient' );
 
@@ -70,22 +70,6 @@ class Maera_Recipes_Template {
              */
             if ( ! in_array( $mode, array( 'metric', 'imperial', 'us' ) ) ) {
                 return ( 'value' == $output ) ? $value : $unit;
-            }
-
-            // convert fractions to actual numbers
-            switch ( $value ) {
-                case '1/2' :
-                    $value = 0.5; break;
-                case '1/3' :
-                    $value = 0.33; break;
-                case '2/3' :
-                    $value = 0.66; break;
-                case '1/4' :
-                    $value = 0.25; break;
-                case '3/4' :
-                    $value = 0.75; break;
-                default:
-                    $value = (int) $value;
             }
 
             // Metric mode
@@ -137,6 +121,14 @@ class Maera_Recipes_Template {
                         $unit  = 'cm';
                         break;
 
+                }
+
+                // If we're using mililitres and the value is large, then round it and convert to litres.
+                if ( 'ml' == $unit ) {
+                    if ( 1000 < $value ) {
+                        $value = ( floor( $value * 20 ) / 20 ) / 1000;
+                        $unit  = 'lt';
+                    }
                 }
 
             // US mode
@@ -271,7 +263,7 @@ class Maera_Recipes_Template {
         $mode = isset( $_GET['mode'] ) ? ' ' . $_GET['mode'] : '';
         $template  = '<div class="units-switch' . $mode . '">';
         $template .= '<a href="?mode=metric" class="metric">' . __( 'Metric', 'maera-recipes' ) . '</a>';
-        $template .= '<a href="?mode=imperial" class="imperial">' . __( 'Imperial', 'maera-recipes' ) . '</a>';
+        $template .= '<a href="?mode=imperial" class="imperial">' . __( 'Imp.', 'maera-recipes' ) . '</a>';
         $template .= '<a href="?mode=us" class="us">' . __( 'US', 'maera-recipes' ) . '</a>';
         $template .= '</div>';
 

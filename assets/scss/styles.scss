@@ -5,10 +5,10 @@
             border-right: 1px solid #dedede;
             border-right: 1px solid rgba(0,0,0,.2);
             padding-right: 1em;
-            min-width: 175px;
-            font-size: .85em;
+            min-width: 250px;
+            font-size: 13px;
             .quantity {
-                margin-right: 1em;
+                margin-right: .5em;
                 font-weight: 700;
                 .unit {
                     margin-left: .5em;
@@ -24,6 +24,8 @@
                     border-right: 1px solid transparent;
                     text-decoration: none;
                     font-size: .75em;
+                    min-width: 33.33%;
+                    text-align: center;
                 }
                 &.metric .metric,
                 &.imperial .imperial,
