@@ -7,6 +7,14 @@
             padding-right: 1em;
             min-width: 175px;
             font-size: .85em;
+            .quantity {
+                margin-right: 1em;
+                font-weight: 700;
+                .unit {
+                    margin-left: .5em;
+                    font-weight: normal;
+                }
+            }
         }
         .execution {
             margin-left: 1em;

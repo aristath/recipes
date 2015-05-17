@@ -6,6 +6,12 @@
     padding-right: 1em;
     min-width: 175px;
     font-size: .85em; }
+    .recipe-wrapper .recipe-flex-wrapper .ingredients-wrapper .quantity {
+      margin-right: 1em;
+      font-weight: 700; }
+      .recipe-wrapper .recipe-flex-wrapper .ingredients-wrapper .quantity .unit {
+        margin-left: .5em;
+        font-weight: normal; }
   .recipe-wrapper .recipe-flex-wrapper .execution {
     margin-left: 1em; }
 .recipe-wrapper .recipe-info {
