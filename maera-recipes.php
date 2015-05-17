@@ -15,5 +15,6 @@
  require_once( MAERA_RECIPES_PATH . 'includes/fields-acf.php' );
  require_once( MAERA_RECIPES_PATH . 'includes/class-maera-recipes-template.php' );
  require_once( MAERA_RECIPES_PATH . 'includes/scripts.php' );
+ require_once( MAERA_RECIPES_PATH . 'includes/customizer.php' );
 
  $single_recipe_template = new Maera_Recipes_Template();

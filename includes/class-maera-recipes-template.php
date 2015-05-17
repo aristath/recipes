@@ -14,11 +14,12 @@ class Maera_Recipes_Template {
         if ( ! is_singular( 'recipe' ) ) {
             return $content;
         }
-
+        $settings     = get_option( 'maera_recipes' );
+        $units_switch = ( isset( $settings['display_units_converter'] ) && $settings['display_units_converter'] ) ? $this->units_switch() : '';
         $template  = '<div class="recipe-wrapper">';
         $template .= $this->the_info();
         $template .= '<div class="recipe-flex-wrapper">';
-        $template .= '<div class="ingredients-wrapper">' . $this->units_switch() . $this->the_ingredients() . '</div>';
+        $template .= '<div class="ingredients-wrapper">' . $units_switch . $this->the_ingredients() . '</div>';
         $template .= '<div class="execution">' . $content . '</div>';
         $template .= '</div>';
         $template .= '</div>';
@@ -123,12 +124,13 @@ class Maera_Recipes_Template {
 
                 }
 
-                // If we're using mililitres and the value is large, then round it and convert to litres.
-                if ( 'ml' == $unit ) {
-                    if ( 1000 < $value ) {
-                        $value = ( floor( $value * 20 ) / 20 ) / 1000;
-                        $unit  = 'lt';
+                // If the value is too large then round and change the unit
+                if ( 1000 < $value ) {
+                    if ( in_array( $unit, array( 'ml', 'gram' ) ) ) {
+                        $value = round( $value / 1000, 2 );
                     }
+                    $unit = 'ml' == $unit ? 'lt' : $unit;
+                    $unit = 'gram' == $unit ? 'kg' : $unit;
                 }
 
             // US mode
