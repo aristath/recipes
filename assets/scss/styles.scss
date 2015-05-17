@@ -15,6 +15,23 @@
                     font-weight: normal;
                 }
             }
+            .units-switch {
+                display: flex;
+                justify-content: center;
+                a {
+                    padding: .2em .5em;
+                    background: #dedede;
+                    border-right: 1px solid transparent;
+                    text-decoration: none;
+                    font-size: .75em;
+                }
+                &.metric .metric,
+                &.imperial .imperial,
+                &.us .us {
+                    background: #555;
+                    color: #fff;
+                }
+            }
         }
         .execution {
             margin-left: 1em;

@@ -12,6 +12,18 @@
       .recipe-wrapper .recipe-flex-wrapper .ingredients-wrapper .quantity .unit {
         margin-left: .5em;
         font-weight: normal; }
+    .recipe-wrapper .recipe-flex-wrapper .ingredients-wrapper .units-switch {
+      display: flex;
+      justify-content: center; }
+      .recipe-wrapper .recipe-flex-wrapper .ingredients-wrapper .units-switch a {
+        padding: .2em .5em;
+        background: #dedede;
+        border-right: 1px solid transparent;
+        text-decoration: none;
+        font-size: .75em; }
+      .recipe-wrapper .recipe-flex-wrapper .ingredients-wrapper .units-switch.metric .metric, .recipe-wrapper .recipe-flex-wrapper .ingredients-wrapper .units-switch.imperial .imperial, .recipe-wrapper .recipe-flex-wrapper .ingredients-wrapper .units-switch.us .us {
+        background: #555;
+        color: #fff; }
   .recipe-wrapper .recipe-flex-wrapper .execution {
     margin-left: 1em; }
 .recipe-wrapper .recipe-info {
