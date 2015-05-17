@@ -1,0 +1,34 @@
+.recipe-wrapper {
+    .recipe-flex-wrapper {
+        display: flex;
+        .ingredients-wrapper {
+            border-right: 1px solid #dedede;
+            border-right: 1px solid rgba(0,0,0,.2);
+            padding-right: 1em;
+            min-width: 175px;
+            font-size: .85em;
+        }
+        .execution {
+            margin-left: 1em;
+        }
+    }
+    .recipe-info {
+        display: flex;
+        text-align: center;
+        justify-content: center;
+        font-size: .75em;
+        background-color: #f2f2f2;
+        margin-bottom: 1em;
+        .servings,
+        .calories,
+        .prep_time {
+            padding: 1em;
+            .value {
+                font-size: 2em;
+                display: block;
+                width: 100%;
+                text-align: center;
+            }
+        }
+    }
+}
