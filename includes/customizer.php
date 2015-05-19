@@ -82,7 +82,7 @@ function maera_recipes_customizer_fields( $fields ) {
         'settings' => 'ingredients_font_family',
         'choices'  => Kirki_Fonts::get_font_choices(),
         'section'  => 'ingredients',
-        'default'  => 1,
+        'default'  => '"Helvetica Neue", Helvetica, Arial, sans-serif',
         'priority' => 20,
         'output'   => array(
             'element'  => '.recipe-wrapper .recipe-flex-wrapper .ingredients-wrapper',
