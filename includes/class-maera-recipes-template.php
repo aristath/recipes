@@ -30,6 +30,30 @@ class Maera_Recipes_Template {
 
     public function the_ingredients() {
 
+        $units = array(
+            'teaspoon'   => __( 'teaspoon', 'maera-recipes' ),
+            'tablespoon' => __( 'tablespoon', 'maera-recipes' ),
+            'cup'        => __( 'cup', 'maera-recipes' ),
+            'us-gal'     => __( 'gallon (US)', 'maera-recipes' ),
+            'us-quart'   => __( 'quart (US)', 'maera-recipes' ),
+            'us-pint'    => __( 'pint (US)', 'maera-recipes' ),
+            'us-oz'      => __( 'ounce (US)', 'maera-recipes' ),
+            'imp-gal'    => __( 'gallon (Imperial/UK)', 'maera-recipes' ),
+            'imp-quart'  => __( 'quart (Imperial/UK)', 'maera-recipes' ),
+            'imp-pint'   => __( 'pint (Imperial/UK)', 'maera-recipes' ),
+            'imp-oz'     => __( 'ounce (Imperial/UK)', 'maera-recipes' ),
+            'ml'         => __( 'ml', 'maera-recipes' ),
+            'lt'         => __( 'lt', 'maera-recipes' ),
+            'pound'      => __( 'pound', 'maera-recipes' ),
+            'ounce'      => __( 'ounce', 'maera-recipes' ),
+            'gr'         => __( 'gram', 'maera-recipes' ),
+            'kg'         => __( 'kg', 'maera-recipes' ),
+            'mm'         => __( 'mm', 'maera-recipes' ),
+            'cm'         => __( 'cm', 'maera-recipes' ),
+            'm'          => __( 'm', 'maera-recipes' ),
+            'inch'       => __( 'inch', 'maera-recipes' ),
+        );
+
         if ( have_rows( 'ingredients' ) ) {
 
             $ingredients = '<ul>';
@@ -39,10 +63,13 @@ class Maera_Recipes_Template {
                 $whole_fraction  = get_sub_field( 'whole_fraction' );
                 $quantity        = get_sub_field( 'quantity' );
                 $unit            = get_sub_field( 'unit' );
+                $unit            = $this->unit_conversion( $quantity, $unit, 'unit' );
+                $unit            = ( isset( $units[$unit] ) ) ? $units[$unit] : $unit;
                 $ingredient      = get_term_by( 'id', get_sub_field( 'ingredient' ), 'ingredient' );
+                $value           = $this->unit_conversion( $quantity, $unit, 'value' );
 
                 $ingredients .= '<li>';
-                $ingredients .= '<span class="quantity">' . $this->unit_conversion( $quantity, $unit, 'value' ) . '<span class="unit">' . $this->unit_conversion( $quantity, $unit, 'unit' ) . '</span></span>';
+                $ingredients .= '<span class="quantity">' . $value . '<span class="unit">' . $unit . '</span></span>';
                 $ingredients .= '<a href="' . get_term_link( $ingredient ) . '">' . $ingredient->name . '</a>';
                 $ingredients .= '</li>';
 
