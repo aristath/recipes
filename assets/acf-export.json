@@ -220,5 +220,44 @@
         "label_placement": "top",
         "instruction_placement": "label",
         "hide_on_screen": ""
+    },
+    {
+        "key": "group_55703d4eeefd5",
+        "title": "Content",
+        "fields": [
+            {
+                "key": "field_55703d5652b13",
+                "label": "Recipe",
+                "name": "recipe",
+                "type": "wysiwyg",
+                "instructions": "",
+                "required": 1,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "default_value": "",
+                "tabs": "all",
+                "toolbar": "full",
+                "media_upload": 1
+            }
+        ],
+        "location": [
+            [
+                {
+                    "param": "post_type",
+                    "operator": "==",
+                    "value": "recipe"
+                }
+            ]
+        ],
+        "menu_order": 30,
+        "position": "acf_after_title",
+        "style": "seamless",
+        "label_placement": "top",
+        "instruction_placement": "label",
+        "hide_on_screen": ""
     }
 ]

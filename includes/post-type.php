@@ -24,7 +24,7 @@ function maera_recipes_recipe_post_type() {
         'label'               => __( 'recipe', 'maera-recipes' ),
         'description'         => __( 'Recipe', 'maera-recipes' ),
         'labels'              => $labels,
-        'supports'            => array( 'title', 'editor', 'excerpt', 'author', 'thumbnail', 'comments', 'revisions' ),
+        'supports'            => array( 'title', 'thumbnail', 'comments' ),
         'taxonomies'          => array( 'ingredients', ' recipe-category' ),
         'hierarchical'        => false,
         'public'              => true,

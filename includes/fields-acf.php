@@ -226,4 +226,44 @@ acf_add_local_field_group(array (
 	'hide_on_screen' => '',
 ));
 
+acf_add_local_field_group(array (
+	'key' => 'group_55703d4eeefd5',
+	'title' => 'Content',
+	'fields' => array (
+		array (
+			'key' => 'field_55703d5652b13',
+			'label' => 'Recipe',
+			'name' => 'recipe',
+			'type' => 'wysiwyg',
+			'instructions' => '',
+			'required' => 1,
+			'conditional_logic' => 0,
+			'wrapper' => array (
+				'width' => '',
+				'class' => '',
+				'id' => '',
+			),
+			'default_value' => '',
+			'tabs' => 'all',
+			'toolbar' => 'full',
+			'media_upload' => 1,
+		),
+	),
+	'location' => array (
+		array (
+			array (
+				'param' => 'post_type',
+				'operator' => '==',
+				'value' => 'recipe',
+			),
+		),
+	),
+	'menu_order' => 30,
+	'position' => 'acf_after_title',
+	'style' => 'seamless',
+	'label_placement' => 'top',
+	'instruction_placement' => 'label',
+	'hide_on_screen' => '',
+));
+
 endif;
