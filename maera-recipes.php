@@ -15,11 +15,13 @@ require_once( MAERA_RECIPES_PATH . 'includes/taxonomies.php' );
 require_once( MAERA_RECIPES_PATH . 'includes/fields-acf.php' );
 require_once( MAERA_RECIPES_PATH . 'includes/class-maera-recipes.php' );
 require_once( MAERA_RECIPES_PATH . 'includes/class-maera-recipes-template.php' );
+require_once( MAERA_RECIPES_PATH . 'includes/class-maera-recipes-admin-styles.php' );
 require_once( MAERA_RECIPES_PATH . 'includes/scripts.php' );
 require_once( MAERA_RECIPES_PATH . 'includes/customizer.php' );
 
 function Maera_Recipes() {
     $recipes = new Maera_Recipes();
-    $recipes->template = new Maera_Recipes_Template();
+    $recipes->template     = new Maera_Recipes_Template();
+    $recipes->admin_styles = new Maera_Recipes_Admin_Styles();
 }
 Maera_Recipes();

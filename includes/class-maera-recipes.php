@@ -48,7 +48,12 @@ class Maera_Recipes {
      * @return boolean
      */
     public function is_recipe() {
-        return ( isset( $_GET['post_type'] ) && 'recipe' == $_GET['post_type'] ) ? true : false;
+
+        if ( isset( $_GET['post_type'] ) && 'recipe' == $_GET['post_type'] ) {
+            return true;
+        } else {
+            return false;
+        }
      }
 
 }
