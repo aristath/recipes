@@ -65,7 +65,7 @@ class Maera_Recipes_Template {
                 $unit            = get_sub_field( 'unit' );
                 $unit            = $this->unit_conversion( $quantity, $unit, 'unit' );
                 $unit            = ( isset( $units[$unit] ) ) ? $units[$unit] : $unit;
-                $ingredient      = get_term_by( 'id', get_sub_field( 'ingredient' ), 'ingredient' );
+                $ingredient      = get_sub_field( 'ingredient' );
                 $value           = $this->unit_conversion( $quantity, $unit, 'value' );
 
                 $ingredients .= '<li>';
@@ -266,15 +266,11 @@ class Maera_Recipes_Template {
     public function the_info() {
 
         $servings  = get_field( 'servings' );
-        $calories  = get_field( 'calories' );
         $prep_time = get_field( 'prep_time' );
         $cook_time = get_field( 'cook_time' );
 
         $template  = '<div class="recipe-info">';
         $template .= '<div class="servings">' . __( 'Servings:', 'maera-recipes' ) . '<span class="value">' . $servings . '</span></div>';
-        if ( $calories ) {
-            $template .= '<div class="calories">' . __( 'Calories:', 'maera-recipes' ) . '<span class="value">' . $calories . '</span>' . __( 'Kcal', 'maera-recipes' ) . '</div>';
-        }
         if ( $prep_time ) {
             $template .= '<div class="prep_time">' . __( 'Prep. Time:', 'maera-recipes' ) . '<span class="value">' . $prep_time . '</span>' . __( 'minutes', 'maera-recipes' ) . '</div>';
         }
