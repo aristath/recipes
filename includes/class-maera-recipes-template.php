@@ -16,13 +16,21 @@ class Maera_Recipes_Template {
         }
         $settings     = get_option( 'maera_recipes' );
         $units_switch = ( isset( $settings['display_units_converter'] ) && $settings['display_units_converter'] ) ? $this->units_switch() : '';
+        ob_start();
+        acf_form();
+        $edit = ob_get_clean();
+
         $template  = '<div class="recipe-wrapper">';
         $template .= $this->the_info();
         $template .= '<div class="recipe-flex-wrapper">';
         $template .= '<div class="ingredients-wrapper">' . $units_switch . $this->the_ingredients() . '</div>';
-        $template .= '<div class="execution">' . $content . '</div>';
+        $template .= '<div class="execution">' . get_field( 'recipe' ) . $content . '</div>';
         $template .= '</div>';
         $template .= '</div>';
+        $template .= '<script>(function($) { $(function() { $( ".show-recipe-edit-form" ).click( function() { $( ".recipe-edit-form" ).toggle(); }); }); })(jQuery);</script>';
+
+        $template .= '<button class="show-recipe-edit-form">' . __( 'Edit recipe', 'maera-recipes' ) . '</button>';
+        $template .= '<div class="recipe-edit-form" style="display: none;">' . $edit . '</div>';
 
         return $template;
 
