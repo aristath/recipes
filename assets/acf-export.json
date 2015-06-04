@@ -82,8 +82,8 @@
                 }
             ]
         ],
-        "menu_order": 0,
-        "position": "side",
+        "menu_order": 5,
+        "position": "acf_after_title",
         "style": "default",
         "label_placement": "top",
         "instruction_placement": "label",
@@ -140,7 +140,7 @@
                         "name": "unit",
                         "type": "select",
                         "instructions": "Select the measurement unit for this quantity",
-                        "required": 1,
+                        "required": 0,
                         "conditional_logic": 0,
                         "wrapper": {
                             "width": "",
@@ -175,7 +175,7 @@
                         },
                         "allow_null": 1,
                         "multiple": 0,
-                        "ui": 0,
+                        "ui": 1,
                         "ajax": 0,
                         "placeholder": "",
                         "disabled": 0,
