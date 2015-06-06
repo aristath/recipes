@@ -1,0 +1,56 @@
+.star-rating {
+  font-family: dashicons; }
+  .star-rating .star {
+    color: #607d8b;
+    display: inline-block;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 400;
+    height: 20px;
+    line-height: 1;
+    vertical-align: top;
+    width: 20px; }
+    .star-rating .star-full:before {
+      content: "\f155"; }
+    .star-rating .star-half:before {
+      content: "\f459"; }
+    .star-rating .star-empty:before {
+      content: "\f154"; }
+
+/* Form */
+span.star-rating-control {
+  display: inline-block;
+  margin: 0 0 10px 0; }
+
+.star-rating-control div.star-rating {
+  font-family: dashicons;
+  font-size: 20px;
+  width: 22px;
+  display: inline-block; }
+  .star-rating-control div.star-rating a {
+    color: transparent;
+    color: transparent;
+    text-decoration: none; }
+    .star-rating-control div.star-rating a:before {
+      color: #689f38;
+      content: "\f154"; }
+  .star-rating-control div.star-rating.star-rating-hover a:before {
+    content: "\f155"; }
+  .star-rating-control div.star-rating.star-rating-on a:before {
+    content: "\f155";
+    color: #388e3c; }
+.star-rating-control .rating-cancel {
+  display: inline-block;
+  width: 22px;
+  color: transparent;
+  color: transparent;
+  text-decoration: none; }
+  .star-rating-control .rating-cancel a {
+    color: transparent;
+    color: transparent;
+    text-decoration: none; }
+    .star-rating-control .rating-cancel a:before {
+      font-family: dashicons;
+      font-size: 20px;
+      color: #e53935;
+      content: "\f158"; }
