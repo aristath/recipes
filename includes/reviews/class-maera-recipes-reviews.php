@@ -8,9 +8,6 @@ class Maera_Recipes_Reviews {
     public $url       = null;
     public $post_type = 'post';
 
-    public static $average_rating = null;
-    public static $count_votes    = null;
-
     /**
      * The class contructor
      */
@@ -18,8 +15,6 @@ class Maera_Recipes_Reviews {
 
         $this->url       = trailingslashit( MAERA_RECIPES_URL ) . 'includes/reviews';
         $this->post_type = $post_type;
-
-        self::$count_votes    = $this->count_votes();
 
         add_action( 'comment_post', array( $this, 'save_rating' ) );
 	    add_action( 'comment_text', array( $this, 'display_rating' ) );
@@ -94,7 +89,7 @@ class Maera_Recipes_Reviews {
     /**
      * Returns a count of comments that have a vote.
      */
-    public function count_votes() {
+    public static function count_votes( $post_id ) {
         global $wpdb;
 
 		$comments = get_comments( array(

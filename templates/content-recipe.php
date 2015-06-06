@@ -58,7 +58,7 @@ $settings = get_option( 'maera_recipes' );
     wp_star_rating( array(
         'rating' => get_post_meta( $post->ID, 'comment_rating-average-rating', true ),
         'type'   => 'rating',
-        'number' => Maera_Recipes_Reviews::$count_votes,
+        'number' => Maera_Recipes_Reviews::count_votes( $post->ID ),
     ) );
     ?>
 
