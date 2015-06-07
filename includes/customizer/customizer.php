@@ -34,10 +34,6 @@ add_action( 'customize_register', 'maera_recipes_customizer_panels_sections' );
  */
 function maera_recipes_customizer_fields( $wp_customize ) {
 
-    if ( ! class_exists( 'Kirki_Controls_Slider_Control' ) ) {
-        include_once( MAERA_RECIPES_PATH . 'includes/customizer/controls/slider/class-kirki-controls-slider-control.php' );
-    }
-
     // Display Ingredients
     $wp_customize->add_setting( 'maera_recipes[display_ingredients]', array(
         'default'        => '1',
@@ -62,11 +58,12 @@ function maera_recipes_customizer_fields( $wp_customize ) {
     ) );
 
     $wp_customize->add_control( 'maera_recipes_display_units_converter', array(
-        'label'       => __( 'Show the units converter', 'maera-recipes' ),
-        'section'     => 'ingredients',
-        'settings'    => 'maera_recipes[display_units_converter]',
-        'type'        => 'checkbox',
-        'priority'    => 20
+        'label'           => __( 'Show the units converter', 'maera-recipes' ),
+        'section'         => 'ingredients',
+        'settings'        => 'maera_recipes[display_units_converter]',
+        'type'            => 'checkbox',
+        'priority'        => 20,
+        'active_callback' => 'maera_recipes_display_ingredients',
     ) );
 
     // Ingredients width
@@ -76,18 +73,19 @@ function maera_recipes_customizer_fields( $wp_customize ) {
         'capability'     => 'manage_options',
     ) );
 
-    $wp_customize->add_control( new Kirki_Controls_Slider_Control( $wp_customize, 'maera_recipes_ingredients_width', array(
-        'settings' => 'maera_recipes[ingredients_width]',
-        'label'    => __( 'Percent width of the ingredients', 'maera-recipes' ),
-        'section'  => 'ingredients',
-        'priority' => 30,
+    $wp_customize->add_control( 'maera_recipes_ingredients_width', array(
+        'label'       => __( 'Ingredients width', 'maera-recipes' ),
+        'section'     => 'ingredients',
+        'settings'    => 'maera_recipes[ingredients_width]',
+        'type'        => 'range',
+        'priority'    => 30,
         'choices'  => array(
             'min'  => 20,
             'max'  => 50,
             'step' => 1
         ),
         'active_callback' => 'maera_recipes_display_ingredients',
-    ) ) );
+    ) );
 
  }
  add_action( 'customize_register', 'maera_recipes_customizer_fields' );

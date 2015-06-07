@@ -21,7 +21,7 @@ require_once( MAERA_RECIPES_PATH . 'includes/reviews/class-maera-recipes-reviews
 new Maera_Recipes_Reviews( 'recipe' );
 
 require_once( MAERA_RECIPES_PATH . 'includes/scripts.php' );
-require_once( MAERA_RECIPES_PATH . 'includes/customizer.php' );
+require_once( MAERA_RECIPES_PATH . 'includes/customizer/customizer.php' );
 require_once( MAERA_RECIPES_PATH . 'includes/customizer/styles.php' );
 
 /**
