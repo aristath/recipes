@@ -8,5 +8,7 @@ $settings = get_option( 'maera_recipes' );
         <a href="?mode=metric" class="metric recipe-button"><?php _e( 'Metric', 'maera-recipes' ); ?></a>
         <a href="?mode=imperial" class="imperial recipe-button"><?php _e( 'Imp.', 'maera-recipes' ); ?></a>
         <a href="?mode=us" class="us recipe-button"><?php _e( 'US', 'maera-recipes' ); ?></a>
+        <div class="clearfix"></div>
     </div>
+    <div class="clearfix"></div>
 <?php endif;
