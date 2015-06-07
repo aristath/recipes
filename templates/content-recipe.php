@@ -125,49 +125,54 @@ $settings = get_option( 'maera_recipes' );
         ?>
         <span itemprop="recipeYield"><?php printf( _n( '%d serving', '%d servings', get_field( 'servings' ), 'maera-recipes' ), get_field( 'servings' ) ); ?></span>
 
-        <?php
-        /**
-         * Ingredients
-         */
-        ?>
-        <div class="ingredients-wrapper">
+        <div class="recipe-content-wrapper">
 
-            <?php if ( isset( $settings['display_units_converter'] ) && $settings['display_units_converter'] ) : ?>
-                <div class="units-switch <?php echo ( isset( $_GET['mode'] ) ) ? $_GET['mode'] : ''; ?>">
-                    <a href="?mode=metric" class="metric"><?php _e( 'Metric', 'maera-recipes' ); ?></a>
-                    <a href="?mode=imperial" class="imperial"><?php _e( 'Imp.', 'maera-recipes' ); ?></a>
-                    <a href="?mode=us" class="us"><?php _e( 'US', 'maera-recipes' ); ?></a>
+            <?php
+            /**
+             * Ingredients
+             */
+            ?>
+            <?php if ( $settings['display_ingredients'] ) : ?>
+                <div class="ingredients-wrapper">
+
+                    <?php if ( isset( $settings['display_units_converter'] ) && $settings['display_units_converter'] ) : ?>
+                        <div class="units-switch <?php echo ( isset( $_GET['mode'] ) ) ? $_GET['mode'] : ''; ?>">
+                            <a href="?mode=metric" class="metric"><?php _e( 'Metric', 'maera-recipes' ); ?></a>
+                            <a href="?mode=imperial" class="imperial"><?php _e( 'Imp.', 'maera-recipes' ); ?></a>
+                            <a href="?mode=us" class="us"><?php _e( 'US', 'maera-recipes' ); ?></a>
+                        </div>
+                    <?php endif; ?>
+
+                    <?php if ( have_rows( 'ingredients' ) ) : ?>
+                        <ul>
+                            <?php while ( have_rows( 'ingredients' ) ) : the_row(); ?>
+                                <?php
+                                    $unit       = Maera_Recipes::units( Maera_Recipes::convert_units( get_sub_field( 'quantity' ), get_sub_field( 'unit' ), 'unit' ) );
+                                    $ingredient = get_sub_field( 'ingredient' );
+                                    $value      = Maera_Recipes::convert_units( get_sub_field( 'quantity' ), get_sub_field( 'unit' ), 'value' );
+                                ?>
+                                <li>
+                                    <a class="ingredient" href="<?php echo get_term_link( $ingredient ); ?>"><span itemprop="ingredients"><?php echo $ingredient->name; ?></span></a>:
+                                    <span class="quantity"><?php echo $value; ?><span class="unit"><?php echo $unit; ?></span></span>
+                                </li>
+                            <?php endwhile; ?>
+                        </ul>
+                    <?php endif; ?>
+
                 </div>
             <?php endif; ?>
 
-            <?php if ( have_rows( 'ingredients' ) ) : ?>
-                <ul>
-                    <?php while ( have_rows( 'ingredients' ) ) : the_row(); ?>
-                        <?php
-                            $unit        = Maera_Recipes::units( Maera_Recipes::convert_units( get_sub_field( 'quantity' ), get_sub_field( 'unit' ), 'unit' ) );
-                            $ingredient = get_sub_field( 'ingredient' );
-                            $value      = Maera_Recipes::convert_units( get_sub_field( 'quantity' ), get_sub_field( 'unit' ), 'value' );
-                        ?>
-                        <li>
-                            <a class="ingredient" href="<?php echo get_term_link( $ingredient ); ?>"><span itemprop="ingredients"><?php echo $ingredient->name; ?></span></a>:
-                            <span class="quantity"><?php echo $value; ?><span class="unit"><?php echo $unit; ?></span></span>
-                        </li>
-                    <?php endwhile; ?>
-                </ul>
-            <?php endif; ?>
-
-        </div>
-
-        <?php
-        /**
-         * Directions
-         */
-        ?>
-        <div class="directions">
-            <?php _e( 'Directions:', 'maera-recipes' ); ?>
-            <div itemprop="recipeInstructions">
-                <?php the_field( 'recipe' ); ?>
-                <?php the_content(); ?>
+            <?php
+            /**
+             * Directions
+             */
+            ?>
+            <div class="directions">
+                <?php _e( 'Directions:', 'maera-recipes' ); ?>
+                <div itemprop="recipeInstructions">
+                    <?php the_field( 'recipe' ); ?>
+                    <?php the_content(); ?>
+                </div>
             </div>
         </div>
     </div>

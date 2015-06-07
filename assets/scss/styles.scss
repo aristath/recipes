@@ -1,0 +1,8 @@
+.recipe-content-wrapper {
+    display: flex;
+    flex-grow: 2;
+    .ingredients-wrapper {
+        padding: 0 1em;
+        flex-shrink: 1;
+    }
+}
