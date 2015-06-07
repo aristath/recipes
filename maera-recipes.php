@@ -10,6 +10,13 @@
 define( 'MAERA_RECIPES_PATH', plugin_dir_path( __FILE__ ) );
 define( 'MAERA_RECIPES_URL',  plugins_url( '', __FILE__ ) );
 
+function maera_recipes_include_acf() {
+    if ( ! class_exists( 'acf' ) ) {
+        require_once( MAERA_RECIPES_PATH . 'includes/advanced-custom-fields-pro/acf.php' );
+    }
+}
+add_action( 'plugins_loaded', 'maera_recipes_include_acf' );
+
 require_once( MAERA_RECIPES_PATH . 'includes/post-type.php' );
 require_once( MAERA_RECIPES_PATH . 'includes/taxonomies.php' );
 require_once( MAERA_RECIPES_PATH . 'includes/fields-acf.php' );
