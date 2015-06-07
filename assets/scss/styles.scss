@@ -4,5 +4,16 @@
     .ingredients-wrapper {
         padding: 0 1em;
         flex-shrink: 1;
+        font-size: .8em;
+    }
+}
+
+.units-switch  {
+    a.recipe-button {
+        font-size: .85em;
+        padding: .2em .5em;
+        background: rgba(0,0,0,.15);
+        text-decoration: none;
+        border-bottom: none;
     }
 }

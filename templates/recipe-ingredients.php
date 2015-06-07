@@ -1,0 +1,15 @@
+<?php if ( have_rows( 'ingredients' ) ) : ?>
+    <ul>
+        <?php while ( have_rows( 'ingredients' ) ) : the_row(); ?>
+            <?php
+                $unit       = Maera_Recipes::units( Maera_Recipes::convert_units( get_sub_field( 'quantity' ), get_sub_field( 'unit' ), 'unit' ) );
+                $ingredient = get_sub_field( 'ingredient' );
+                $value      = Maera_Recipes::convert_units( get_sub_field( 'quantity' ), get_sub_field( 'unit' ), 'value' );
+            ?>
+            <li>
+                <a class="ingredient" href="<?php echo get_term_link( $ingredient ); ?>"><span itemprop="ingredients"><?php echo $ingredient->name; ?></span></a>:
+                <span class="quantity"><?php echo $value; ?> <span class="unit"><?php echo $unit; ?></span></span>
+            </li>
+        <?php endwhile; ?>
+    </ul>
+<?php endif; ?>
