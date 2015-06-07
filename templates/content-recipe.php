@@ -20,6 +20,7 @@
             <?php maera_recipes_get_template_part( 'recipe-cook-time' ); ?>
             <?php maera_recipes_get_template_part( 'recipe-total-time' ); ?>
             <?php maera_recipes_get_template_part( 'recipe-servings' ); ?>
+            <h4><?php _e( 'Ingredients', 'maera-recipes' ); ?></h4>
             <?php maera_recipes_get_template_part( 'recipe-units-switch' ); ?>
             <?php maera_recipes_get_template_part( 'recipe-ingredients' ); ?>
         </div>

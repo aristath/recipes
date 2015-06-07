@@ -46,4 +46,13 @@
 
 ul.recipe-ingredients {
     margin-top: 3em;
+    margin-left: 0;
+    padding-left: 0;
+    list-style: none;
+    list-style-type: none;
+    li {
+        margin: 0;
+        padding: 0;
+        padding-bottom: .2em;
+    }
 }
