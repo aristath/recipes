@@ -1,5 +1,5 @@
 <?php if ( have_rows( 'ingredients' ) ) : ?>
-    <ul>
+    <ul class="recipe-ingredients">
         <?php while ( have_rows( 'ingredients' ) ) : the_row(); ?>
             <?php
                 $unit       = Maera_Recipes::units( Maera_Recipes::convert_units( get_sub_field( 'quantity' ), get_sub_field( 'unit' ), 'unit' ) );

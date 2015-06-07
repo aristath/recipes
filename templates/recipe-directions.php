@@ -1,4 +1,4 @@
-<div class="directions">
+<div class="recipe-directions">
     <?php _e( 'Directions:', 'maera-recipes' ); ?>
     <div itemprop="recipeInstructions">
         <?php the_field( 'recipe' ); ?>

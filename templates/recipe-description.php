@@ -1,3 +1,5 @@
 <?php if ( get_field( 'description' ) ) : ?>
-    <span itemprop="description"><?php the_field( 'description' ); ?></span>
+    <div class="recipe-description">
+        <span itemprop="description"><?php the_field( 'description' ); ?></span>
+    </div>
 <?php endif;
