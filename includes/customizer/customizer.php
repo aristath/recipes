@@ -88,6 +88,14 @@ function maera_recipes_customizer_fields( $wp_customize ) {
             'type'            => 'checkbox',
             'priority'        => 20,
             'default'         => '1'
+        ),
+        array(
+            'label'           => __( 'Allow Front-End Editing', 'maera-recipes' ),
+            'section'         => 'recipes',
+            'setting'         => 'allow_frontend_editor',
+            'type'            => 'checkbox',
+            'priority'        => 20,
+            'default'         => '1'
         )
     );
 

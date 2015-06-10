@@ -43,7 +43,9 @@
 
     <div class="recipe-content">
         <?php maera_recipes_get_template_part( 'recipe-directions' ); ?>
-        <?php maera_recipes_get_template_part( 'recipe-edit' ); ?>
+        <?php if ( maera_recipes_get_option( 'allow_frontend_editor' ) ) : ?>
+            <?php maera_recipes_get_template_part( 'recipe-edit' ); ?>
+        <?php endif; ?>
     </div>
 
 </div>
