@@ -66,3 +66,26 @@ function maera_recipes_single_recipe_content( $content ) {
 
 }
 add_filter( 'the_content', 'maera_recipes_single_recipe_content' );
+
+function maera_recipes_get_option( $option = '' ) {
+
+    if ( '' == $option ) {
+        return null;
+    }
+
+    $default_options = array(
+        'display_featured_image' => '1',
+        'display_description'    => '1',
+        'display_rating'         => '1',
+        'display_author'         => '1',
+        'display_date'           => '1',
+    );
+    $options = wp_parse_args( get_option( 'maera_recipes', array() ), $default_options );
+
+    if ( ! isset( $options[$option] ) ) {
+        return null;
+    }
+
+    return $options[$option];
+
+}
