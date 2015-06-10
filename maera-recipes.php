@@ -58,7 +58,7 @@ function maera_recipes_single_recipe_content( $content ) {
 
     // Are we on a recipe?
     // Does the user have a template file for content-recipe in their theme?
-    if ( ( 'recipe' != $post->post_type ) ) {
+    if ( ! is_singular( 'recipe' ) ) {
         return $content;
     }
 
@@ -89,3 +89,16 @@ function maera_recipes_get_option( $option = '' ) {
     return $options[$option];
 
 }
+
+function maera_recipes_recipe_excerpt( $excerpt ) {
+
+    global $post;
+
+    if ( 'recipe' != $post->post_type ) {
+        return $content;
+    }
+
+    maera_recipes_get_template_part( 'content-recipe-excerpt' );
+
+}
+add_filter( 'get_the_excerpt', 'maera_recipes_recipe_excerpt' );
