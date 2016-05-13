@@ -105,8 +105,20 @@ class acf_pro_updates {
 	
 	function inject_update( $transient ) {
 		
+		// vars
+		$basename = acf_get_setting('basename');
+		
+		
 		// bail early if no show_updates
 		if( !acf_get_setting('show_updates') ) {
+			
+			return $transient;
+			
+		}
+		
+		
+		// bail early if not a plugin (included in theme)
+		if( !is_plugin_active($basename) ) {
 			
 			return $transient;
 			
@@ -139,7 +151,12 @@ class acf_pro_updates {
         // license
 		if( acf_pro_is_license_active() ) {
 			
-			$obj->package = acf_pro_get_remote_url( 'download', array( 'k' => acf_pro_get_license() ) );
+			$obj->package = acf_pro_get_remote_url('download', array(
+				'k'				=> acf_pro_get_license(),
+				'wp_url'		=> home_url(),
+				'acf_version'	=> acf_get_setting('version'),
+				'wp_version'	=> get_bloginfo('version'),
+			));
 		
 		}
 		

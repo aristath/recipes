@@ -131,10 +131,10 @@ class acf_form_comment {
 		// vars
 		$post_id = "comment_{$comment->comment_ID}";
 
-
+		
 		// get field groups
 		$field_groups = acf_get_field_groups(array(
-			'comment' => $comment->comment_ID
+			'comment' => get_post_type( $comment->comment_post_ID )
 		));
 		
 		
@@ -153,15 +153,26 @@ class acf_form_comment {
 				// load fields
 				$fields = acf_get_fields( $field_group );
 				
+				
+				// vars
+				$o = array(
+					'id'			=> 'acf-' . $field_group['ID'],
+					'key'			=> $field_group['key'],
+					'label'			=> $field_group['label_placement']
+				);
+				
 				?>
-				<div id="acf-<?php echo $field_group['ID']; ?>" class="stuffbox editcomment">
-					<h3><?php echo $field_group['title']; ?></h3>
+				<div id="acf-<?php echo $field_group['ID']; ?>" class="stuffbox">
+					<h3 class="hndle"><?php echo $field_group['title']; ?></h3>
 					<div class="inside">
-						<table class="form-table">
-							<tbody>
-								<?php acf_render_fields( $post_id, $fields, 'tr', 'field' ); ?>
-							</tbody>
-						</table>
+						<?php acf_render_fields( $post_id, $fields, 'div', $field_group['instruction_placement'] ); ?>
+						<script type="text/javascript">
+						if( typeof acf !== 'undefined' ) {
+								
+							acf.postbox.render(<?php echo json_encode($o); ?>);
+						
+						}
+						</script>
 					</div>
 				</div>
 				<?php
@@ -188,13 +199,17 @@ class acf_form_comment {
 	
 	function add_comment() {
 		
+		// global
+		global $post;
+		
+		
 		// vars
 		$post_id = "comment_0";
 
 		
 		// get field groups
 		$field_groups = acf_get_field_groups(array(
-			'comment' => 'new'
+			'comment' => $post->post_type
 		));
 		
 		
@@ -212,11 +227,9 @@ class acf_form_comment {
 				$fields = acf_get_fields( $field_group );
 				
 				?>
-				<table class="form-table">
-					<tbody>
-						<?php acf_render_fields( $post_id, $fields, 'tr', 'field' ); ?>
-					</tbody>
-				</table>
+				<div class="acf-fields -<?php echo $field_group['label_placement']; ?>">
+					<?php acf_render_fields( $post_id, $fields, 'div', $field_group['instruction_placement'] ); ?>
+				</div>
 				<?php
 				
 			}

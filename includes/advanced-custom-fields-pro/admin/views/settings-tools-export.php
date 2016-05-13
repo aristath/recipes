@@ -3,10 +3,24 @@
 // vars
 $field_groups = acf_extract_var( $args, 'field_groups');
 
+
+// replace
+$str_replace = array(
+	"  "	=> "\t",
+	"!!\'"	=> "'",
+	"'!!"	=> "",
+	"!!'"	=> ""
+);
+
+$preg_replace = array(
+	'/([\t\r\n]+?)array/'	=> 'array',
+	'/[0-9]+ => array/'		=> 'array'
+);
+
 ?>
 <div class="wrap acf-settings-wrap">
 	
-	<h2><?php _e('Import / Export', 'acf'); ?></h2>
+	<h1><?php _e('Tools', 'acf'); ?></h1>
 	
 	<div class="acf-box">
 		<div class="title">
@@ -21,18 +35,22 @@ $field_groups = acf_extract_var( $args, 'field_groups');
 			echo "if( function_exists('acf_add_local_field_group') ):" . "\r\n" . "\r\n";
 			
 			foreach( $field_groups as $field_group ) {
-								
+						
 				// code
 				$code = var_export($field_group, true);
 				
+				
 				// change double spaces to tabs
-				$code = str_replace("  ", "\t", $code);
+				$code = str_replace( array_keys($str_replace), array_values($str_replace), $code );
+				
 				
 				// correctly formats "=> array("
-				$code = preg_replace('/([\t\r\n]+?)array/', 'array', $code);
+				$code = preg_replace( array_keys($preg_replace), array_values($preg_replace), $code );
 				
-				// Remove number keys from array
-				$code = preg_replace('/[0-9]+ => array/', 'array', $code);
+				
+				// esc_textarea
+				$code = esc_textarea( $code );
+				
 				
 				// echo
 				echo "acf_add_local_field_group({$code});" . "\r\n" . "\r\n";

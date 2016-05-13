@@ -52,7 +52,7 @@ class acf_field_gallery extends acf_field {
 			'select'		=> __("Add Image to Gallery",'acf'),
 			'edit'			=> __("Edit Image",'acf'),
 			'update'		=> __("Update Image",'acf'),
-			'uploadedTo'	=> __("uploaded to this post",'acf'),
+			'uploadedTo'	=> __("Uploaded to this post",'acf'),
 			'max'			=> __("Maximum selection reached",'acf')
 		);
 		
@@ -144,24 +144,26 @@ class acf_field_gallery extends acf_field {
 	
 	function ajax_update_attachment() {
 		
-		// validate
-		if( ! wp_verify_nonce($_REQUEST['nonce'], 'acf_nonce') ) {
+		// validate nonce
+		if( !wp_verify_nonce($_POST['nonce'], 'acf_nonce') ) {
 		
 			wp_send_json_error();
 			
 		}
 		
 		
-		if( empty($_REQUEST['attachments']) ) {
+		// bail early if no attachments
+		if( empty($_POST['attachments']) ) {
 		
 			wp_send_json_error();
 			
 		}
 		
 		
-		foreach( $_REQUEST['attachments'] as $id => $changes ) {
+		// loop over attachments
+		foreach( $_POST['attachments'] as $id => $changes ) {
 			
-			if ( ! current_user_can( 'edit_post', $id ) )
+			if ( !current_user_can( 'edit_post', $id ) )
 				wp_send_json_error();
 				
 			$post = get_post( $id, ARRAY_A );
@@ -186,12 +188,16 @@ class acf_field_gallery extends acf_field {
 				}
 			}
 			
-			/** This filter is documented in wp-admin/includes/media.php */
-			$post = apply_filters( 'attachment_fields_to_save', $post, $changes );
-			
 			
 			// save post
 			wp_update_post( $post );
+			
+			
+			/** This filter is documented in wp-admin/includes/media.php */
+			// - seems off to run this filter AFTER the update_post function, but there is a reason
+			// - when placed BEFORE, an empty post_title will be populated by WP
+			// - this filter will still allow 3rd party to save extra image data!
+			$post = apply_filters( 'attachment_fields_to_save', $post, $changes );
 			
 			
 			// save meta
@@ -199,6 +205,8 @@ class acf_field_gallery extends acf_field {
 						
 		}
 		
+		
+		// return
 		wp_send_json_success();
 			
 	}
@@ -363,7 +371,7 @@ class acf_field_gallery extends acf_field {
 					'name'		=> 'title',
 					'prefix'	=> $prefix,
 					'type'		=> 'text',
-					'label'		=> 'Title',
+					'label'		=> __('Title', 'acf'),
 					'value'		=> $attachment['title']
 				), 'tr');
 				
@@ -372,7 +380,7 @@ class acf_field_gallery extends acf_field {
 					'name'		=> 'caption',
 					'prefix'	=> $prefix,
 					'type'		=> 'textarea',
-					'label'		=> 'Caption',
+					'label'		=> __('Caption', 'acf'),
 					'value'		=> $attachment['caption']
 				), 'tr');
 				
@@ -381,7 +389,7 @@ class acf_field_gallery extends acf_field {
 					'name'		=> 'alt',
 					'prefix'	=> $prefix,
 					'type'		=> 'text',
-					'label'		=> 'Alt Text',
+					'label'		=> __('Alt Text', 'acf'),
 					'value'		=> $attachment['alt']
 				), 'tr');
 				
@@ -390,7 +398,7 @@ class acf_field_gallery extends acf_field {
 					'name'		=> 'description',
 					'prefix'	=> $prefix,
 					'type'		=> 'textarea',
-					'label'		=> 'Description',
+					'label'		=> __('Description', 'acf'),
 					'value'		=> $attachment['description']
 				), 'tr');
 				
@@ -517,9 +525,7 @@ class acf_field_gallery extends acf_field {
 							<?php endif; ?>
 						</div>
 						<div class="actions acf-soh-target">
-							<a class="acf-icon dark remove-attachment" data-id="<?php echo $post->ID; ?>" href="#">
-								<i class="acf-sprite-delete"></i>
-							</a>
+							<a class="acf-icon -cancel dark remove-attachment" data-id="<?php echo $post->ID; ?>" href="#"></a>
 						</div>
 					</div>
 					
@@ -534,7 +540,7 @@ class acf_field_gallery extends acf_field {
 			
 			<ul class="acf-hl">
 				<li>
-					<a href="#" class="acf-button blue add-attachment"><?php _e('Add to gallery', 'acf'); ?></a>
+					<a href="#" class="acf-button button button-primary add-attachment"><?php _e('Add to gallery', 'acf'); ?></a>
 				</li>
 				<li class="acf-fr">
 					<select class="bulk-actions">
@@ -560,10 +566,10 @@ class acf_field_gallery extends acf_field {
 			
 			<ul class="acf-hl">
 				<li>
-					<a href="#" class="acf-button close-sidebar"><?php _e('Close', 'acf'); ?></a>
+					<a href="#" class="acf-button button close-sidebar"><?php _e('Close', 'acf'); ?></a>
 				</li>
 				<li class="acf-fr">
-					<a class="acf-button blue update-attachment"><?php _e('Update', 'acf'); ?></a>
+					<a class="acf-button button button-primary update-attachment"><?php _e('Update', 'acf'); ?></a>
 				</li>
 			</ul>
 			

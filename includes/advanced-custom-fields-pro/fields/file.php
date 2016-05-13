@@ -46,7 +46,7 @@ class acf_field_file extends acf_field {
 			'select'		=> __("Select File",'acf'),
 			'edit'			=> __("Edit File",'acf'),
 			'update'		=> __("Update File",'acf'),
-			'uploadedTo'	=> __("uploaded to this post",'acf'),
+			'uploadedTo'	=> __("Uploaded to this post",'acf'),
 		);
 		
 		
@@ -75,8 +75,16 @@ class acf_field_file extends acf_field {
 	
 	function render_field( $field ) {
 		
+		// vars
+		$uploader = acf_get_setting('uploader');
+		
+		
 		// enqueue
-		acf_enqueue_uploader();
+		if( $uploader == 'wp' ) {
+			
+			acf_enqueue_uploader();
+			
+		}
 		
 		
 		// vars
@@ -91,9 +99,12 @@ class acf_field_file extends acf_field {
 		$div = array(
 			'class'				=> 'acf-file-uploader acf-cf',
 			'data-library' 		=> $field['library'],
-			'data-mime_types'	=> $field['mime_types']
+			'data-mime_types'	=> $field['mime_types'],
+			'data-uploader'		=> $uploader
 		);
 		
+		
+		// has value
 		if( $field['value'] && is_numeric($field['value']) ) {
 			
 			$file = get_post( $field['value'] );
@@ -113,16 +124,6 @@ class acf_field_file extends acf_field {
 			}
 			
 		}
-		
-		
-		// uploader
-		$uploader = acf_get_setting('uploader');
-		
-		if( $uploader == 'basic' ) {
-			
-			$div['class'] .= ' basic';
-			
-		}
 				
 ?>
 <div <?php acf_esc_attr_e($div); ?>>
@@ -138,19 +139,19 @@ class acf_field_file extends acf_field {
 				<strong data-name="title"><?php echo $o['title']; ?></strong>
 			</p>
 			<p>
-				<strong><?php _e('File Name', 'acf'); ?>:</strong>
+				<strong><?php _e('File name', 'acf'); ?>:</strong>
 				<a data-name="name" href="<?php echo $o['url']; ?>" target="_blank"><?php echo $o['name']; ?></a>
 			</p>
 			<p>
-				<strong><?php _e('File Size', 'acf'); ?>:</strong>
+				<strong><?php _e('File size', 'acf'); ?>:</strong>
 				<span data-name="size"><?php echo $o['size']; ?></span>
 			</p>
 			
 			<ul class="acf-hl acf-soh-target">
 				<?php if( $uploader != 'basic' ): ?>
-					<li><a class="acf-icon dark" data-name="edit" href="#"><i class="acf-sprite-edit"></i></a></li>
+					<li><a class="acf-icon -pencil dark" data-name="edit" href="#"></a></li>
 				<?php endif; ?>
-				<li><a class="acf-icon dark" data-name="remove" href="#"><i class="acf-sprite-delete"></i></a></li>
+				<li><a class="acf-icon -cancel dark" data-name="remove" href="#"></a></li>
 			</ul>
 		</div>
 	</div>
@@ -165,7 +166,7 @@ class acf_field_file extends acf_field {
 			
 		<?php else: ?>
 			
-			<p style="margin:0;"><?php _e('No File selected','acf'); ?> <a data-name="add" class="acf-button" href="#"><?php _e('Add File','acf'); ?></a></p>
+			<p style="margin:0;"><?php _e('No file selected','acf'); ?> <a data-name="add" class="acf-button button" href="#"><?php _e('Add File','acf'); ?></a></p>
 			
 		<?php endif; ?>
 		
@@ -291,8 +292,16 @@ class acf_field_file extends acf_field {
 		// bail early if no value
 		if( empty($value) ) {
 		
-			return $value;
+			return false;
 			
+		}
+		
+		
+		// bail early if not numeric (error message)
+		if( !is_numeric($value) ) {
+			
+			return false;
+				
 		}
 		
 		

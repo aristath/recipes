@@ -41,6 +41,7 @@ class acf_field_repeater extends acf_field {
 			'max'			=> 0,
 			'layout' 		=> 'table',
 			'button_label'	=> __("Add Row",'acf'),
+			'collapsed'		=> ''
 		);
 		$this->l10n = array(
 			'min'			=>	__("Minimum rows reached ({min} rows)",'acf'),
@@ -92,10 +93,20 @@ class acf_field_repeater extends acf_field {
 	
 	function render_field( $field ) {
 		
+		// vars
+		$div = array(
+			'class' 		=> 'acf-repeater',
+			'data-min' 		=> $field['min'],
+			'data-max'		=> $field['max']
+		);
+		
+		
 		// ensure value is an array
 		if( empty($field['value']) ) {
 		
 			$field['value'] = array();
+			
+			$div['class'] .= ' -empty';
 			
 		}
 		
@@ -108,12 +119,6 @@ class acf_field_repeater extends acf_field {
 		// populate the empty row data (used for acfcloneindex and min setting)
 		$empty_row = array();
 		
-		foreach( $field['sub_fields'] as $f ) {
-			
-			$empty_row[ $f['key'] ] = isset( $f['default_value'] ) ? $f['default_value'] : false;
-			
-		}
-				
 		
 		// If there are less values than min, populate the extra values
 		if( $field['min'] ) {
@@ -187,9 +192,9 @@ class acf_field_repeater extends acf_field {
 		
 		if( $field['layout'] == 'row' ) {
 		
-			$el = 'tr';
-			$before_fields = '<td class="acf-table-wrap"><table class="acf-table">';
-			$after_fields = '</table></td>';
+			$el = 'div';
+			$before_fields = '<td class="acf-fields -left">';
+			$after_fields = '</td>';
 			
 		} elseif( $field['layout'] == 'block' ) {
 		
@@ -201,29 +206,54 @@ class acf_field_repeater extends acf_field {
 		}
 		
 		
+		// layout
+		$div['class'] .= ' -' . $field['layout'];
+		
+		
 		// hidden input
 		acf_hidden_input(array(
 			'type'	=> 'hidden',
 			'name'	=> $field['name'],
 		));
 		
+		
+		// collapsed
+		if( $field['collapsed'] ) {
+			
+			// add target class
+			foreach( array_keys($field['sub_fields']) as $i ) {
+				
+				if( $field['sub_fields'][ $i ]['key'] === $field['collapsed'] ) {
+					
+					$field['sub_fields'][ $i ]['wrapper']['class'] .= ' -collapsed-target';
+					
+				}
+								
+			}
+			
+		}
+		
 ?>
-<div <?php acf_esc_attr_e(array( 'class' => 'acf-repeater', 'data-min' => $field['min'], 'data-max'	=> $field['max'] )); ?>>
-<table <?php acf_esc_attr_e(array( 'class' => "acf-table acf-input-table {$field['layout']}-layout" )); ?>>
+<div <?php acf_esc_attr_e($div); ?>>
+<table class="acf-table">
 	
 	<?php if( $field['layout'] == 'table' ): ?>
 		<thead>
 			<tr>
 				<?php if( $show_order ): ?>
-					<th class="order"><span class="order-spacer"></span></th>
+					<th class="acf-row-handle"><span></span></th>
 				<?php endif; ?>
 				
 				<?php foreach( $field['sub_fields'] as $sub_field ): 
 					
 					$atts = array(
-						'class'		=> "acf-th acf-th-{$sub_field['name']}",
+						'class'		=> 'acf-th',
 						'data-key'	=> $sub_field['key'],
 					);
+					
+					
+					// add type
+					$atts['class'] .= ' acf-th-' . $sub_field['type'];
 					
 					
 					// Add custom width
@@ -234,9 +264,8 @@ class acf_field_repeater extends acf_field {
 					}
 						
 					?>
-					
 					<th <?php acf_esc_attr_e( $atts ); ?>>
-						<?php acf_the_field_label( $sub_field ); ?>
+						<?php echo acf_get_field_label( $sub_field ); ?>
 						<?php if( $sub_field['instructions'] ): ?>
 							<p class="description"><?php echo $sub_field['instructions']; ?></p>
 						<?php endif; ?>
@@ -245,18 +274,37 @@ class acf_field_repeater extends acf_field {
 				<?php endforeach; ?>
 
 				<?php if( $show_remove ): ?>
-					<th class="remove"><span class="remove-spacer"></span></th>
+					<th class="acf-row-handle"><span></span></th>
 				<?php endif; ?>
 			</tr>
 		</thead>
 	<?php endif; ?>
 	
 	<tbody>
-		<?php foreach( $field['value'] as $i => $row ): ?>
-			<tr class="acf-row<?php echo ($i === 'acfcloneindex') ? ' acf-clone' : ''; ?>">
+		<?php foreach( $field['value'] as $i => $row ): 
+			
+			$row_class = 'acf-row';
+			
+			if( $i === 'acfcloneindex' ) {
+				
+				$row_class .= ' acf-clone';
+				
+			} elseif( acf_is_row_collapsed($field['key'], $i) ) {
+				
+				$row_class .= ' -collapsed';
+				
+			}
+			
+			?>
+			<tr class="<?php echo $row_class; ?>" data-id="<?php echo $i; ?>">
 				
 				<?php if( $show_order ): ?>
-					<td class="order" title="<?php _e('Drag to reorder','acf'); ?>"><?php echo intval($i) + 1; ?></td>
+					<td class="acf-row-handle order" title="<?php _e('Drag to reorder','acf'); ?>">
+						<?php if( $field['collapsed'] ): ?>
+						<a class="acf-icon -collapse small" href="#" data-event="collapse-row" title="<?php _e('Click to toggle','acf'); ?>"></a>
+						<?php endif; ?>
+						<span><?php echo intval($i) + 1; ?></span>
+					</td>
 				<?php endif; ?>
 				
 				<?php echo $before_fields; ?>
@@ -297,9 +345,9 @@ class acf_field_repeater extends acf_field {
 				<?php echo $after_fields; ?>
 				
 				<?php if( $show_remove ): ?>
-					<td class="remove">
-						<a class="acf-icon small acf-repeater-add-row" href="#" data-before="1" title="<?php _e('Add row','acf'); ?>"><i class="acf-sprite-add"></i></a>
-						<a class="acf-icon small acf-repeater-remove-row" href="#" title="<?php _e('Remove row','acf'); ?>"><i class="acf-sprite-remove"></i></a>
+					<td class="acf-row-handle remove">
+						<a class="acf-icon -plus small" href="#" data-event="add-row" title="<?php _e('Add row','acf'); ?>"></a>
+						<a class="acf-icon -minus small" href="#" data-event="remove-row" title="<?php _e('Remove row','acf'); ?>"></a>
 					</td>
 				<?php endif; ?>
 				
@@ -309,9 +357,9 @@ class acf_field_repeater extends acf_field {
 </table>
 <?php if( $show_add ): ?>
 	
-	<ul class="acf-hl acf-clearfix">
-		<li class="acf-fr">
-			<a href="#" class="acf-button blue acf-repeater-add-row"><?php echo $field['button_label']; ?></a>
+	<ul class="acf-actions acf-hl">
+		<li>
+			<a class="acf-button button button-primary" data-event="add-row"><?php echo $field['button_label']; ?></a>
 		</li>
 	</ul>
 			
@@ -365,6 +413,25 @@ class acf_field_repeater extends acf_field {
 		$field['min'] = empty($field['min']) ? '' : $field['min'];
 		$field['max'] = empty($field['max']) ? '' : $field['max'];
 		
+		
+		// preview
+		$choices = array();
+		
+		if( $field['collapsed'] ) {
+			
+			$choices[ $field['collapsed'] ] = $field['collapsed'];
+			
+		}
+		
+		
+		acf_render_field_setting( $field, array(
+			'label'			=> __('Collapsed','acf'),
+			'instructions'	=> __('Select a sub field to show when row is collapsed','acf'),
+			'type'			=> 'select',
+			'name'			=> 'collapsed',
+			'allow_null'	=> 1,
+			'choices'		=> $choices
+		));
 		
 		
 		// min
@@ -512,7 +579,7 @@ class acf_field_repeater extends acf_field {
 		// bail early if no value
 		if( empty($value) || empty($field['sub_fields']) ) {
 						
-			return $value;
+			return false;
 			
 		}
 		
@@ -632,16 +699,16 @@ class acf_field_repeater extends acf_field {
 	
 	function update_value( $value, $post_id, $field ) {
 		
+		// vars
+		$total = 0;
+		
+		
 		// remove acfcloneindex
 		if( isset($value['acfcloneindex']) ) {
 		
 			unset($value['acfcloneindex']);
 			
 		}
-		
-		
-		// vars
-		$total = 0;
 		
 		
 		// update sub fields
@@ -662,44 +729,47 @@ class acf_field_repeater extends acf_field {
 				$total++;
 				
 				
-				// loop through sub fields
-				if( !empty($field['sub_fields']) ) {
-				
-					foreach( $field['sub_fields'] as $sub_field ) {
-						
-						// value
-						$v = false;
-						
-						
-						// key (backend)
-						if( isset($row[ $sub_field['key'] ]) ) {
-							
-							$v = $row[ $sub_field['key'] ];
-							
-						} elseif( isset($row[ $sub_field['name'] ]) ) {
-							
-							$v = $row[ $sub_field['name'] ];
-							
-						} else {
-							
-							// input is not set (hidden by conditioanl logic)
-							continue;
-							
-						}
-						
-						
-						// modify name for save
-						$sub_field['name'] = "{$field['name']}_{$i}_{$sub_field['name']}";
-						
-						
-						// update value
-						acf_update_value( $v, $post_id, $sub_field );
-						
-					}
-					// foreach
+				// continue if no sub fields
+				if( !$field['sub_fields'] ) {
+					
+					continue;
 					
 				}
-				// if
+					
+					
+				// loop through sub fields
+				foreach( $field['sub_fields'] as $sub_field ) {
+					
+					// value
+					$v = false;
+					
+					
+					// key (backend)
+					if( isset($row[ $sub_field['key'] ]) ) {
+						
+						$v = $row[ $sub_field['key'] ];
+						
+					} elseif( isset($row[ $sub_field['name'] ]) ) {
+						
+						$v = $row[ $sub_field['name'] ];
+						
+					} else {
+						
+						// input is not set (hidden by conditioanl logic)
+						continue;
+						
+					}
+					
+					
+					// modify name for save
+					$sub_field['name'] = "{$field['name']}_{$i}_{$sub_field['name']}";
+					
+					
+					// update value
+					acf_update_value( $v, $post_id, $sub_field );
+					
+				}
+				// foreach
 				
 			}
 			// foreach
@@ -709,11 +779,11 @@ class acf_field_repeater extends acf_field {
 		
 		
 		// get old value (db only)
-		$old_total = intval( acf_get_value( $post_id, $field, true ) );
+		$old_total = (int) acf_get_metadata( $post_id, $field['name'] );
 		
 		if( $old_total > $total ) {
 			
-			for ( $i = $total; $i < $old_total; $i++ ) {
+			for( $i = $total; $i < $old_total; $i++ ) {
 				
 				foreach( $field['sub_fields'] as $sub_field ) {
 					
@@ -740,6 +810,52 @@ class acf_field_repeater extends acf_field {
 		
 		// return
 		return $value;
+	}
+	
+	
+	/*
+	*  delete_value
+	*
+	*  description
+	*
+	*  @type	function
+	*  @date	1/07/2015
+	*  @since	5.2.3
+	*
+	*  @param	$post_id (int)
+	*  @return	$post_id (int)
+	*/
+	
+	function delete_value( $post_id, $key, $field ) {
+		
+		// get old value (db only)
+		$old_total = (int) acf_get_metadata( $post_id, $field['name'] );
+		
+		
+		// bail early if no rows or no sub fields
+		if( !$old_total || !$field['sub_fields'] ) {
+			
+			return;
+			
+		}
+		
+		
+		for( $i = 0; $i < $old_total; $i++ ) {
+			
+			foreach( $field['sub_fields'] as $sub_field ) {
+				
+				// modify name for delete
+				$sub_field['name'] = "{$key}_{$i}_{$sub_field['name']}";
+				
+				
+				// delete value
+				acf_delete_value( $post_id, $sub_field );
+			
+			}
+			// foreach
+			
+		}
+			
 	}
 	
 	

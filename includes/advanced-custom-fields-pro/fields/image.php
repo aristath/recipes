@@ -81,26 +81,39 @@ class acf_field_image extends acf_field {
 	
 	function render_field( $field ) {
 		
+		// vars
+		$uploader = acf_get_setting('uploader');
+		
+		
 		// enqueue
-		acf_enqueue_uploader();
+		if( $uploader == 'wp' ) {
+			
+			acf_enqueue_uploader();
+			
+		}
 		
 		
 		// vars
+		$url = '';
+		$alt = '';
 		$div = array(
 			'class'					=> 'acf-image-uploader acf-cf',
 			'data-preview_size'		=> $field['preview_size'],
 			'data-library'			=> $field['library'],
-			'data-mime_types'		=> $field['mime_types']
+			'data-mime_types'		=> $field['mime_types'],
+			'data-uploader'			=> $uploader
 		);
-		
-		$url = '';
 		
 		
 		// has value?
 		if( $field['value'] && is_numeric($field['value']) ) {
 			
+			// update vars
 			$url = wp_get_attachment_image_src($field['value'], $field['preview_size']);
+			$alt = get_post_meta($field['value'], '_wp_attachment_image_alt', true);
 			
+			
+			// url exists
 			if( $url ) {
 				
 				$url = $url[0];
@@ -111,28 +124,18 @@ class acf_field_image extends acf_field {
 						
 		}
 		
-		
-		// uploader
-		$uploader = acf_get_setting('uploader');
-		
-		if( $uploader == 'basic' ) {
-			
-			$div['class'] .= ' basic';
-			
-		}
-		
 ?>
 <div <?php acf_esc_attr_e( $div ); ?>>
 	<div class="acf-hidden">
 		<?php acf_hidden_input(array( 'name' => $field['name'], 'value' => $field['value'], 'data-name' => 'id' )); ?>
 	</div>
 	<div class="view show-if-value acf-soh">
-		<img data-name="image" src="<?php echo $url; ?>" alt=""/>
+		<img data-name="image" src="<?php echo $url; ?>" alt="<?php echo $alt; ?>"/>
 		<ul class="acf-hl acf-soh-target">
 			<?php if( $uploader != 'basic' ): ?>
-				<li><a class="acf-icon dark" data-name="edit" href="#"><i class="acf-sprite-edit"></i></a></li>
+				<li><a class="acf-icon -pencil dark" data-name="edit" href="#"></a></li>
 			<?php endif; ?>
-			<li><a class="acf-icon dark" data-name="remove" href="#"><i class="acf-sprite-delete"></i></a></li>
+			<li><a class="acf-icon -cancel dark" data-name="remove" href="#"></a></li>
 		</ul>
 	</div>
 	<div class="view hide-if-value">
@@ -146,7 +149,7 @@ class acf_field_image extends acf_field {
 			
 		<?php else: ?>
 			
-			<p style="margin:0;"><?php _e('No image selected','acf'); ?> <a data-name="add" class="acf-button" href="#"><?php _e('Add Image','acf'); ?></a></p>
+			<p style="margin:0;"><?php _e('No image selected','acf'); ?> <a data-name="add" class="acf-button button" href="#"><?php _e('Add Image','acf'); ?></a></p>
 			
 		<?php endif; ?>
 	</div>
@@ -329,8 +332,16 @@ class acf_field_image extends acf_field {
 		// bail early if no value
 		if( empty($value) ) {
 		
-			return $value;
+			return false;
 			
+		}
+		
+		
+		// bail early if not numeric (error message)
+		if( !is_numeric($value) ) {
+			
+			return false;
+				
 		}
 		
 		
@@ -349,6 +360,8 @@ class acf_field_image extends acf_field {
 			
 		}
 		
+		
+		// return
 		return $value;
 		
 	}

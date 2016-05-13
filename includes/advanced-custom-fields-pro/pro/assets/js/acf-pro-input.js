@@ -11,7 +11,7 @@
 			'get_fields' : 'get_fields',
 		},
 		
-		get_fields : function( $fields ){
+		get_fields: function( $fields ){
 			
 			// remove clone fields
 			$fields = $fields.not('.acf-clone .acf-field');
@@ -36,87 +36,100 @@
 		*  @return	n/a
 		*/
 		
-		refresh: function(){
+		refresh: function( $el ){
 			
 			// reference
 			var self = this;
 			
 			
-			// loop over all table layouts
-			$('.acf-input-table.table-layout').each(function(){
-				
-				// vars
-				var $table = $(this);
-				
-				
-				// loop over th
-				$table.find('> thead th.acf-th').each(function(){
-					
-					// vars
-					var $th = $(this),
-						$td = $table.find('> tbody > tr > td[data-key="' + $th.attr('data-key') + '"]');
-					
-					
-					// clear class
-					$td.removeClass('appear-empty');
-					$th.removeClass('hidden-by-conditional-logic');
-					
-					
-					// remove clone if needed
-					if( $td.length > 1 ) {
-						
-						$td = $td.not(':last');
-						
-					}
-					
-					
-					// add classes
-					if( $td.not('.hidden-by-conditional-logic').length == 0 ) {
-						
-						$th.addClass('hidden-by-conditional-logic');
-						
-					} else {
-						
-						$td.addClass('appear-empty');
-						
-					}
-					
-				});
-				
-				
-				// render table widths
-				self.render_table( $table );
-				
-			});
+			// defaults
+			$el = $el || false;
 			
-		},
-		
-		render_table : function( $table ){
 			
-			//console.log( 'render_table %o', $table);
-			// bail early if table is row layout
-			if( $table.hasClass('row-layout') ) {
-			
+			// if is row
+			if( $el && $el.is('tr') ) {
+				
+				self.render_table( $el.closest('table') );
+				
 				return;
 				
 			}
 			
 			
+			// find and rener all tables
+			$('.acf-table', $el).each(function(){
+				
+				self.render_table( $(this) );
+				
+			});
+			
+		},
+		
+		render_table: function( $table ){
+			
 			// vars
-			var $th = $table.find('> thead > tr > th'),
+			var $ths = $table.find('> thead th.acf-th'),
+				colspan = 1,
 				available_width = 100;
 			
 			
+			// bail early if no $ths
+			if( !$ths.exists() ) {
+				
+				return;
+				
+			}
+			
+			
+			// render th/td visibility
+			$ths.each(function(){
+				
+				// vars
+				var $th = $(this),
+					key = $th.attr('data-key'),
+					$td = $table.find('td[data-key="' + key + '"]');
+				
+				
+				// clear class
+				$td.removeClass('appear-empty');
+				$th.removeClass('hidden-by-conditional-logic');
+				
+				
+				// no td
+				if( !$td.exists() ) {
+					
+					// do nothing
+				
+				// if all td are hidden
+				} else if( $td.not('.hidden-by-conditional-logic').length == 0 ) {
+					
+					$th.addClass('hidden-by-conditional-logic');
+				
+				// if 1 or more td are visible
+				} else {
+					
+					$td.filter('.hidden-by-conditional-logic').addClass('appear-empty');
+					
+				}
+				
+			});
+			
+			
+			
 			// clear widths
-			$th.css('width', 'auto');
+			$ths.css('width', 'auto');
 			
 			
-			// update $th
-			$th = $th.not('.order, .remove, .hidden-by-conditional-logic');
+			// update $ths
+			$ths = $ths.not('.hidden-by-conditional-logic');
+			
+			
+			// set colspan
+			colspan = $ths.length;
 			
 			
 			// set custom widths first
-			$th.filter('[data-width]').each(function(){
+			$ths.filter('[data-width]').each(function(){
 				
 				// vars
 				var width = parseInt( $(this).attr('data-width') );
@@ -132,15 +145,15 @@
 			});
 			
 			
-			// update $th
-			$th = $th.not('[data-width]');
+			// update $ths
+			$ths = $ths.not('[data-width]');
 			
 			
 			// set custom widths first
-			$th.each(function(){
+			$ths.each(function(){
 				
 				// cal width
-				var width = available_width / $th.length;
+				var width = available_width / $ths.length;
 				
 				
 				// set width
@@ -148,7 +161,13 @@
 				
 			});
 			
-		}
+			
+			// update colspan
+			$table.find('.acf-row .acf-field.-collapsed-target').removeAttr('colspan');
+			$table.find('.acf-row.-collapsed .acf-field.-collapsed-target').attr('colspan', colspan);
+			
+		},
+		
 		
 	});
 
@@ -161,6 +180,7 @@
 		type: 'repeater',
 		$el: null,
 		$input: null,
+		$table: null,
 		$tbody: null,
 		$clone: null,
 		
@@ -171,94 +191,33 @@
 		},
 		
 		events: {
-			'click .acf-repeater-add-row': 		'add',
-			'click .acf-repeater-remove-row': 	'remove',
+			'click a[data-event="add-row"]': 		'_add',
+			'click a[data-event="remove-row"]': 	'_remove',
+			'click a[data-event="collapse-row"]': 	'_collapse',
+			'mouseenter td.order': 					'_mouseenter'
 		},
 		
 		focus: function(){
 			
+			// vars
 			this.$el = this.$field.find('.acf-repeater:first');
 			this.$input = this.$field.find('input:first');
-			this.$tbody = this.$el.find('tbody:first');
+			this.$table = this.$field.find('table:first');
+			this.$tbody = this.$table.children('tbody');
 			this.$clone = this.$tbody.children('tr.acf-clone');
 			
+			
+			// get options
 			this.o = acf.get_data( this.$el );
+			
+			
+			// min / max
+			this.o.min = this.o.min || 0;
+			this.o.max = this.o.max || 0;
 			
 		},
 		
 		initialize: function(){
-			
-			// CSS fix
-			this.$tbody.on('mouseenter', 'tr.acf-row', function( e ){
-				
-				// vars
-				var $tr = $(this),
-					$td = $tr.children('.remove'),
-					$a = $td.find('.acf-repeater-add-row'),
-					margin = ( $td.height() / 2 ) + 9; // 9 = padding + border
-				
-				
-				// css
-				$a.css('margin-top', '-' + margin + 'px' );
-				
-			});
-			
-			
-			// sortable
-			if( this.o.max != 1 ) {
-				
-				// reference
-				var self = this,
-					$tbody = this.$tbody,
-					$field = this.$field;
-					
-				
-				$tbody.one('mouseenter', 'td.order', function( e ){
-					
-					$tbody.unbind('sortable').sortable({
-					
-						items					: '> tr',
-						handle					: '> td.order',
-						forceHelperSize			: true,
-						forcePlaceholderSize	: true,
-						scroll					: true,
-						
-						start: function(event, ui) {
-							
-							// focus
-							self.doFocus($field);
-							
-							acf.do_action('sortstart', ui.item, ui.placeholder);
-							
-			   			},
-			   			
-			   			stop: function(event, ui) {
-							
-							// render
-							self.render();
-							
-							acf.do_action('sortstop', ui.item, ui.placeholder);
-							
-			   			},
-			   			
-			   			update: function(event, ui) {
-				   			
-				   			// trigger change
-							self.$input.trigger('change');
-							
-				   		}
-			   			
-					});
-				
-				});
-				
-			}
-
-			
-			// set column widths
-			// no longer needed due to refresh action in acf.pro model
-			//acf.pro.render_table( this.$el.children('table') );
-			
 			
 			// disable clone inputs
 			this.$clone.find('input, textarea, select').attr('disabled', 'disabled');
@@ -290,7 +249,7 @@
 			// update order numbers
 			this.$tbody.children().each(function(i){
 				
-				$(this).children('td.order').html( i+1 );
+				$(this).find('> td.order > span').html( i+1 );
 				
 			});
 			
@@ -298,11 +257,11 @@
 			// empty?
 			if( this.count() == 0 ) {
 			
-				this.$el.addClass('empty');
+				this.$el.addClass('-empty');
 				
 			} else {
 			
-				this.$el.removeClass('empty');
+				this.$el.removeClass('-empty');
 				
 			}
 			
@@ -310,28 +269,20 @@
 			// row limit reached
 			if( this.o.max > 0 && this.count() >= this.o.max ) {
 				
-				this.$el.addClass('disabled');
-				this.$el.find('> .acf-hl .acf-button').addClass('disabled');
+				this.$el.find('> .acf-actions .button').addClass('disabled');
 				
 			} else {
 				
-				this.$el.removeClass('disabled');
-				this.$el.find('> .acf-hl .acf-button').removeClass('disabled');
+				this.$el.find('> .acf-actions .button').removeClass('disabled');
 				
 			}
 			
 		},
 		
-		add: function( e ){
+		add: function( $tr ){
 			
-			// find $before
-			var $before	= this.$clone;
-			
-			if( e && e.$el.is('.acf-icon') ) {
-			
-				$before	= e.$el.closest('.acf-row');
-				
-			}
+			// defaults
+			$tr = $tr || this.$clone;
 			
 			
 			// validate
@@ -342,31 +293,29 @@
 				
 			}
 			
-		
-			// create and add the new field
-			var new_id = acf.get_uniqid(),
-				html = this.$clone.outerHTML();
+			
+			// reference
+			var $field = this.$field;
 				
 				
-			// replace acfcloneindex
-			var html = html.replace(/(="[\w-\[\]]+?)(acfcloneindex)/g, '$1' + new_id),
-				$html = $( html );
+			// duplicate
+			$el = acf.duplicate( this.$clone );
 			
-			
+						
 			// remove clone class
-			$html.removeClass('acf-clone');
+			$el.removeClass('acf-clone');
 			
 			
 			// enable inputs (ignore inputs disabled for life)
-			$html.find('input, textarea, select').not('.acf-disabled').removeAttr('disabled');
+			$el.find('input, textarea, select').not('.acf-disabled').removeAttr('disabled');
 			
 			
-			// add row
-			$before.before( $html );
+			// move row
+			$tr.before( $el );
 			
 			
-			// trigger mouseenter on parent repeater to work out css margin on add-row button
-			this.$field.parents('.acf-row').trigger('mouseenter');
+			// focus (may have added sub repeater)
+			this.doFocus($field);
 			
 			
 			// update order
@@ -377,25 +326,20 @@
 			acf.validation.remove_error( this.$field );
 			
 			
-			// setup fields
-			acf.do_action('append', $html);
+			// sync collapsed order
+			this.sync();
 			
 			
 			// return
-			return $html;
+			return $el;
+			
 		},
 		
-		remove: function( e ){
+		remove: function( $tr ){
 			
 			// reference
-			var self = this,
-				$field = this.$field;
-			
-			
-			// vars
-			var $tr = e.$el.closest('.acf-row'),
-				$table = $tr.closest('table');
-			
+			var self = this;
+				
 			
 			// validate
 			if( this.count() <= this.o.min ) {
@@ -417,24 +361,157 @@
 			
 			
 				// render
-				self.doFocus($field).render();
+				self.render();
 				
 				
-				// trigger mouseenter on parent repeater to work out css margin on add-row button
-				$field.closest('.acf-row').trigger('mouseenter');
+				// sync collapsed order
+				self.sync();
 				
 				
-				// trigger conditional logic render
-				// when removing a row, there may not be a need for some appear-empty cells
-				if( $table.hasClass('table-layout') ) {
-					
-					acf.conditional_logic.render( $table );
-					
-				}
-				
+				// refersh field (hide/show columns)
+				acf.do_action('refresh', self.$field);
 				
 			});
 			
+		},
+		
+		sync: function(){
+			
+			// vars
+			var name = 'collapsed_' + this.$field.data('key'),
+				collapsed = [];
+			
+			
+			// populate collapsed value
+			this.$tbody.children().each(function( i ){
+				
+				if( $(this).hasClass('-collapsed') ) {
+				
+					collapsed.push( i );
+					
+				}
+				
+			});
+			
+			
+			// update
+			acf.update_user_setting( name, collapsed.join(',') );	
+			
+		},
+		
+		
+		/*
+		*  events
+		*
+		*  these functions are fired for this fields events
+		*
+		*  @type	function
+		*  @date	17/09/2015
+		*  @since	5.2.3
+		*
+		*  @param	e
+		*  @return	n/a
+		*/
+		
+		_mouseenter: function( e ){ //console.log('_mouseenter');
+			
+			// bail early if already sortable
+			if( this.$tbody.hasClass('ui-sortable') ) return;
+			
+			
+			// bail early if max 1 row
+			if( this.o.max == 1 ) return;
+			
+			
+			// reference
+			var self = this;
+			
+			
+			// add sortable
+			this.$tbody.sortable({
+				items: '> tr',
+				handle: '> td.order',
+				forceHelperSize: true,
+				forcePlaceholderSize: true,
+				scroll: true,
+				start: function(event, ui) {
+					
+					acf.do_action('sortstart', ui.item, ui.placeholder);
+					
+	   			},
+	   			stop: function(event, ui) {
+					
+					// render
+					self.render();
+					
+					acf.do_action('sortstop', ui.item, ui.placeholder);
+					
+	   			},
+	   			update: function(event, ui) {
+		   			
+		   			// trigger change
+					self.$input.trigger('change');
+					
+		   		}
+	   			
+			});
+			
+		},
+		
+		_add: function( e ){ //console.log('_add');
+			
+			// vars
+			$row = false;
+			
+			
+			// row add
+			if( e.$el.hasClass('acf-icon') ) {
+			
+				$row = e.$el.closest('.acf-row');
+				
+			}
+			
+			
+			// add
+			this.add( $row );
+				
+		},
+		
+		_remove: function( e ){ //console.log('_remove');
+			
+			this.remove( e.$el.closest('.acf-row') );
+			
+		},
+		
+		_collapse: function( e ){ //console.log('_collapse');
+			
+			// vars
+			var $tr = e.$el.closest('.acf-row');
+			
+			
+			// open row
+			if( $tr.hasClass('-collapsed') ) {
+				
+				$tr.removeClass('-collapsed');
+				
+				acf.do_action('show', $tr, 'collapse');
+				
+			} else {
+				
+				$tr.addClass('-collapsed');
+				
+				acf.do_action('hide', $tr, 'collapse');
+				
+			}
+			
+			
+			// sync
+			this.sync();
+			
+			
+			// refersh field (hide/show columns)
+			acf.do_action('refresh', this.$field);
+						
 		}
 		
 	});	
@@ -458,17 +535,20 @@
 		},
 		
 		events: {
-			'click .acf-fc-remove': 		'remove',
-			'click .acf-fc-layout-handle':	'toggle',
-			'click .acf-fc-popup li a':		'add',
-			'click .acf-fc-add': 			'open_popup',
-			'blur .acf-fc-popup .focus':	'close_popup'
+			'click [data-event="add-layout"]': 			'_open',
+			'click [data-event="remove-layout"]': 		'_remove',
+			'click [data-event="collapse-layout"]':		'_collapse',
+			'click .acf-fc-layout-handle':				'_collapse',
+			'click .acf-fc-popup a':					'_add',
+			'blur .acf-fc-popup .focus':				'_close',
+			'mouseenter .acf-fc-layout-handle': 		'_mouseenter'
 		},
 		
 		focus: function(){
 			
+			// vars
 			this.$el = this.$field.find('.acf-flexible-content:first');
-			this.$input = this.$field.find('input:first');
+			this.$input = this.$el.siblings('input');
 			this.$values = this.$el.children('.values');
 			this.$clones = this.$el.children('.clones');
 			
@@ -483,64 +563,13 @@
 			
 		},
 		
-		count : function(){
+		count: function(){
 			
 			return this.$values.children('.layout').length;
 			
 		},
 		
 		initialize: function(){
-			
-			// sortable
-			if( this.o.max != 1 ) {
-				
-				// reference
-				var self = this,
-					$values = this.$values,
-					$field = this.$field;
-					
-				
-				$values.one('mouseenter', '.acf-fc-layout-handle', function( e ){
-					
-					$values.unbind('sortable').sortable({
-					
-						items					: '> .layout',
-						handle					: '> .acf-fc-layout-handle',
-						forceHelperSize			: true,
-						forcePlaceholderSize	: true,
-						scroll					: true,
-						
-						start: function(event, ui) {
-							
-							// focus
-							self.doFocus($field);
-							
-							acf.do_action('sortstart', ui.item, ui.placeholder);
-							
-			   			},
-			   			
-			   			stop: function(event, ui) {
-							
-							// render
-							self.render();
-							
-							acf.do_action('sortstop', ui.item, ui.placeholder);
-							
-			   			},
-			   			
-			   			update: function(event, ui) {
-				   			
-				   			// trigger change
-							self.$input.trigger('change');
-							
-				   		}
-				   		
-					});
-				
-				});
-				
-			}
-			
 			
 			// disable clone inputs
 			this.$clones.find('input, textarea, select').attr('disabled', 'disabled');
@@ -563,10 +592,14 @@
 		
 		render: function(){
 			
+			// vars
+			var self = this;
+			
+			
 			// update order numbers
 			this.$values.children('.layout').each(function( i ){
 			
-				$(this).find('> .acf-fc-layout-handle .fc-layout-order').html( i+1 );
+				$(this).find('> .acf-fc-layout-handle .acf-fc-layout-order').html( i+1 );
 				
 			});
 			
@@ -586,19 +619,32 @@
 			// row limit reached
 			if( this.o.max > 0 && this.count() >= this.o.max ) {
 				
-				this.$el.addClass('disabled');
-				this.$el.find('> .acf-hl .acf-button').addClass('disabled');
+				this.$el.find('> .acf-actions .button').addClass('disabled');
 				
 			} else {
 				
-				this.$el.removeClass('disabled');
-				this.$el.find('> .acf-hl .acf-button').removeClass('disabled');
+				this.$el.find('> .acf-actions .button').removeClass('disabled');
 				
 			}
 			
 		},
+		
+		render_layout: function( $layout ){
 			
-		validate_add : function( layout ){
+			// update order number
+			
+			
+			
+			// update text
+/*
+			var data = acf.serialize_form($layout);
+			
+			console.log( data );
+*/
+			
+		},
+			
+		validate_add: function( layout ){
 			
 			// vadiate max
 			if( this.o.max > 0 && this.count() >= this.o.max ) {
@@ -656,7 +702,7 @@
 			
 		},
 		
-		validate_remove : function( layout ){
+		validate_remove: function( layout ){
 			
 			// vadiate min
 			if( this.o.min > 0 && this.count() <= this.o.min ) {
@@ -709,7 +755,152 @@
 			
 		},
 		
-		open_popup : function( e ){
+		sync: function(){
+			
+			// vars
+			var name = 'collapsed_' + this.$field.data('key'),
+				collapsed = [];
+			
+			
+			// populate collapsed value
+			this.$values.children('.layout').each(function( i ){
+				
+				if( $(this).hasClass('-collapsed') ) {
+				
+					collapsed.push( i );
+					
+				}
+				
+			});
+			
+			
+			// update
+			acf.update_user_setting( name, collapsed.join(',') );
+			
+		},
+		
+		add: function( layout, $before ){
+			
+			// defaults
+			$before = $before || false;
+			
+					
+			// bail early if validation fails
+			if( !this.validate_add(layout) ) {
+			
+				return false;
+				
+			}
+			
+			
+			// reference
+			var $field = this.$field;
+			
+			
+			// vars
+			var $clone = this.$clones.children('.layout[data-layout="' + layout + '"]');
+			
+			
+			// duplicate
+			$el = acf.duplicate( $clone );
+			
+			
+			// enable inputs (ignore inputs disabled for life)
+			$el.find('input, textarea, select').not('.acf-disabled').removeAttr('disabled');
+			
+				
+			// hide no values message
+			this.$el.children('.no-value-message').hide();
+			
+			
+			// add row
+			if( $before ) {
+				
+				 $before.before( $el );
+				 
+			} else {
+				
+				this.$values.append( $el );
+				
+			}
+			
+			
+			// focus (may have added sub flexible content)
+			this.doFocus($field);
+			
+			
+			// update order
+			this.render();
+			
+			
+			// validation
+			acf.validation.remove_error( this.$field );
+			
+			
+			// sync collapsed order
+			this.sync();
+			
+		},
+		
+		
+		/*
+		*  events
+		*
+		*  these functions are fired for this fields events
+		*
+		*  @type	function
+		*  @date	17/09/2015
+		*  @since	5.2.3
+		*
+		*  @param	e
+		*  @return	n/a
+		*/
+		
+		_mouseenter: function( e ){ //console.log('_mouseenter');
+			
+			// bail early if already sortable
+			if( this.$values.hasClass('ui-sortable') ) return;
+			
+			
+			// bail early if max 1 row
+			if( this.o.max == 1 ) return;
+			
+			
+			// reference
+			var self = this;
+			
+			
+			// sortable
+			this.$values.sortable({
+				items: '> .layout',
+				handle: '> .acf-fc-layout-handle',
+				forceHelperSize: true,
+				forcePlaceholderSize: true,
+				scroll: true,
+				start: function(event, ui) {
+					
+					acf.do_action('sortstart', ui.item, ui.placeholder);
+					
+	   			},
+	   			stop: function(event, ui) {
+					
+					// render
+					self.render();
+					
+					acf.do_action('sortstop', ui.item, ui.placeholder);
+					
+	   			},
+	   			update: function(event, ui) {
+		   			
+		   			// trigger change
+					self.$input.trigger('change');
+					
+		   		}
+			});
+			
+		},
+		
+		_open: function( e ){ //console.log('_open');
 			
 			// reference
 			var $values = this.$values;
@@ -792,10 +983,9 @@
 			
 			
 			// within layout?
-			if( e.$el.attr('data-before') ) {
-			
-				$popup.addClass('within-layout');
-				$popup.closest('.layout').addClass('popup-open');
+			if( e.$el.closest('.acf-fc-layout-controlls').exists() ) {
+				
+				$popup.closest('.layout').addClass('-open');
 				
 			}
 			
@@ -825,19 +1015,17 @@
 			
 		},
 		
-		close_popup: function( e ){
+		_close: function( e ){ //console.log('_close');
 			
-			var $popup = e.$el.parent();
+			var $popup = e.$el.parent(),
+				$layout = $popup.closest('.layout');
 			
 			
 			// hide controlls?
-			if( $popup.closest('.layout').exists() ) {
-			
-				$popup.closest('.layout').removeClass('popup-open');
-				
-			}
+			$layout.removeClass('-open');
 			
 			
+			// remove popup
 			setTimeout(function(){
 				
 				$popup.remove();
@@ -846,69 +1034,28 @@
 			
 		},
 		
-		add : function( e ){
+		_add: function( e ){ //console.log('_add');
 						
 			// vars
 			var $popup = e.$el.closest('.acf-fc-popup'),
-				layout = e.$el.attr('data-layout');
-			
-						
-			// bail early if validation fails
-			if( !this.validate_add(layout) ) {
-			
-				return;
-				
-			}
-			
-			
-			// create and add the new layout
-			var new_id = acf.get_uniqid(),
-				html = this.$clones.children('.layout[data-layout="' + layout + '"]').outerHTML();
-				
-				
-			// replace acfcloneindex
-			var html = html.replace(/(="[\w-\[\]]+?)(acfcloneindex)/g, '$1' + new_id),
-				$html = $( html );
-			
-			
-			// enable inputs (ignore inputs disabled for life)
-			$html.find('input, textarea, select').not('.acf-disabled').removeAttr('disabled');
-			
-							
-			// hide no values message
-			this.$el.children('.no-value-message').hide();
-			
-			
-			// remove class
-			$html.removeClass('acf-clone');
-			
-			
-			// add row
-			this.$values.append( $html ); 
+				layout = e.$el.attr('data-layout'),
+				$before = false;
 			
 			
 			// move row
-			if( $popup.hasClass('within-layout') ) {
+			if( $popup.closest('.acf-fc-layout-controlls').exists() ) {
 			
-				$popup.closest('.layout').before( $html );
+				$before = $popup.closest('.layout');
 			
 			}
-						
-			
-			// setup fields
-			acf.do_action('append', $html);
 			
 			
-			// update order
-			this.render();
-			
-			
-			// validation
-			acf.validation.remove_error( this.$field );
+			// add row
+			this.add( layout, $before );
 			
 		},
 		
-		remove: function( e ){
+		_remove: function( e ){ //console.log('_remove');
 			
 			// reference
 			var self = this;
@@ -944,9 +1091,13 @@
 			// remove
 			acf.remove_el( $layout, function(){
 				
+				// update order
+				self.render();
+			
+			
 				// trigger change to allow attachment save
 				self.$input.trigger('change');
-			
+				
 			
 				if( end_height > 0 ) {
 				
@@ -954,56 +1105,74 @@
 					
 				}
 				
+				
+				// sync collapsed order
+				self.sync();
+				
 			}, end_height);
 			
 		},
 
-		toggle : function( e ){
+		_collapse: function( e ){ //console.log('_collapse');
 			
 			// vars
 			var $layout	= e.$el.closest('.layout');
 			
 			
-			if( $layout.attr('data-toggle') == 'closed' ) {
+			// open
+			if( $layout.hasClass('-collapsed') ) {
 			
-				$layout.attr('data-toggle', 'open');
-				$layout.children('.acf-input-table').show();
+				$layout.removeClass('-collapsed');
 				
-				// refresh layout
 				acf.do_action('refresh', $layout);
-				
+			
+			// close
 			} else {
 				
-				$layout.attr('data-toggle', 'closed');
-				$layout.children('.acf-input-table').hide();
+				$layout.addClass('-collapsed');
 				
 			}
 			
 			
-			// sync local storage (collapsed)
+			// sync collapsed order
 			this.sync();
 			
-		},
-		
-		sync : function(){
 			
 			// vars
-			var name = 'acf_collapsed_' + acf.get_data(this.$field, 'key'),
-				collapsed = [];
+			var data = acf.serialize( $layout );
 			
-			this.$values.children('.layout').each(function( i ){
-				
-				if( $(this).attr('data-toggle') == 'closed' ) {
-				
-					collapsed.push( i );
-					
-				}
-				
+			
+			// append
+			$.extend(data, {
+				action: 	'acf/fields/flexible_content/layout_title',
+				field_key: 	this.$field.data('key'),
+				post_id: 	acf.get('post_id'),
+				i: 			$layout.index(),
+				layout:		$layout.data('layout'),
 			});
 			
-			acf.update_cookie( name, collapsed.join('|') );	
+			
+			// ajax get title HTML
+			$.ajax({
+		    	url			: acf.get('ajaxurl'),
+				dataType	: 'html',
+				type		: 'post',
+				data		: data,
+				success: function( html ){
+					
+					// bail early if no html
+					if( !html ) return;
+					
+					
+					// update html
+					$layout.find('> .acf-fc-layout-handle').html( html );
+					
+				}
+			});
+
 			
 		}
+		
 	});	
 	
 
@@ -1019,7 +1188,8 @@
 		actions: {
 			'ready':	'initialize',
 			'append':	'initialize',
-			'submit':	'close_sidebar'
+			'submit':	'close_sidebar',
+			'show': 	'resize'
 		},
 		
 		events: {
@@ -1052,7 +1222,7 @@
 			
 		},
 		
-		get_attachment : function( id ){
+		get_attachment: function( id ){
 			
 			// defaults
 			id = id || '';
@@ -1079,13 +1249,13 @@
 			
 		},
 		
-		count : function(){
+		count: function(){
 			
 			return this.get_attachment().length;
 			
 		},
 
-		initialize : function(){
+		initialize: function(){
 			
 			// reference
 			var self = this,
@@ -1100,7 +1270,7 @@
 				forcePlaceholderSize	: true,
 				scroll					: true,
 				
-				start : function (event, ui) {
+				start: function (event, ui) {
 					
 					ui.placeholder.html( ui.item.html() );
 					ui.placeholder.removeAttr('style');
@@ -1109,7 +1279,7 @@
 					
 	   			},
 	   			
-	   			stop : function (event, ui) {
+	   			stop: function (event, ui) {
 				
 					acf.do_action('sortstop', ui.item, ui.placeholder);
 					
@@ -1119,7 +1289,7 @@
 			
 			// resizable
 			this.$el.unbind('resizable').resizable({
-				handles : 's',
+				handles: 's',
 				minHeight: 200,
 				stop: function(event, ui){
 					
@@ -1146,7 +1316,7 @@
 					
 		},
 
-		render : function() {
+		render: function() {
 			
 			// vars
 			var $select = this.$el.find('.bulk-actions'),
@@ -1183,7 +1353,7 @@
 			// vars
 			var data = acf.prepare_for_ajax({
 				action		: 'acf/fields/gallery/get_sort_order',
-				field_key	: acf.get_field_key(this.$field),
+				field_key	: this.$field.data('key'),
 				post_id		: acf.get('post_id'),
 				ids			: [],
 				sort		: sort
@@ -1211,7 +1381,7 @@
 			
 		},
 		
-		sort_success : function( json ) {
+		sort_success: function( json ) {
 		
 			// validate
 			if( !acf.is_ajax_success(json) ) {
@@ -1239,7 +1409,7 @@
 			
 		},
 		
-		clear_selection : function(){
+		clear_selection: function(){
 			
 			this.get_attachment().removeClass('active');
 			
@@ -1280,7 +1450,7 @@
 			
 		},
 		
-		open_sidebar : function(){
+		open_sidebar: function(){
 			
 			// add class
 			this.$el.addClass('sidebar-open');
@@ -1290,13 +1460,23 @@
 			this.$el.find('.bulk-actions').hide();
 			
 			
-			// animate
-			this.$el.find('.acf-gallery-main').animate({ right : 350 }, 250);
-			this.$el.find('.acf-gallery-side').animate({ width : 349 }, 250);
+			// vars
+			var width = this.$el.width() / 3;
 			
+			
+			// set minimum width
+			width = parseInt( width );
+			width = Math.max( width, 350 );
+			
+			
+			// animate
+			this.$el.find('.acf-gallery-side-inner').css({ 'width' : width-1 });
+			this.$el.find('.acf-gallery-side').animate({ 'width' : width-1 }, 250);
+			this.$el.find('.acf-gallery-main').animate({ 'right' : width }, 250);
+						
 		},
 		
-		close_sidebar : function(){
+		close_sidebar: function(){
 			
 			// remove class
 			this.$el.removeClass('sidebar-open');
@@ -1315,8 +1495,8 @@
 			
 			
 			// animate
-			this.$el.find('.acf-gallery-main').animate({ right : 0 }, 250);
-			this.$el.find('.acf-gallery-side').animate({ width : 0 }, 250, function(){
+			this.$el.find('.acf-gallery-main').animate({ right: 0 }, 250);
+			this.$el.find('.acf-gallery-side').animate({ width: 0 }, 250, function(){
 				
 				$select.show();
 				
@@ -1326,12 +1506,12 @@
 			
 		},
 		
-		fetch : function( id ){
+		fetch: function( id ){
 			
 			// vars
 			var data = acf.prepare_for_ajax({
 				action		: 'acf/fields/gallery/get_attachment',
-				field_key	: acf.get_field_key(this.$field),
+				field_key	: this.$field.data('key'),
 				nonce		: acf.get('nonce'),
 				post_id		: acf.get('post_id'),
 				id			: id
@@ -1363,7 +1543,7 @@
 			
 		},
 		
-		render_fetch : function( html ){
+		render_fetch: function( html ){
 			
 			// bail early if no html
 			if( !html ) {
@@ -1447,7 +1627,7 @@
 			
 		},
 		
-		add : function( a ){
+		add: function( a ){
 			
 			// validate
 			if( this.o.max > 0 && this.count() >= this.o.max ) {
@@ -1494,9 +1674,7 @@
 					filename,
 				'</div>',
 				'<div class="actions acf-soh-target">',
-					'<a href="#" class="acf-icon dark remove-attachment" data-id="' + a.id + '">',
-						'<i class="acf-sprite-delete"></i>',
-					'</a>',
+					'<a href="#" class="acf-icon -cancel dark remove-attachment" data-id="' + a.id + '"></a>',
 				'</div>',
 			'</div>'].join('');
 			
@@ -1577,7 +1755,7 @@
 			
 		},
 		
-		render_collection : function( frame ){
+		render_collection: function( frame ){
 			
 			var self = this;
 			
@@ -1650,7 +1828,7 @@
 				title:		acf._e('gallery', 'select'),
 				mode:		'select',
 				type:		'',
-				field:		acf.get_field_key(this.$field),
+				field:		this.$field.data('key'),
 				multiple:	'add',
 				library:	this.o.library,
 				mime_types: this.o.mime_types,
@@ -1687,11 +1865,11 @@
 			    	// type
 			    	if( a.type === 'image' ) {
 				    	
-				    	a.url = acf.maybe_get(atts, 'sizes', preview_size, 'url') || atts.url;
+				    	a.url = acf.maybe_get(atts, 'sizes.'+preview_size+'.url', atts.url);
 				    	
 			    	} else {
 				    	
-				    	a.url = acf.maybe_get(atts, 'thumb', 'src') || '';
+				    	a.url = acf.maybe_get(atts, 'thumb.src', '');
 				    	
 				    }
 				    
@@ -1718,7 +1896,7 @@
 			
 		},
 		
-		resize : function(){
+		resize: function(){
 			
 			// vars
 			var min = 100,
@@ -1728,7 +1906,7 @@
 			
 			
 			// get width
-			for( var i = 0; i < 10; i++ ) {
+			for( var i = 4; i < 20; i++ ) {
 			
 				var w = width/i;
 				
@@ -1740,7 +1918,11 @@
 				}
 				
 			}
-						
+			
+			
+			// max columns css is 8
+			columns = Math.min(columns, 8);
+			
 			
 			// update data
 			this.$el.attr('data-columns', columns);

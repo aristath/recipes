@@ -75,7 +75,6 @@ class acf_field_post_object extends acf_field {
    		$options = acf_parse_args($options, array(
 			'post_id'		=> 0,
 			's'				=> '',
-			'lang'			=> false,
 			'field_key'		=> '',
 			'paged'			=> 1
 		));
@@ -94,31 +93,15 @@ class acf_field_post_object extends acf_field {
 		// load field
 		$field = acf_get_field( $options['field_key'] );
 		
-		if( !$field ) {
 		
-			return false;
-			
-		}
-		
-		
-		// WPML
-		if( $options['lang'] ) {
-		
-			global $sitepress;
-			
-			if( !empty($sitepress) ) {
-			
-				$sitepress->switch_lang( $options['lang'] );
-				
-			}
-			
-		}
+		// bail early if no field
+		if( !$field ) return false;
 		
 		
 		// update $args
 		if( !empty($field['post_type']) ) {
 		
-			$args['post_type'] = acf_force_type_array( $field['post_type'] );
+			$args['post_type'] = acf_get_array( $field['post_type'] );
 			
 		} else {
 			
@@ -219,10 +202,7 @@ class acf_field_post_object extends acf_field {
 			
 			
 			// optgroup or single
-			$post_types = acf_force_type_array( $args['post_type'] );
-			
-			// add as optgroup or results
-			if( count($post_types) == 1 ) {
+			if( count($args['post_type']) == 1 ) {
 				
 				$r = $r[0]['children'];
 				
@@ -253,7 +233,7 @@ class acf_field_post_object extends acf_field {
 	function ajax_query() {
 		
 		// validate
-		if( empty($_POST['nonce']) || !wp_verify_nonce($_POST['nonce'], 'acf_nonce') ) {
+		if( !acf_verify_ajax() ) {
 		
 			die();
 			
@@ -297,21 +277,7 @@ class acf_field_post_object extends acf_field {
 	function get_post_title( $post, $field, $post_id = 0 ) {
 		
 		// get post_id
-		if( !$post_id ) {
-			
-			$form_data = acf_get_setting('form_data');
-			
-			if( !empty($form_data['post_id']) ) {
-				
-				$post_id = $form_data['post_id'];
-				
-			} else {
-				
-				$post_id = get_the_ID();
-				
-			}
-			
-		}
+		if( !$post_id ) $post_id = acf_get_form_data('post_id');
 		
 		
 		// vars
@@ -528,7 +494,7 @@ class acf_field_post_object extends acf_field {
 		
 		
 		// force value to array
-		$value = acf_force_type_array( $value );
+		$value = acf_get_array( $value );
 		
 		
 		// convert values to int

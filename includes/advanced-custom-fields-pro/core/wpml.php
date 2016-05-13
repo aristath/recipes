@@ -34,16 +34,13 @@ class acf_wpml_compatibility {
 		
 		
 		// actions
+		add_action('acf/verify_ajax',					array($this, 'verify_ajax'));
 		add_action('acf/field_group/admin_head',		array($this, 'admin_head'));
 		add_action('acf/input/admin_head',				array($this, 'admin_head'));
 		
 		
 		// bail early if not transaltable
-		if( !$this->is_translatable() ) {
-			
-			return;
-			
-		}
+		if( !$this->is_translatable() ) return;
 		
 		
 		// actions
@@ -439,6 +436,44 @@ class acf_wpml_compatibility {
 		
 		</script>
 		<?php
+		
+	}
+	
+	
+	/*
+	*  verify_ajax
+	*
+	*  description
+	*
+	*  @type	function
+	*  @date	7/08/2015
+	*  @since	5.2.3
+	*
+	*  @param	$post_id (int)
+	*  @return	$post_id (int)
+	*/
+	
+	function verify_ajax() {
+		
+		// globals
+		global $sitepress;
+		
+		
+		// switch lang
+		if( isset($_REQUEST['lang']) ) {
+			
+			$sitepress->switch_lang( $_REQUEST['lang'] );
+			
+		}
+		
+		
+		// remove post_id
+		// WPML is getting confused when this is not a numeric value ('options')
+		if( isset($_REQUEST['post_id']) && !is_numeric($_REQUEST['post_id']) ) {
+			
+			unset( $_REQUEST['post_id'] );
+				
+		}
 		
 	}
 	

@@ -34,7 +34,7 @@ class acf_field {
 		$this->add_filter("acf/update_value/type={$this->name}",		array($this, 'update_value'), 10, 3);
 		$this->add_filter("acf/format_value/type={$this->name}",		array($this, 'format_value'), 10, 3);
 		$this->add_filter("acf/validate_value/type={$this->name}",		array($this, 'validate_value'), 10, 4);
-		$this->add_action("acf/delete_value/type={$this->name}",		array($this, 'delete_value'), 10, 2);
+		$this->add_action("acf/delete_value/type={$this->name}",		array($this, 'delete_value'), 10, 3);
 		
 		
 		// field
@@ -44,6 +44,8 @@ class acf_field {
 		$this->add_action("acf/delete_field/type={$this->name}",			array($this, 'delete_field'), 10, 1);
 		$this->add_action("acf/render_field/type={$this->name}",			array($this, 'render_field'), 10, 1);
 		$this->add_action("acf/render_field_settings/type={$this->name}",	array($this, 'render_field_settings'), 10, 1);
+		$this->add_action("acf/prepare_field/type={$this->name}",			array($this, 'prepare_field'), 10, 1);
+		$this->add_action("acf/translate_field/type={$this->name}",			array($this, 'translate_field'), 10, 1);
 		
 		
 		// input actions
@@ -57,7 +59,7 @@ class acf_field {
 		// field group actions
 		$this->add_action("acf/field_group/admin_enqueue_scripts", 		array($this, 'field_group_admin_enqueue_scripts'), 10, 0);
 		$this->add_action("acf/field_group/admin_head",					array($this, 'field_group_admin_head'), 10, 0);
-		
+		$this->add_action("acf/field_group/admin_footer",				array($this, 'field_group_admin_footer'), 10, 0);
 	}
 	
 	
