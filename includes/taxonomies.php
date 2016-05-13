@@ -1,26 +1,26 @@
 <?php
 
 // Register Custom Taxonomy
-function maera_recipes_ingredients_taxonomy() {
+function recipes_ingredients_taxonomy() {
 
     $labels = array(
-        'name'                       => _x( 'Ingredients', 'Taxonomy General Name', 'maera-recipes' ),
-        'singular_name'              => _x( 'Ingredient', 'Taxonomy Singular Name', 'maera-recipes' ),
-        'menu_name'                  => __( 'Ingredients', 'maera-recipes' ),
-        'all_items'                  => __( 'All Ingredients', 'maera-recipes' ),
-        'parent_item'                => __( 'Parent Item', 'maera-recipes' ),
-        'parent_item_colon'          => __( 'Parent Item:', 'maera-recipes' ),
-        'new_item_name'              => __( 'New Item Name', 'maera-recipes' ),
-        'add_new_item'               => __( 'Add New Ingredient', 'maera-recipes' ),
-        'edit_item'                  => __( 'Edit Ingredient', 'maera-recipes' ),
-        'update_item'                => __( 'Update Ingredient', 'maera-recipes' ),
-        'view_item'                  => __( 'View Ingredient', 'maera-recipes' ),
-        'separate_items_with_commas' => __( 'Separate ingredients with commas', 'maera-recipes' ),
-        'add_or_remove_items'        => __( 'Add or remove ingredients', 'maera-recipes' ),
-        'choose_from_most_used'      => __( 'Choose from the most used ingredients', 'maera-recipes' ),
-        'popular_items'              => __( 'Popular Ingredients', 'maera-recipes' ),
-        'search_items'               => __( 'Search Ingredients', 'maera-recipes' ),
-        'not_found'                  => __( 'Not Found', 'maera-recipes' ),
+        'name'                       => _x( 'Ingredients', 'Taxonomy General Name', 'recipes' ),
+        'singular_name'              => _x( 'Ingredient', 'Taxonomy Singular Name', 'recipes' ),
+        'menu_name'                  => __( 'Ingredients', 'recipes' ),
+        'all_items'                  => __( 'All Ingredients', 'recipes' ),
+        'parent_item'                => __( 'Parent Item', 'recipes' ),
+        'parent_item_colon'          => __( 'Parent Item:', 'recipes' ),
+        'new_item_name'              => __( 'New Item Name', 'recipes' ),
+        'add_new_item'               => __( 'Add New Ingredient', 'recipes' ),
+        'edit_item'                  => __( 'Edit Ingredient', 'recipes' ),
+        'update_item'                => __( 'Update Ingredient', 'recipes' ),
+        'view_item'                  => __( 'View Ingredient', 'recipes' ),
+        'separate_items_with_commas' => __( 'Separate ingredients with commas', 'recipes' ),
+        'add_or_remove_items'        => __( 'Add or remove ingredients', 'recipes' ),
+        'choose_from_most_used'      => __( 'Choose from the most used ingredients', 'recipes' ),
+        'popular_items'              => __( 'Popular Ingredients', 'recipes' ),
+        'search_items'               => __( 'Search Ingredients', 'recipes' ),
+        'not_found'                  => __( 'Not Found', 'recipes' ),
     );
     $args = array(
         'labels'                     => $labels,
@@ -36,29 +36,29 @@ function maera_recipes_ingredients_taxonomy() {
 }
 
 // Hook into the 'init' action
-add_action( 'init', 'maera_recipes_ingredients_taxonomy', 0 );
+add_action( 'init', 'recipes_ingredients_taxonomy', 0 );
 
 // Register Custom Taxonomy
-function maera_recipes_recipe_category_taxonomy() {
+function recipes_recipe_category_taxonomy() {
 
     $labels = array(
-        'name'                       => _x( 'Categories', 'Taxonomy General Name', 'maera-recipes' ),
-        'singular_name'              => _x( 'Category', 'Taxonomy Singular Name', 'maera-recipes' ),
-        'menu_name'                  => __( 'Recipe Category', 'maera-recipes' ),
-        'all_items'                  => __( 'All Categories', 'maera-recipes' ),
-        'parent_item'                => __( 'Parent Category', 'maera-recipes' ),
-        'parent_item_colon'          => __( 'Parent Category:', 'maera-recipes' ),
-        'new_item_name'              => __( 'New Recipe Category', 'maera-recipes' ),
-        'add_new_item'               => __( 'Add New Category', 'maera-recipes' ),
-        'edit_item'                  => __( 'Edit Category', 'maera-recipes' ),
-        'update_item'                => __( 'Update Category', 'maera-recipes' ),
-        'view_item'                  => __( 'View Category', 'maera-recipes' ),
-        'separate_items_with_commas' => __( 'Separate categories with commas', 'maera-recipes' ),
-        'add_or_remove_items'        => __( 'Add or remove categories', 'maera-recipes' ),
-        'choose_from_most_used'      => __( 'Choose from the most used recipe categories', 'maera-recipes' ),
-        'popular_items'              => __( 'Popular Categories', 'maera-recipes' ),
-        'search_items'               => __( 'Search Recipe Categories', 'maera-recipes' ),
-        'not_found'                  => __( 'Not Found', 'maera-recipes' ),
+        'name'                       => _x( 'Categories', 'Taxonomy General Name', 'recipes' ),
+        'singular_name'              => _x( 'Category', 'Taxonomy Singular Name', 'recipes' ),
+        'menu_name'                  => __( 'Recipe Category', 'recipes' ),
+        'all_items'                  => __( 'All Categories', 'recipes' ),
+        'parent_item'                => __( 'Parent Category', 'recipes' ),
+        'parent_item_colon'          => __( 'Parent Category:', 'recipes' ),
+        'new_item_name'              => __( 'New Recipe Category', 'recipes' ),
+        'add_new_item'               => __( 'Add New Category', 'recipes' ),
+        'edit_item'                  => __( 'Edit Category', 'recipes' ),
+        'update_item'                => __( 'Update Category', 'recipes' ),
+        'view_item'                  => __( 'View Category', 'recipes' ),
+        'separate_items_with_commas' => __( 'Separate categories with commas', 'recipes' ),
+        'add_or_remove_items'        => __( 'Add or remove categories', 'recipes' ),
+        'choose_from_most_used'      => __( 'Choose from the most used recipe categories', 'recipes' ),
+        'popular_items'              => __( 'Popular Categories', 'recipes' ),
+        'search_items'               => __( 'Search Recipe Categories', 'recipes' ),
+        'not_found'                  => __( 'Not Found', 'recipes' ),
     );
     $args = array(
         'labels'                     => $labels,
@@ -74,4 +74,4 @@ function maera_recipes_recipe_category_taxonomy() {
 }
 
 // Hook into the 'init' action
-add_action( 'init', 'maera_recipes_recipe_category_taxonomy', 0 );
+add_action( 'init', 'recipes_recipe_category_taxonomy', 0 );

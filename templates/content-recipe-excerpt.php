@@ -5,6 +5,6 @@
         <?php endif; ?>
     </div>
     <div class="alignleft">
-        <?php maera_recipes_get_template_part( 'recipe-description' ); ?>
+        <?php recipes_get_template_part( 'recipe-description' ); ?>
     </div>
 </div>

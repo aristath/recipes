@@ -1,28 +1,28 @@
 <?php
 
 // Register Custom Post Type
-function maera_recipes_recipe_post_type() {
+function recipes_recipe_post_type() {
 
     $labels = array(
-        'name'                => _x( 'Recipes', 'Post Type General Name', 'maera-recipes' ),
-        'singular_name'       => _x( 'Recipe', 'Post Type Singular Name', 'maera-recipes' ),
-        'menu_name'           => __( 'Recipes', 'maera-recipes' ),
-        'name_admin_bar'      => __( 'Recipe', 'maera-recipes' ),
-        'parent_item_colon'   => __( 'Parent Item:', 'maera-recipes' ),
-        'all_items'           => __( 'All Recipes', 'maera-recipes' ),
-        'add_new_item'        => __( 'Add New Recipe', 'maera-recipes' ),
-        'add_new'             => __( 'Add New', 'maera-recipes' ),
-        'new_item'            => __( 'New Item', 'maera-recipes' ),
-        'edit_item'           => __( 'Edit Item', 'maera-recipes' ),
-        'update_item'         => __( 'Update Item', 'maera-recipes' ),
-        'view_item'           => __( 'View Item', 'maera-recipes' ),
-        'search_items'        => __( 'Search Item', 'maera-recipes' ),
-        'not_found'           => __( 'Not found', 'maera-recipes' ),
-        'not_found_in_trash'  => __( 'Not found in Trash', 'maera-recipes' ),
+        'name'                => _x( 'Recipes', 'Post Type General Name', 'recipes' ),
+        'singular_name'       => _x( 'Recipe', 'Post Type Singular Name', 'recipes' ),
+        'menu_name'           => __( 'Recipes', 'recipes' ),
+        'name_admin_bar'      => __( 'Recipe', 'recipes' ),
+        'parent_item_colon'   => __( 'Parent Item:', 'recipes' ),
+        'all_items'           => __( 'All Recipes', 'recipes' ),
+        'add_new_item'        => __( 'Add New Recipe', 'recipes' ),
+        'add_new'             => __( 'Add New', 'recipes' ),
+        'new_item'            => __( 'New Item', 'recipes' ),
+        'edit_item'           => __( 'Edit Item', 'recipes' ),
+        'update_item'         => __( 'Update Item', 'recipes' ),
+        'view_item'           => __( 'View Item', 'recipes' ),
+        'search_items'        => __( 'Search Item', 'recipes' ),
+        'not_found'           => __( 'Not found', 'recipes' ),
+        'not_found_in_trash'  => __( 'Not found in Trash', 'recipes' ),
     );
     $args = array(
-        'label'               => __( 'recipe', 'maera-recipes' ),
-        'description'         => __( 'Recipe', 'maera-recipes' ),
+        'label'               => __( 'recipe', 'recipes' ),
+        'description'         => __( 'Recipe', 'recipes' ),
         'labels'              => $labels,
         'supports'            => array( 'title', 'thumbnail', 'comments' ),
         'taxonomies'          => array( 'ingredients', ' recipe-category' ),
@@ -48,4 +48,4 @@ function maera_recipes_recipe_post_type() {
 }
 
 // Hook into the 'init' action
-add_action( 'init', 'maera_recipes_recipe_post_type', 0 );
+add_action( 'init', 'recipes_recipe_post_type', 0 );

@@ -1,8 +1,8 @@
 <?php
 
-function maera_recipes_inline_styles() {
+function recipes_inline_styles() {
 
-    $options = get_option( 'maera_recipes' );
+    $options = get_option( 'recipes' );
 
     $options['display_ingredients']     = ! isset( $options['display_ingredients'] )     ? 1  : $options['display_ingredients'];
     $options['display_units_converter'] = ! isset( $options['display_units_converter'] ) ? 1  : $options['display_units_converter'];
@@ -27,4 +27,4 @@ function maera_recipes_inline_styles() {
     }
 
 }
-add_action( 'wp_head', 'maera_recipes_inline_styles' );
+add_action( 'wp_head', 'recipes_inline_styles' );

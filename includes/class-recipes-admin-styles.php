@@ -1,6 +1,6 @@
 <?php
 
-class Maera_Recipes_Admin_Styles extends Maera_Recipes {
+class Recipes_Admin_Styles extends Recipes {
 
     public function __construct() {
         if ( $this->is_recipe() && $this->is_edit() ) {
@@ -9,7 +9,7 @@ class Maera_Recipes_Admin_Styles extends Maera_Recipes {
     }
 
     public function enqueue_styles() {
-        wp_enqueue_style( 'maera-recipes-admin', MAERA_RECIPES_URL . '/assets/css/admin-post-edit.css' );
+        wp_enqueue_style( 'recipes-admin', RECIPES_URL . '/assets/css/admin-post-edit.css' );
     }
 
 }

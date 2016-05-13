@@ -1,6 +1,6 @@
 <?php
 
-class Maera_Recipes {
+class Recipes {
 
     public $is_edit        = null;
     public $is_recipe      = false;
@@ -59,27 +59,27 @@ class Maera_Recipes {
      public static function units( $unit = null ) {
 
          $units = array(
-             'teaspoon'   => __( 'teaspoon', 'maera-recipes' ),
-             'tablespoon' => __( 'tablespoon', 'maera-recipes' ),
-             'cup'        => __( 'cup', 'maera-recipes' ),
-             'us-gal'     => __( 'gallon (US)', 'maera-recipes' ),
-             'us-quart'   => __( 'quart (US)', 'maera-recipes' ),
-             'us-pint'    => __( 'pint (US)', 'maera-recipes' ),
-             'us-oz'      => __( 'ounce (US)', 'maera-recipes' ),
-             'imp-gal'    => __( 'gallon (Imperial/UK)', 'maera-recipes' ),
-             'imp-quart'  => __( 'quart (Imperial/UK)', 'maera-recipes' ),
-             'imp-pint'   => __( 'pint (Imperial/UK)', 'maera-recipes' ),
-             'imp-oz'     => __( 'ounce (Imperial/UK)', 'maera-recipes' ),
-             'ml'         => __( 'ml', 'maera-recipes' ),
-             'lt'         => __( 'lt', 'maera-recipes' ),
-             'pound'      => __( 'pound', 'maera-recipes' ),
-             'ounce'      => __( 'ounce', 'maera-recipes' ),
-             'gr'         => __( 'gram', 'maera-recipes' ),
-             'kg'         => __( 'kg', 'maera-recipes' ),
-             'mm'         => __( 'mm', 'maera-recipes' ),
-             'cm'         => __( 'cm', 'maera-recipes' ),
-             'm'          => __( 'm', 'maera-recipes' ),
-             'inch'       => __( 'inch', 'maera-recipes' ),
+             'teaspoon'   => __( 'teaspoon', 'recipes' ),
+             'tablespoon' => __( 'tablespoon', 'recipes' ),
+             'cup'        => __( 'cup', 'recipes' ),
+             'us-gal'     => __( 'gallon (US)', 'recipes' ),
+             'us-quart'   => __( 'quart (US)', 'recipes' ),
+             'us-pint'    => __( 'pint (US)', 'recipes' ),
+             'us-oz'      => __( 'ounce (US)', 'recipes' ),
+             'imp-gal'    => __( 'gallon (Imperial/UK)', 'recipes' ),
+             'imp-quart'  => __( 'quart (Imperial/UK)', 'recipes' ),
+             'imp-pint'   => __( 'pint (Imperial/UK)', 'recipes' ),
+             'imp-oz'     => __( 'ounce (Imperial/UK)', 'recipes' ),
+             'ml'         => __( 'ml', 'recipes' ),
+             'lt'         => __( 'lt', 'recipes' ),
+             'pound'      => __( 'pound', 'recipes' ),
+             'ounce'      => __( 'ounce', 'recipes' ),
+             'gr'         => __( 'gram', 'recipes' ),
+             'kg'         => __( 'kg', 'recipes' ),
+             'mm'         => __( 'mm', 'recipes' ),
+             'cm'         => __( 'cm', 'recipes' ),
+             'm'          => __( 'm', 'recipes' ),
+             'inch'       => __( 'inch', 'recipes' ),
          );
 
          if ( null !== $unit ) {

@@ -2,9 +2,9 @@
     <ul class="recipe-ingredients">
         <?php while ( have_rows( 'ingredients' ) ) : the_row(); ?>
             <?php
-                $unit       = Maera_Recipes::units( Maera_Recipes::convert_units( get_sub_field( 'quantity' ), get_sub_field( 'unit' ), 'unit' ) );
+                $unit       = Recipes::units( Recipes::convert_units( get_sub_field( 'quantity' ), get_sub_field( 'unit' ), 'unit' ) );
                 $ingredient = get_sub_field( 'ingredient' );
-                $value      = Maera_Recipes::convert_units( get_sub_field( 'quantity' ), get_sub_field( 'unit' ), 'value' );
+                $value      = Recipes::convert_units( get_sub_field( 'quantity' ), get_sub_field( 'unit' ), 'value' );
             ?>
             <li>
                 <a class="ingredient" href="<?php echo get_term_link( $ingredient ); ?>"><span itemprop="ingredients"><?php echo $ingredient->name; ?></span></a>:

@@ -10,16 +10,16 @@
             }
 
             if ( 0 == $hours ) {
-                $time = sprintf( __( '%d min', 'maera-recipes' ), $minutes );
+                $time = sprintf( __( '%d min', 'recipes' ), $minutes );
             } elseif ( 1 == $hours ) {
-                $time = sprintf( __( '1 hour %d min', 'maera-recipes' ), $minutes );
+                $time = sprintf( __( '1 hour %d min', 'recipes' ), $minutes );
             } else {
-                $time = sprintf( __( '%1$d hours %2$d min', 'maera-recipes' ), $hours, $minutes );
+                $time = sprintf( __( '%1$d hours %2$d min', 'recipes' ), $hours, $minutes );
             }
 
             $short_time = ( 0 == $hours ) ? 'PT' . $minutes . 'M' : 'PT' . $hours . 'H' . $minutes . 'M';
         ?>
-        <?php _e( 'Total time:', 'maera-recipes' ); ?>
+        <?php _e( 'Total time:', 'recipes' ); ?>
         <time datetime="<?php echo $short_time; ?>" itemprop="totalTime"><?php echo $time; ?></time>
     <?php endif; ?>
 </div>

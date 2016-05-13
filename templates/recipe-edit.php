@@ -1,10 +1,10 @@
 <?php
 
 global $post;
-$settings = get_option( 'maera_recipes' );
+$settings = get_option( 'recipes' );
 ?>
 <?php if ( current_user_can( 'edit_post', $post->ID ) ) : ?>
-    <button class="show-recipe-edit-form"><?php _e( 'Edit recipe', 'maera-recipes' ); ?></button>
+    <button class="show-recipe-edit-form"><?php _e( 'Edit recipe', 'recipes' ); ?></button>
 <?php endif; ?>
 
 <?php if ( current_user_can( 'edit_post', $post->ID ) ) : ?>

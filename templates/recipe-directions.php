@@ -1,5 +1,5 @@
 <div class="recipe-directions">
-    <?php _e( 'Directions:', 'maera-recipes' ); ?>
+    <?php _e( 'Directions:', 'recipes' ); ?>
     <div itemprop="recipeInstructions">
         <?php the_field( 'recipe' ); ?>
         <?php the_content(); ?>
