@@ -15,6 +15,7 @@ if ( ! class_exists( 'Recipes_Metabox_General_Info' ) ) {
 				'context'  => 'normal',
 				'priority' => 'high',
 			);
+			$this->template['id'] = 'recipe-general-info-metabox';
 			parent::__construct();
 		}
 		/**
@@ -68,15 +69,25 @@ if ( ! class_exists( 'Recipes_Metabox_General_Info' ) ) {
 		 */
 		public function callback( $post ) {
 
+			$this->template['data']['l10n'] = array(
+				'servings'    => esc_attr__( 'Servings', 'recipes' ),
+				'prepTime'    => esc_attr__( 'Preparation Time (minutes)', 'recipes' ),
+				'cookTime'    => esc_attr__( 'Cook Time (minutes)', 'recipes' ),
+				'description' => esc_attr__( 'Description', 'recipes' ),
+			);
+
+			$this->template['data']['value'] = array(
+				'servings'         => get_post_meta( $post->ID, 'servings', true ),
+				'preparation_time' => get_post_meta( $post->ID, 'preparation_time', true ),
+				'cook_time'        => get_post_meta( $post->ID, 'cook_time', true ),
+				'description'      => get_post_meta( $post->ID, 'description', true ),
+			);
+			$this->template['path'] = 'template-general-info.php';
+
 			// Add an nonce field so we can check for it later.
 			wp_nonce_field( 'recipes_inner_custom_box', 'recipes_general_info_nonce' );
 
-			$servings         = get_post_meta( $post->ID, 'servings', true );
-			$preparation_time = get_post_meta( $post->ID, 'preparation_time', true );
-			$cook_time        = get_post_meta( $post->ID, 'cook_time', true );
-			$description      = get_post_meta( $post->ID, 'description', true );
-
-			include 'template-general-info.php';
+			echo '<div id="' . $this->template['id'] . '"></div>';
 		}
 	}
 }
