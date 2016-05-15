@@ -1,3 +1,28 @@
-#tagsdiv-ingredient.postbox {
-    display: none;
+.recipes.general-info.fields-wrapper {
+  display: flex;
+}
+
+.recipes.servings-wrapper,
+.recipes.preparation_time_wrapper,
+.recipes.cook_time_wrapper {
+  width: 100%;
+  padding: 10px;
+}
+
+.recipes.servings-wrapper,
+.recipes.preparation_time_wrapper {
+  border-right: 1px solid #dedede;
+}
+
+.recipes.servings-wrapper label,
+.recipes.preparation_time_wrapper label,
+.recipes.cook_time_wrapper label {
+  display: block;
+}
+
+.recipes.servings-wrapper input,
+.recipes.preparation_time_wrapper input,
+.recipes.cook_time_wrapper input {
+  width: 100%;
+
 }
