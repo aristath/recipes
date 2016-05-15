@@ -75,7 +75,6 @@ if ( ! class_exists( 'Recipes_Metaboxes_Ingredients' ) ) {
 				<table>
 					<thead>
 						<tr>
-							<td class="quantity"><?php esc_attr_e( 'Quantity', 'recipes' ); ?></td>
 							<td class="ingredient"><?php esc_attr_e( 'Ingredient', 'recipes' ); ?></td>
 							<td class="remove"></td>
 						</tr>
@@ -83,9 +82,6 @@ if ( ! class_exists( 'Recipes_Metaboxes_Ingredients' ) ) {
 					<tbody data-repeater-list="ingredients">
 						<?php foreach ( $ingredients as $key => $ingredient ) : ?>
 							<tr data-repeater-item>
-								<td class="quantity">
-									<input type="text" name="quantity" value="<?php echo esc_attr( $ingredient['quantity'] ); ?>"/>
-								</td>
 								<td class="ingredient">
 									<input type="text" name="ingredient" value="<?php echo esc_attr( $ingredient['ingredient'] ); ?>"/>
 								</td>
