@@ -1,11 +1,9 @@
 <?php
 
-class Recipes_Admin_Styles extends Recipes {
+class Recipes_Admin_Styles {
 
     public function __construct() {
-        if ( $this->is_recipe() && $this->is_edit() ) {
-            add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_styles' ) );
-        }
+        add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_styles' ) );
     }
 
     public function enqueue_styles() {
