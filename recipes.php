@@ -36,9 +36,6 @@ class Recipes {
 		// Include files
 		$this->includes();
 
-		// Instantiate the reviews class.
-		new Recipes_Reviews( 'recipe' );
-
 		// Instantiate the metaboxes.
 		new Recipes_Metaboxes_General_Info();
 		new Recipes_Metaboxes_Ingredients();
@@ -59,7 +56,6 @@ class Recipes {
 		require_once( $this->plugin_path . 'includes/class-recipes-metaboxes.php' );
 		require_once( $this->plugin_path . 'includes/class-recipes-metaboxes-general-info.php' );
 		require_once( $this->plugin_path . 'includes/class-recipes-metaboxes-ingredients.php' );
-		require_once( $this->plugin_path . 'includes/reviews/class-recipes-reviews.php' );
 	}
 
 	/**
