@@ -13,30 +13,6 @@
     float: left;
     width: 73%;
 }
-.units-switch  {
-    margin-top: 1em;
-    padding-top: 1em;
-    border-top: 1px solid rgba(0,0,0,.1);
-    float: none;
-    clear: both;
-    a.recipe-button {
-        float: left;
-        font-size: .85em;
-        padding: .2em .5em;
-        background: rgba(0,0,0,.15);
-        text-decoration: none;
-        border: 1px solid rgba(0,0,0,.2);
-        &.metric,
-        &.imperial {
-            border-right: none;
-        }
-    }
-    &.metric a.recipe-button.metric,
-    &.imperial a.recipe-button.imperial,
-    &.us a.recipe-button.us {
-        background: rgba(0,0,0,.2);
-    }
-}
 
 .recipe-description {
     font-style: italic;
