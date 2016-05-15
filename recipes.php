@@ -60,8 +60,6 @@ class Recipes {
 		require_once( $this->plugin_path . 'includes/class-recipes-metaboxes-general-info.php' );
 		require_once( $this->plugin_path . 'includes/class-recipes-metaboxes-ingredients.php' );
 		require_once( $this->plugin_path . 'includes/reviews/class-recipes-reviews.php' );
-		require_once( $this->plugin_path . 'includes/customizer/customizer.php' );
-		require_once( $this->plugin_path . 'includes/customizer/styles.php' );
 	}
 
 	/**
