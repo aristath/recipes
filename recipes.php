@@ -11,7 +11,7 @@ define( 'RECIPES_URL',  plugins_url( '', __FILE__ ) );
 
 function recipes_include_acf() {
 	if ( ! class_exists( 'acf' ) ) {
-		require_once( RECIPES_PATH . 'includes/advanced-custom-fields-pro/acf.php' );
+		// require_once( RECIPES_PATH . 'includes/advanced-custom-fields-pro/acf.php' );
 	}
 }
 add_action( 'plugins_loaded', 'recipes_include_acf' );

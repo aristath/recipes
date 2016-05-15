@@ -26,3 +26,23 @@
   width: 100%;
 
 }
+
+.ingredients-repeater table {
+  width: 100%;
+}
+
+.ingredients-repeater table input {
+  width: 100%;
+}
+
+.ingredients-repeater table td.quantity {
+  width: 200px;
+}
+
+.ingredients-repeater table td.remove {
+  width: 1em;
+}
+
+.recipe-remove-ingredient {
+  color: #f44336;
+}
