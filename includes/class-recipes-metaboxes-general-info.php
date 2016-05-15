@@ -50,11 +50,13 @@ if ( ! class_exists( 'Recipes_Metaboxes_General_Info' ) ) {
 			$servings         = absint( $_POST['servings_field'] );
 			$preparation_time = absint( $_POST['preparation_time'] );
 			$cook_time        = absint( $_POST['cook_time'] );
+			$description      = esc_html( $_POST['description'] );
 
 			// Update the meta field.
 			update_post_meta( $post_id, 'servings', $servings );
 			update_post_meta( $post_id, 'preparation_time', $preparation_time );
 			update_post_meta( $post_id, 'cook_time', $cook_time );
+			update_post_meta( $post_id, 'description', $description );
 		}
 
 
@@ -72,6 +74,7 @@ if ( ! class_exists( 'Recipes_Metaboxes_General_Info' ) ) {
 			$servings         = get_post_meta( $post->ID, 'servings', true );
 			$preparation_time = get_post_meta( $post->ID, 'preparation_time', true );
 			$cook_time        = get_post_meta( $post->ID, 'cook_time', true );
+			$description      = get_post_meta( $post->ID, 'description', true );
 			?>
 			<div class="recipes general-info fields-wrapper">
 				<div class="recipes servings-wrapper">
@@ -85,6 +88,10 @@ if ( ! class_exists( 'Recipes_Metaboxes_General_Info' ) ) {
 				<div class="recipes cook_time_wrapper">
 					<label for="cook_time"><?php _e( 'Cook Time (minutes)', 'recipes' ); ?></label>
 					<input type="number" id="cook_time" name="cook_time" value="<?php echo absint( $cook_time ); ?>" size="25" />
+				</div>
+				<div class="recipes description_wrapper">
+					<label for="description"><?php esc_attr_e( 'Description', 'recipes' ); ?></label>
+					<textarea id="description" name="description"><?php echo esc_textarea( $description ); ?></textarea>
 				</div>
 			</div>
 			<?php

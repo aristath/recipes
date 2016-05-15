@@ -1,30 +1,36 @@
 .recipes.general-info.fields-wrapper {
   display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
 }
 
 .recipes.servings-wrapper,
 .recipes.preparation_time_wrapper,
 .recipes.cook_time_wrapper {
-  width: 100%;
-  padding: 10px;
+  width: 33.3333%;
 }
 
-.recipes.servings-wrapper,
-.recipes.preparation_time_wrapper {
-  border-right: 1px solid #dedede;
+.recipes.description_wrapper {
+  width: 100%;
 }
 
 .recipes.servings-wrapper label,
 .recipes.preparation_time_wrapper label,
-.recipes.cook_time_wrapper label {
+.recipes.cook_time_wrapper label,
+.recipes.description_wrapper label {
   display: block;
+  font-weight: bold;
 }
 
 .recipes.servings-wrapper input,
 .recipes.preparation_time_wrapper input,
 .recipes.cook_time_wrapper input {
-  width: 100%;
+  width: 90%;
+}
 
+.recipes.description_wrapper textarea {
+  width: 100%;
+  min-height: 150px;
 }
 
 .ingredients-repeater table {
