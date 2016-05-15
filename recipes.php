@@ -37,8 +37,8 @@ class Recipes {
 		$this->includes();
 
 		// Instantiate the metaboxes.
-		new Recipes_Metaboxes_General_Info();
-		new Recipes_Metaboxes_Ingredients();
+		new Recipes_Metabox_General_Info();
+		new Recipes_Metabox_Ingredients();
 
 		add_action( 'admin_enqueue_scripts', array( $this, 'admin_enqueue_scripts' ) );
 		add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
@@ -53,9 +53,9 @@ class Recipes {
 	private function includes() {
 		require_once( $this->plugin_path . 'includes/post-type.php' );
 		require_once( $this->plugin_path . 'includes/taxonomies.php' );
-		require_once( $this->plugin_path . 'includes/class-recipes-metaboxes.php' );
-		require_once( $this->plugin_path . 'includes/class-recipes-metaboxes-general-info.php' );
-		require_once( $this->plugin_path . 'includes/class-recipes-metaboxes-ingredients.php' );
+		require_once( $this->plugin_path . 'includes/class-recipes-metabox.php' );
+		require_once( $this->plugin_path . 'includes/class-recipes-metabox-general-info.php' );
+		require_once( $this->plugin_path . 'includes/class-recipes-metabox-ingredients.php' );
 	}
 
 	/**

@@ -1,7 +1,7 @@
 <?php
 
-if ( ! class_exists( 'Recipes_Metaboxes' ) ) {
-	class Recipes_Metaboxes {
+if ( ! class_exists( 'Recipes_Metabox' ) ) {
+	class Recipes_Metabox {
 
 		/**
 		 * The form arguments.

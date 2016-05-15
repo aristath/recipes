@@ -1,8 +1,8 @@
 <?php
 
-if ( ! class_exists( 'Recipes_Metaboxes_Ingredients' ) ) {
+if ( ! class_exists( 'Recipes_Metabox_Ingredients' ) ) {
 
-	class Recipes_Metaboxes_Ingredients extends Recipes_Metaboxes {
+	class Recipes_Metabox_Ingredients extends Recipes_Metabox {
 
 		/**
 		 * Constructor.
