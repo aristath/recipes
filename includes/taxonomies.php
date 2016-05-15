@@ -1,8 +1,5 @@
 <?php
 
-// Hook into the 'init' action
-add_action( 'init', 'recipes_ingredients_taxonomy', 0 );
-
 // Register Custom Taxonomy
 function recipes_recipe_category_taxonomy() {
 

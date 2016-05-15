@@ -3,7 +3,7 @@
 * Plugin Name: Comment Rating Field Plugin
 */
 
-class Recipes_Reviews {
+class Recipes_Reviews extends Recipes {
 
     public $url       = null;
     public $post_type = 'post';
@@ -13,7 +13,7 @@ class Recipes_Reviews {
      */
     public function __construct( $post_type = 'post' ) {
 
-        $this->url       = trailingslashit( RECIPES_URL ) . 'includes/reviews';
+        $this->url       = trailingslashit( $this->plugin_url ) . 'includes/reviews';
         $this->post_type = $post_type;
 
         add_action( 'comment_post', array( $this, 'save_rating' ) );

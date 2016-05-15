@@ -6,27 +6,83 @@
  * Text Domain: recipes
  */
 
-define( 'RECIPES_PATH', plugin_dir_path( __FILE__ ) );
-define( 'RECIPES_URL',  plugins_url( '', __FILE__ ) );
+class Recipes {
 
-require_once( RECIPES_PATH . 'includes/post-type.php' );
-require_once( RECIPES_PATH . 'includes/taxonomies.php' );
-require_once( RECIPES_PATH . 'includes/class-recipes-metaboxes.php' );
-require_once( RECIPES_PATH . 'includes/class-recipes-metaboxes-general-info.php' );
-require_once( RECIPES_PATH . 'includes/class-recipes-metaboxes-ingredients.php' );
-require_once( RECIPES_PATH . 'includes/class-recipes-admin-styles.php' );
+	/**
+	 * The plugin path.
+	 *
+	 * @access protected
+	 * @var string
+	 */
+	protected $plugin_path;
 
-require_once( RECIPES_PATH . 'includes/reviews/class-recipes-reviews.php' );
-new Recipes_Reviews( 'recipe' );
+	/**
+	 * The plugin URL.
+	 *
+	 * @access protected
+	 * @var string
+	 */
+	protected $plugin_url;
 
-require_once( RECIPES_PATH . 'includes/scripts.php' );
-require_once( RECIPES_PATH . 'includes/customizer/customizer.php' );
-require_once( RECIPES_PATH . 'includes/customizer/styles.php' );
+	/**
+	 * Constructor.
+	 */
+	public function __construct() {
 
-// Instantiate the main plugin class
-function recipes() {
-	new Recipes_Admin_Styles();
-	new Recipes_Metaboxes_General_Info();
-	new Recipes_Metaboxes_Ingredients();
+		// Set the object properties
+		$this->plugin_path = plugin_dir_path( __FILE__ );
+		$this->plugin_url  = plugins_url( '', __FILE__ );
+
+		// Include files
+		$this->includes();
+
+		// Instantiate the reviews class.
+		new Recipes_Reviews( 'recipe' );
+
+		// Instantiate the metaboxes.
+		new Recipes_Metaboxes_General_Info();
+		new Recipes_Metaboxes_Ingredients();
+
+		add_action( 'admin_enqueue_scripts', array( $this, 'admin_enqueue_scripts' ) );
+		add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
+
+	}
+
+	/**
+	 * Include all other files.
+	 *
+	 * @access private
+	 */
+	private function includes() {
+		require_once( $this->plugin_path . 'includes/post-type.php' );
+		require_once( $this->plugin_path . 'includes/taxonomies.php' );
+		require_once( $this->plugin_path . 'includes/class-recipes-metaboxes.php' );
+		require_once( $this->plugin_path . 'includes/class-recipes-metaboxes-general-info.php' );
+		require_once( $this->plugin_path . 'includes/class-recipes-metaboxes-ingredients.php' );
+		require_once( $this->plugin_path . 'includes/reviews/class-recipes-reviews.php' );
+		require_once( $this->plugin_path . 'includes/customizer/customizer.php' );
+		require_once( $this->plugin_path . 'includes/customizer/styles.php' );
+	}
+
+	/**
+	 * Enqueue scripts & styles
+	 *
+	 * @access public
+	 */
+	public function enqueue_scripts() {
+		wp_enqueue_style( 'recipes', trailingslashit( $this->plugin_url ) . 'assets/css/styles.css' );
+	}
+
+
+	/**
+	 * Enqueue scripts & styles
+	 *
+	 * @access public
+	 */
+	public function admin_enqueue_scripts() {
+		wp_enqueue_script( 'jquery-repeater', trailingslashit( $this->plugin_url ) . 'assets/js/vendor/jquery.repeater.js', array( 'jquery' ) );
+		wp_enqueue_script( 'recipes', trailingslashit( $this->plugin_url ) . 'assets/js/recipes-admin.js', array( 'jquery', 'jquery-repeater' ) );
+		wp_enqueue_style( 'recipes-admin', $this->plugin_url . '/assets/css/admin-post-edit.css' );
+	}
 }
-recipes();
+new Recipes();
