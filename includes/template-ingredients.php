@@ -1,3 +1,4 @@
+<div class="ingredients-description">{{ data.l10n.description }}</div>
 <div id="recipe-ingredients" class="recipe-ingredients-list">
 	<div class="ingredients">
 		<# _.each( data.value, function( ingredient ) { #>
