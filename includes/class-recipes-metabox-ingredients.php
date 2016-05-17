@@ -51,8 +51,18 @@ if ( ! class_exists( 'Recipes_Metabox_Ingredients' ) ) {
 			// Sanitize the user input.
 			$ingredients = $_POST['ingredients'];
 
+			if ( is_array( $ingredients ) ) {
+				$sanitized_ingredients = array();
+				foreach ( $ingredients as $ingredient ) {
+					$ingredient = trim( $ingredient );
+					if ( ! empty( $ingredient ) ) {
+						$sanitized_ingredients[] = wp_strip_all_tags( $ingredient, true );
+					}
+				}
+			}
+
 			// Update the meta field.
-			update_post_meta( $post_id, 'ingredients', $ingredients );
+			update_post_meta( $post_id, 'ingredients', $sanitized_ingredients );
 		}
 
 		/**
