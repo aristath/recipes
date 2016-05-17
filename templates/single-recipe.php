@@ -12,13 +12,13 @@
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly
 }
+?>
 
-get_header();
+<?php get_header(); ?>
 
-while ( have_posts() ) : the_post();
+<?php while ( have_posts() ) : the_post(); ?>
+	<?php recipes()->get_template_part( 'content', 'single-recipe' ); ?>
+<?php endwhile; ?>
 
-	recipes()->get_template_part( 'content', 'single-recipe' );
-
-endwhile;
-
-get_footer();
+<?php get_sidebar(); ?>
+<?php get_footer();
