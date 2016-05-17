@@ -3,9 +3,9 @@
 		<label for="servings_field">{{ data.l10n.servings }}</label>
 		<input type="number" id="servings_field" name="servings_field" value="{{ data.value.servings }}" size="25" />
 	</div>
-	<div class="recipes preparation_time_wrapper">
-		<label for="preparation_time">{{ data.l10n.prepTime }}</label>
-		<input type="number" id="preparation_time" name="preparation_time" value="{{ data.value.preparation_time }}" size="25" />
+	<div class="recipes prep_time_wrapper">
+		<label for="prep_time">{{ data.l10n.prepTime }}</label>
+		<input type="number" id="prep_time" name="prep_time" value="{{ data.value.prep_time }}" size="25" />
 	</div>
 	<div class="recipes cook_time_wrapper">
 		<label for="cook_time">{{ data.l10n.cookTime }}</label>

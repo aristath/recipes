@@ -49,14 +49,14 @@ if ( ! class_exists( 'Recipes_Metabox_General_Info' ) ) {
 			}
 
 			// Sanitize the user input.
-			$servings         = absint( $_POST['servings_field'] );
-			$preparation_time = absint( $_POST['preparation_time'] );
-			$cook_time        = absint( $_POST['cook_time'] );
-			$description      = esc_html( $_POST['description'] );
+			$servings    = absint( $_POST['servings_field'] );
+			$prep_time   = absint( $_POST['prep_time'] );
+			$cook_time   = absint( $_POST['cook_time'] );
+			$description = esc_html( $_POST['description'] );
 
 			// Update the meta field.
 			update_post_meta( $post_id, 'servings', $servings );
-			update_post_meta( $post_id, 'preparation_time', $preparation_time );
+			update_post_meta( $post_id, 'prep_time', $prep_time );
 			update_post_meta( $post_id, 'cook_time', $cook_time );
 			update_post_meta( $post_id, 'description', $description );
 		}
@@ -78,10 +78,10 @@ if ( ! class_exists( 'Recipes_Metabox_General_Info' ) ) {
 			);
 
 			$this->template['data']['value'] = array(
-				'servings'         => get_post_meta( $post->ID, 'servings', true ),
-				'preparation_time' => get_post_meta( $post->ID, 'preparation_time', true ),
-				'cook_time'        => get_post_meta( $post->ID, 'cook_time', true ),
-				'description'      => get_post_meta( $post->ID, 'description', true ),
+				'servings'    => get_post_meta( $post->ID, 'servings', true ),
+				'prep_time'   => get_post_meta( $post->ID, 'prep_time', true ),
+				'cook_time'   => get_post_meta( $post->ID, 'cook_time', true ),
+				'description' => get_post_meta( $post->ID, 'description', true ),
 			);
 			$this->template['path'] = 'template-general-info.php';
 

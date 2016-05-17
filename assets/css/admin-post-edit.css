@@ -5,7 +5,7 @@
 }
 
 .recipes.servings-wrapper,
-.recipes.preparation_time_wrapper,
+.recipes.prep_time_wrapper,
 .recipes.cook_time_wrapper {
   width: 33.3333%;
 }
@@ -15,7 +15,7 @@
 }
 
 .recipes.servings-wrapper label,
-.recipes.preparation_time_wrapper label,
+.recipes.prep_time_wrapper label,
 .recipes.cook_time_wrapper label,
 .recipes.description_wrapper label {
   display: block;
@@ -23,7 +23,7 @@
 }
 
 .recipes.servings-wrapper input,
-.recipes.preparation_time_wrapper input,
+.recipes.prep_time_wrapper input,
 .recipes.cook_time_wrapper input {
   width: 90%;
 }
