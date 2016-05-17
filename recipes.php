@@ -61,6 +61,7 @@ class Recipes {
 		add_action( 'admin_enqueue_scripts', array( $this, 'admin_enqueue_scripts' ) );
 		add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
 		add_filter( 'template_include', array( $this, 'template_loader' ) );
+		add_filter( 'wp_get_attachment_image_attributes', array( $this, 'attachment_image_attributes' ), 99, 3 );
 
 	}
 
@@ -176,5 +177,23 @@ class Recipes {
 		}
 
 		return $template;
+	}
+
+	/**
+	 * Filter the list of attachment image attributes.
+	 *
+	 * @access public
+	 * @param array        $attr       Attributes for the image markup.
+	 * @param WP_Post      $attachment Image attachment post.
+	 * @param string|array $size       Requested size. Image size or array of width and height values
+	 *                                 (in that order). Default 'thumbnail'.
+	 * @return array
+	 */
+	public function attachment_image_attributes( $attr, $attachment, $size ) {
+		global $post;
+		if ( 'recipe' == $post->post_type ) {
+			$attr['itemprop'] = 'image';
+		}
+		return $attr;
 	}
 }

@@ -1,7 +1,7 @@
 <div class="recipe content" itemscope itemtype="http://schema.org/Recipe">
 	<h1 itemprop="name"><?php the_title(); ?></h1>
 	<?php if ( has_post_thumbnail() ) : ?>
-		<img itemprop="image" src="<?php the_post_thumbnail_url(); ?>" />
+		<?php the_post_thumbnail(); ?>
 	<?php endif; ?>
 
 	<div itemprop="recipe-description">
