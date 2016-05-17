@@ -1,6 +1,7 @@
 <?php
 
 if ( ! class_exists( 'Recipes_Metabox_General_Info' ) ) {
+
 	class Recipes_Metabox_General_Info extends Recipes_Metabox {
 
 		/**

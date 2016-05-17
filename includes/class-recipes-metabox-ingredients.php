@@ -16,6 +16,7 @@ if ( ! class_exists( 'Recipes_Metabox_Ingredients' ) ) {
 				'context'  => 'normal',
 				'priority' => 'high',
 			);
+			$this->template['id'] = 'recipe-ingredients';
 			parent::__construct();
 		}
 		/**
@@ -54,7 +55,6 @@ if ( ! class_exists( 'Recipes_Metabox_Ingredients' ) ) {
 			update_post_meta( $post_id, 'ingredients', $ingredients );
 		}
 
-
 		/**
 		 * Render Meta Box content.
 		 *
@@ -63,14 +63,21 @@ if ( ! class_exists( 'Recipes_Metabox_Ingredients' ) ) {
 		 */
 		public function callback( $post ) {
 
+			$this->template['path'] = 'template-ingredients.php';
+			$this->template['data']['l10n'] = array(
+				'ingredient' => esc_attr__( 'Ingredient', 'recipes' ),
+				'add'        => esc_attr__( 'Add', 'recipes' ),
+				'delete'     => esc_Attr__( 'Delete', 'recipes' ),
+			);
+			$this->template['data']['value'] = get_post_meta( $post->ID, 'ingredients', true );
+			if ( empty( $this->template['data']['value'] ) ) {
+				$this->template['data']['value'] = array( '' );
+			}
+
 			// Add an nonce field so we can check for it later.
 			wp_nonce_field( 'recipes_inner_custom_box', 'recipes_ingredients_nonce' );
 
-			$ingredients = get_post_meta( $post->ID, 'ingredients', true );
-			if ( empty( $ingredients ) ) {
-				$ingredients = array( array( 'quantity' => '', 'ingredient' => '' ) );
-			}
-			include 'template-ingredients.php';
+			echo '<div id="' . $this->template['id'] . '"></div>';
 		}
 	}
 }

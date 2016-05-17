@@ -74,8 +74,7 @@ class Recipes {
 	 * @access public
 	 */
 	public function admin_enqueue_scripts() {
-		wp_enqueue_script( 'jquery-repeater', trailingslashit( $this->plugin_url ) . 'assets/js/vendor/jquery.repeater.js', array( 'jquery' ) );
-		wp_enqueue_script( 'recipes', trailingslashit( $this->plugin_url ) . 'assets/js/recipes-admin.js', array( 'jquery', 'jquery-repeater' ) );
+		wp_enqueue_script( 'recipes', trailingslashit( $this->plugin_url ) . 'assets/js/recipes-admin.js', array( 'jquery' ) );
 		wp_enqueue_style( 'recipes-admin', $this->plugin_url . '/assets/css/admin-post-edit.css' );
 	}
 }

@@ -33,20 +33,15 @@
   min-height: 150px;
 }
 
-.ingredients-repeater table {
+.recipe-ingredients-list .ingredient {
   width: 100%;
+  position: relative;
+  padding: 10px 0;
 }
 
-.ingredients-repeater table input {
-  width: 100%;
-}
-
-.ingredients-repeater table td.quantity {
-  width: 200px;
-}
-
-.ingredients-repeater table td.remove {
-  width: 1em;
+.recipe-ingredients-list .ingredient input {
+  width: calc(100% - 50px);
+  float: left;
 }
 
 .recipe-remove-ingredient {
