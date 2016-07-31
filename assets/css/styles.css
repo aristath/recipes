@@ -12,28 +12,8 @@
   float: left;
   width: 73%; }
 
-.units-switch {
-  margin-top: 1em;
-  padding-top: 1em;
-  border-top: 1px solid rgba(0, 0, 0, 0.1);
-  float: none;
-  clear: both; }
-  .units-switch a.recipe-button {
-    float: left;
-    font-size: .85em;
-    padding: .2em .5em;
-    background: rgba(0, 0, 0, 0.15);
-    text-decoration: none;
-    border: 1px solid rgba(0, 0, 0, 0.2); }
-    .units-switch a.recipe-button.metric, .units-switch a.recipe-button.imperial {
-      border-right: none; }
-  .units-switch.metric a.recipe-button.metric, .units-switch.imperial a.recipe-button.imperial, .units-switch.us a.recipe-button.us {
-    background: rgba(0, 0, 0, 0.2); }
-
-.recipe-description {
-  font-style: italic;
-  opacity: .75;
-  font-size: .9em; }
+.recipe-description blockquote {
+  margin: 1em 0; }
 
 ul.recipe-ingredients {
   margin-top: 3em;

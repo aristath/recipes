@@ -15,9 +15,9 @@
 }
 
 .recipe-description {
-    font-style: italic;
-    opacity: .75;
-    font-size: .9em;
+  blockquote {
+    margin: 1em 0;
+  }
 }
 
 ul.recipe-ingredients {
