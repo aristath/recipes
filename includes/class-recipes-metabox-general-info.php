@@ -16,7 +16,7 @@ if ( ! class_exists( 'Recipes_Metabox_General_Info' ) ) {
 			$this->metabox_args = array(
 				'id'       => 'recipe_general_info',
 				'title'    => esc_attr__( 'Recipe General Info', 'recipes' ),
-				'context'  => 'normal',
+				'context'  => 'above-editor',
 				'priority' => 'high',
 			);
 			$this->template['id'] = 'recipe-general-info-metabox';

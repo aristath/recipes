@@ -41,3 +41,10 @@
 .ingredients-description {
   padding: 1rem 0;
 }
+
+.recipe-steps-list textarea {
+  display: block;
+  width: 100%;
+  margin-bottom: 1rem;
+  min-height: 150px;
+}

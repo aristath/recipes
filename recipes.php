@@ -72,11 +72,13 @@ class Recipes {
 		// Instantiate the metaboxes.
 		new Recipes_Metabox_General_Info();
 		new Recipes_Metabox_Ingredients();
+		new Recipes_Metabox_Steps();
 
 		add_action( 'admin_enqueue_scripts', array( $this, 'admin_enqueue_scripts' ) );
 		add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
 		add_filter( 'template_include', array( $this, 'template_loader' ) );
 		add_filter( 'wp_get_attachment_image_attributes', array( $this, 'attachment_image_attributes' ), 99, 3 );
+		add_action( 'edit_form_after_title', array( $this, 'above_editor_metaboxes' ) );
 
 	}
 
@@ -92,6 +94,7 @@ class Recipes {
 		require_once( $this->plugin_path . 'includes/class-recipes-metabox.php' );
 		require_once( $this->plugin_path . 'includes/class-recipes-metabox-general-info.php' );
 		require_once( $this->plugin_path . 'includes/class-recipes-metabox-ingredients.php' );
+		require_once( $this->plugin_path . 'includes/class-recipes-metabox-steps.php' );
 	}
 
 	/**
@@ -214,5 +217,24 @@ class Recipes {
 			$attr['itemprop'] = 'image';
 		}
 		return $attr;
+	}
+
+	/**
+	 * Move the "above-editor" meta boxes after the title.
+	 *
+	 * @since 1.0.0
+	 * @access public
+	 */
+	function above_editor_metaboxes() {
+
+		// Get the globals.
+		global $post, $wp_meta_boxes;
+
+		// Output the "above-editor" meta boxes.
+		do_meta_boxes( get_current_screen(), 'above-editor', $post );
+
+		// Remove the initial "above-editor" meta boxes.
+		unset( $wp_meta_boxes['post']['above-editor'] );
+
 	}
 }

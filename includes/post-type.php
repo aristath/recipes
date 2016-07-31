@@ -33,7 +33,7 @@ function recipes_recipe_post_type() {
 		'label'               => __( 'recipe', 'recipes' ),
 		'description'         => __( 'Recipe', 'recipes' ),
 		'labels'              => $labels,
-		'supports'            => array( 'title', 'thumbnail', 'comments' ),
+		'supports'            => array( 'title', 'thumbnail', 'comments', 'editor' ),
 		'taxonomies'          => array( 'ingredients', ' recipe-category' ),
 		'hierarchical'        => false,
 		'public'              => true,

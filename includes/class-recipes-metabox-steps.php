@@ -1,11 +1,11 @@
 <?php
 
-if ( ! class_exists( 'Recipes_Metabox_Ingredients' ) ) {
+if ( ! class_exists( 'Recipes_Metabox_Steps' ) ) {
 
 	/**
-	 * The ingredients metabox.
+	 * The Steps metabox.
 	 */
-	class Recipes_Metabox_Ingredients extends Recipes_Metabox {
+	class Recipes_Metabox_Steps extends Recipes_Metabox {
 
 		/**
 		 * Constructor.
@@ -14,12 +14,12 @@ if ( ! class_exists( 'Recipes_Metabox_Ingredients' ) ) {
 		 */
 		public function __construct() {
 			$this->metabox_args = array(
-				'id'       => 'recipe_ingredients',
-				'title'    => esc_attr__( 'Recipe Ingredients', 'recipes' ),
-				'context'  => 'above-editor',
+				'id'       => 'recipe_steps',
+				'title'    => esc_attr__( 'Recipe Steps', 'recipes' ),
+				'context'  => 'normal',
 				'priority' => 'high',
 			);
-			$this->template['id'] = 'recipe-ingredients';
+			$this->template['id'] = 'recipe-steps';
 			parent::__construct();
 		}
 		/**
@@ -32,12 +32,12 @@ if ( ! class_exists( 'Recipes_Metabox_Ingredients' ) ) {
 		public function save( $post_id ) {
 
 			// Check if our nonce is set.
-			if ( ! isset( $_POST['recipes_ingredients_nonce'] ) ) {
+			if ( ! isset( $_POST['recipes_steps_nonce'] ) ) {
 				return $post_id;
 			}
 
 			// Verify that the nonce is valid.
-			if ( ! wp_verify_nonce( $_POST['recipes_ingredients_nonce'], 'recipes_inner_custom_box' ) ) {
+			if ( ! wp_verify_nonce( $_POST['recipes_steps_nonce'], 'recipes_inner_custom_box' ) ) {
 				return $post_id;
 			}
 
@@ -53,20 +53,19 @@ if ( ! class_exists( 'Recipes_Metabox_Ingredients' ) ) {
 			}
 
 			// Sanitize the user input.
-			$ingredients = $_POST['ingredients'];
+			$steps = $_POST['steps'];
 
-			if ( is_array( $ingredients ) ) {
-				$sanitized_ingredients = array();
-				foreach ( $ingredients as $ingredient ) {
-					$ingredient = trim( $ingredient );
-					if ( ! empty( $ingredient ) ) {
-						$sanitized_ingredients[] = wp_strip_all_tags( $ingredient, true );
+			if ( is_array( $steps ) ) {
+				$sanitized_steps = array();
+				foreach ( $steps as $step ) {
+					if ( ! empty( $step ) ) {
+						$sanitized_steps[] = wp_kses_post( $step );
 					}
 				}
 			}
 
 			// Update the meta field.
-			update_post_meta( $post_id, 'ingredients', $sanitized_ingredients );
+			update_post_meta( $post_id, 'steps', $sanitized_steps );
 		}
 
 		/**
@@ -78,19 +77,19 @@ if ( ! class_exists( 'Recipes_Metabox_Ingredients' ) ) {
 		 */
 		public function callback( $post ) {
 
-			$this->template['path'] = 'template-ingredients.php';
+			$this->template['path'] = 'template-steps.php';
 			$this->template['data']['l10n'] = array(
-				'ingredient'  => esc_attr__( 'Ingredient', 'recipes' ),
+				'step'        => esc_attr__( 'Step', 'recipes' ),
 				'add'         => esc_attr__( 'Add', 'recipes' ),
-				'description' => esc_attr__( 'Please add the ingredients for your recipe below. Empty fields will be automatically removed on save.', 'recipes' ),
+				'description' => esc_attr__( 'Please add the steps for your recipe below. Empty fields will be automatically removed on save.', 'recipes' ),
 			);
-			$this->template['data']['value'] = get_post_meta( $post->ID, 'ingredients', true );
+			$this->template['data']['value'] = get_post_meta( $post->ID, 'steps', true );
 			if ( empty( $this->template['data']['value'] ) ) {
 				$this->template['data']['value'] = array( '' );
 			}
 
 			// Add an nonce field so we can check for it later.
-			wp_nonce_field( 'recipes_inner_custom_box', 'recipes_ingredients_nonce' );
+			wp_nonce_field( 'recipes_inner_custom_box', 'recipes_steps_nonce' );
 
 			echo '<div id="' . esc_attr( $this->template['id'] ) . '"></div>';
 		}
