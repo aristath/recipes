@@ -80,6 +80,7 @@ if ( ! class_exists( 'Recipes_Metabox_General_Info' ) ) {
 				'prepTime'    => esc_attr__( 'Preparation Time (minutes)', 'recipes' ),
 				'cookTime'    => esc_attr__( 'Cook Time (minutes)', 'recipes' ),
 				'description' => esc_attr__( 'Description', 'recipes' ),
+				'label'       => esc_attr__( 'Enter basic info about your recipe and a short intruduction.', 'recipes' ),
 			);
 
 			$this->template['data']['value'] = array(

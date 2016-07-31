@@ -1,3 +1,4 @@
+<p>{{ data.l10n.label }}</p>
 <div class="recipes general-info fields-wrapper">
 	<div class="recipes servings-wrapper">
 		<label for="servings_field">{{ data.l10n.servings }}</label>
