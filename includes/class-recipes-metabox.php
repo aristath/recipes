@@ -1,6 +1,14 @@
 <?php
+/**
+ * The Recipes_Metabox parent class.
+ *
+ * @package Recipes
+ */
 
 if ( ! class_exists( 'Recipes_Metabox' ) ) {
+	/**
+	 * The Recipes_Metabox parent class.
+	 */
 	class Recipes_Metabox {
 
 		/**

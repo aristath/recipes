@@ -2,6 +2,9 @@
 
 if ( ! class_exists( 'Recipes_Metabox_Ingredients' ) ) {
 
+	/**
+	 * The ingredients metabox.
+	 */
 	class Recipes_Metabox_Ingredients extends Recipes_Metabox {
 
 		/**
@@ -89,7 +92,7 @@ if ( ! class_exists( 'Recipes_Metabox_Ingredients' ) ) {
 			// Add an nonce field so we can check for it later.
 			wp_nonce_field( 'recipes_inner_custom_box', 'recipes_ingredients_nonce' );
 
-			echo '<div id="' . $this->template['id'] . '"></div>';
+			echo '<div id="' . esc_attr( $this->template['id'] ) . '"></div>';
 		}
 	}
 }

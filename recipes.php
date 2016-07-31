@@ -2,10 +2,19 @@
 /**
  * Plugin Name: Recipes
  * Plugin URI:  https://press.codes
- * Version:	    0.1.0
+ * Version:	    1.0.0
  * Text Domain: recipes
+ *
+ * @package Recipes.
  */
 
+/**
+ * The main Recipes caller.
+ * Instantiates the Recipes class
+ * and sets the $recipes global var.
+ *
+ * @return object Recipes
+ */
 function recipes() {
 	global $recipes;
 	if ( ! $recipes ) {
@@ -15,6 +24,9 @@ function recipes() {
 }
 recipes();
 
+/**
+ * The main Recipes class.
+ */
 class Recipes {
 
 	/**
@@ -49,12 +61,12 @@ class Recipes {
 	 */
 	public function __construct() {
 
-		// Set the object properties
+		// Set the object properties.
 		$this->plugin_path    = plugin_dir_path( __FILE__ );
 		$this->templates_path = wp_normalize_path( $this->plugin_path . '/templates/' );
 		$this->plugin_url     = plugins_url( '', __FILE__ );
 
-		// Include files
+		// Include files.
 		$this->includes();
 
 		// Instantiate the metaboxes.
@@ -110,13 +122,13 @@ class Recipes {
 	 * @since 1.0.0
 	 * @static
 	 * @access public
-	 * @param mixed $slug
-	 * @param string $name (default: '')
+	 * @param mixed  $slug The slug.
+	 * @param string $name Default value: ''.
 	 */
 	public function get_template_part( $slug, $name = '' ) {
 		$template = '';
 
-		// Look in yourtheme/slug-name.php and yourtheme/recipes/slug-name.php
+		// Look in yourtheme/slug-name.php and yourtheme/recipes/slug-name.php.
 		if ( $name ) {
 			$template = locate_template( array(
 				"{$slug}-{$name}.php",
@@ -124,17 +136,17 @@ class Recipes {
 			) );
 		}
 
-		// Get default slug-name.php
+		// Get default slug-name.php.
 		if ( ! $template && $name && file_exists( $this->templates_path . "{$slug}-{$name}.php" ) ) {
 			$template = $this->templates_path . "{$slug}-{$name}.php";
 		}
 
-		// If template file doesn't exist, look in yourtheme/slug.php and yourtheme/woocommerce/slug.php
+		// If template file doesn't exist, look in yourtheme/slug.php and yourtheme/recipes/slug.php.
 		if ( ! $template ) {
 			$template = locate_template( array(
 				"{$slug}.php",
 				"recipes/{$slug}.php",
-				$this->templates_path . "{$slug}.php"
+				$this->templates_path . "{$slug}.php",
 			) );
 		}
 
@@ -155,14 +167,14 @@ class Recipes {
 	 *
 	 * @since 1.0.0
 	 * @access public
-	 * @param mixed $template
+	 * @param mixed $template The template to load.
 	 * @return string
 	 */
 	public function template_loader( $template ) {
 		$find = array( 'recipes.php' );
 		$file = '';
 
-		if ( is_single() && 'recipe' == get_post_type() ) {
+		if ( is_single() && 'recipe' === get_post_type() ) {
 
 			$file 	= 'single-recipe.php';
 			$find[] = $file;
@@ -193,12 +205,12 @@ class Recipes {
 	 * @access public
 	 * @param array        $attr       Attributes for the image markup.
 	 * @param WP_Post      $attachment Image attachment post.
-	 * @param string|array $size       Requested size. Image size or array of width and height values
+	 * @param string|array $size       Requested size. Image size or array of width and height values.
 	 * @return array
 	 */
 	public function attachment_image_attributes( $attr, $attachment, $size ) {
 		global $post;
-		if ( 'recipe' == $post->post_type ) {
+		if ( 'recipe' === $post->post_type ) {
 			$attr['itemprop'] = 'image';
 		}
 		return $attr;
