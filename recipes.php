@@ -20,6 +20,7 @@ class Recipes {
 	/**
 	 * The plugin path.
 	 *
+	 * @since 1.0.0
 	 * @access protected
 	 * @var string
 	 */
@@ -28,6 +29,7 @@ class Recipes {
 	/**
 	 * The templates path.
 	 *
+	 * @since 1.0.0
 	 * @access protected
 	 * @var string
 	 */
@@ -36,6 +38,7 @@ class Recipes {
 	/**
 	 * The plugin URL.
 	 *
+	 * @since 1.0.0
 	 * @access protected
 	 * @var string
 	 */
@@ -68,6 +71,7 @@ class Recipes {
 	/**
 	 * Include all other files.
 	 *
+	 * @since 1.0.0
 	 * @access private
 	 */
 	private function includes() {
@@ -81,6 +85,7 @@ class Recipes {
 	/**
 	 * Enqueue scripts & styles
 	 *
+	 * @since 1.0.0
 	 * @access public
 	 */
 	public function enqueue_scripts() {
@@ -91,6 +96,7 @@ class Recipes {
 	/**
 	 * Enqueue scripts & styles
 	 *
+	 * @since 1.0.0
 	 * @access public
 	 */
 	public function admin_enqueue_scripts() {
@@ -101,6 +107,7 @@ class Recipes {
 	/**
 	 * Get template part (for templates like the shop-loop).
 	 *
+	 * @since 1.0.0
 	 * @static
 	 * @access public
 	 * @param mixed $slug
@@ -146,8 +153,8 @@ class Recipes {
 	 *
 	 * Templates are in the 'templates' folder.
 	 *
+	 * @since 1.0.0
 	 * @access public
-	 *
 	 * @param mixed $template
 	 * @return string
 	 */
@@ -182,11 +189,11 @@ class Recipes {
 	/**
 	 * Filter the list of attachment image attributes.
 	 *
+	 * @since 1.0.0
 	 * @access public
 	 * @param array        $attr       Attributes for the image markup.
 	 * @param WP_Post      $attachment Image attachment post.
 	 * @param string|array $size       Requested size. Image size or array of width and height values
-	 *                                 (in that order). Default 'thumbnail'.
 	 * @return array
 	 */
 	public function attachment_image_attributes( $attr, $attachment, $size ) {

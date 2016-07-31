@@ -1,6 +1,10 @@
 <?php
 
-// Register Custom Taxonomy
+/**
+ * Registers the Custom Taxonomy.
+ *
+ * @since 1.0.0
+ */
 function recipes_recipe_category_taxonomy() {
 
     $labels = array(

@@ -6,6 +6,7 @@ if ( ! class_exists( 'Recipes_Metabox' ) ) {
 		/**
 		 * The form arguments.
 		 *
+		 * @since 1.0.0
 		 * @access protected
 		 * @var array
 		 */
@@ -14,6 +15,7 @@ if ( ! class_exists( 'Recipes_Metabox' ) ) {
 		/**
 		 * The template arguments.
 		 *
+		 * @since 1.0.0
 		 * @access protected
 		 * @var array
 		 */
@@ -37,6 +39,7 @@ if ( ! class_exists( 'Recipes_Metabox' ) ) {
 		/**
 		 * Adds the meta box container.
 		 *
+		 * @since 1.0.0
 		 * @access public
 		 * @param string $post_type Thje post type.
 		 */
@@ -57,6 +60,7 @@ if ( ! class_exists( 'Recipes_Metabox' ) ) {
 		/**
 		 * Save the meta when the post is saved.
 		 *
+		 * @since 1.0.0
 		 * @access public
 		 * @param int $post_id The ID of the post being saved.
 		 */
@@ -66,6 +70,7 @@ if ( ! class_exists( 'Recipes_Metabox' ) ) {
 		/**
 		 * Render Meta Box content.
 		 *
+		 * @since 1.0.0
 		 * @access public
 		 * @param WP_Post $post The post object.
 		 */
@@ -74,6 +79,7 @@ if ( ! class_exists( 'Recipes_Metabox' ) ) {
 		/**
 		 * Adds the underscore.js template.
 		 *
+		 * @since 1.0.0
 		 * @access public
 		 */
 		public function template() {

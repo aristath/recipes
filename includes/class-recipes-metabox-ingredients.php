@@ -22,6 +22,7 @@ if ( ! class_exists( 'Recipes_Metabox_Ingredients' ) ) {
 		/**
 		 * Save the meta when the post is saved.
 		 *
+		 * @since 1.0.0
 		 * @access public
 		 * @param int $post_id The ID of the post being saved.
 		 */
@@ -68,6 +69,7 @@ if ( ! class_exists( 'Recipes_Metabox_Ingredients' ) ) {
 		/**
 		 * Render Meta Box content.
 		 *
+		 * @since 1.0.0
 		 * @access public
 		 * @param WP_Post $post The post object.
 		 */

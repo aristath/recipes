@@ -1,6 +1,10 @@
 <?php
 
-// Register Custom Post Type
+/**
+ * Register the Custom Post Type.
+ *
+ * @since 1.0.0
+ */
 function recipes_recipe_post_type() {
 
     $labels = array(
