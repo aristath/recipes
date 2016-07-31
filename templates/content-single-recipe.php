@@ -31,13 +31,6 @@
 			Yield: <span itemprop="recipeYield"><?php echo $servings; ?> servings</span>
 		<?php endif; ?>
 	</div>
-	<div class="recipe-nutrition">
-		<span itemprop="nutrition" itemscope itemtype="http://schema.org/NutritionInformation">
-			Serving size: <span itemprop="servingSize">1 medium slice</span>
-			Calories per serving: <span itemprop="calories">250 cal</span>
-			Fat per serving: <span itemprop="fatContent">12 g</span>
-		</span>
-	</div>
 	<?php $ingredients = get_post_meta( get_the_ID(), 'ingredients', true ); ?>
 	<?php if ( ! empty( $ingredients ) ) : ?>
 		<h4>Ingredients:</h4>
