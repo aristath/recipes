@@ -1,11 +1,19 @@
 <?php
 /**
- * Plugin Name: Recipes
- * Plugin URI:  https://press.codes
- * Version:	    1.0.0
- * Text Domain: recipes
+ * Plugin Name:   Recipes
+ * Plugin URI:    https://wordpress.org/plugins/recipes/
+ * Description:   Recipes plugin with simplicity in mind.
+ * Author:        Aristeides Stathopoulos
+ * Author URI:    http://aristeides.com
+ * Version:       1.0.0
+ * Text Domain:   recipes
  *
- * @package Recipes.
+ * @package     Recipes
+ * @category    Core
+ * @author      Aristeides Stathopoulos
+ * @copyright   Copyright (c) 2016, Aristeides Stathopoulos
+ * @license     http://www.gnu.org/licenses/gpl-3.0.html
+ * @since       1.0
  */
 
 /**
