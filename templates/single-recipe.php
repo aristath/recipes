@@ -16,11 +16,13 @@ if ( ! defined( 'ABSPATH' ) ) {
 <?php get_header(); ?>
 
 <?php while ( have_posts() ) : the_post(); ?>
+
 	<div id="primary" class="content-area">
 		<main id="main" class="site-main" role="main">
 			<?php recipes()->get_template_part( 'content', 'single-recipe' ); ?>
 		</main>
 	</div>
+
 <?php endwhile; ?>
 
 <?php get_sidebar(); ?>

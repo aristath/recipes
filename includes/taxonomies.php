@@ -31,6 +31,7 @@ function recipes_recipe_category_taxonomy() {
 		'search_items'               => __( 'Search Recipe Categories', 'recipes' ),
 		'not_found'                  => __( 'Not Found', 'recipes' ),
 	);
+
 	$args = array(
 		'labels'                     => $labels,
 		'hierarchical'               => true,
@@ -40,6 +41,7 @@ function recipes_recipe_category_taxonomy() {
 		'show_in_nav_menus'          => true,
 		'show_tagcloud'              => true,
 	);
+
 	register_taxonomy( 'recipe-category', array( 'recipe' ), $args );
 
 }

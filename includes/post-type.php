@@ -29,6 +29,7 @@ function recipes_recipe_post_type() {
 		'not_found'           => __( 'Not found', 'recipes' ),
 		'not_found_in_trash'  => __( 'Not found in Trash', 'recipes' ),
 	);
+
 	$args = array(
 		'label'               => __( 'recipe', 'recipes' ),
 		'description'         => __( 'Recipe', 'recipes' ),
@@ -52,6 +53,7 @@ function recipes_recipe_post_type() {
 			'slug' => 'recipes',
 		),
 	);
+
 	register_post_type( 'recipe', $args );
 
 }

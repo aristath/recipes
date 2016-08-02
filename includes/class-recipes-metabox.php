@@ -42,6 +42,7 @@ if ( ! class_exists( 'Recipes_Metabox' ) ) {
 			if ( ! empty( $this->template ) ) {
 				add_action( 'admin_footer', array( $this, 'template' ) );
 			}
+
 		}
 
 		/**
@@ -63,6 +64,7 @@ if ( ! class_exists( 'Recipes_Metabox' ) ) {
 					$this->metabox_args['priority']
 				);
 			}
+
 		}
 
 		/**
@@ -73,7 +75,6 @@ if ( ! class_exists( 'Recipes_Metabox' ) ) {
 		 * @param int $post_id The ID of the post being saved.
 		 */
 		public function save( $post_id ) {}
-
 
 		/**
 		 * Render Meta Box content.
@@ -92,6 +93,7 @@ if ( ! class_exists( 'Recipes_Metabox' ) ) {
 		 */
 		public function template() {
 			?>
+
 			<script type="text/javascript">
 				jQuery( document ).ready( function() {
 					var post_template = wp.template( '<?php echo esc_attr( $this->template['id'] ); ?>' );
@@ -102,6 +104,7 @@ if ( ! class_exists( 'Recipes_Metabox' ) ) {
 				<?php include $this->template['path']; ?>
 			</script>
 			<?php
+
 		}
 	}
 }

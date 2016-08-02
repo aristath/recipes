@@ -11,32 +11,44 @@
 ?>
 
 <div class="recipe content" itemscope itemtype="http://schema.org/Recipe">
+
 	<header class="entry-header">
+
 		<h1 itemprop="name" class="entry-title"><?php the_title(); ?></h1>
+
 		<?php if ( has_post_thumbnail() ) : ?>
 			<?php the_post_thumbnail(); ?>
 		<?php endif; ?>
+
 		<div class="recipe-intro" itemprop="recipe-description">
 			<blockquote><?php echo wp_kses_post( get_post_meta( get_the_ID(), 'description', true ) ); ?></blockquote>
 		</div>
+
 		<div class="recipe-general-info">
+
 			<?php $servings  = get_post_meta( get_the_ID(), 'servings', true ); ?>
 			<?php $prep_time = get_post_meta( get_the_ID(), 'prep_time', true ); ?>
 			<?php $cook_time = get_post_meta( get_the_ID(), 'cook_time', true ); ?>
+
 			<?php if ( $prep_time ) : ?>
 				<?php printf( esc_html__( 'Prep time: %s', 'recipes' ), '<time datetime="PT' . absint( $prep_time ) . 'M" itemprop="prepTime">' . absint( $prep_time ) . ' min</time>' ); ?>
 			<?php endif; ?>
+
 			<?php if ( $cook_time ) : ?>
 				<?php printf( esc_html__( 'Cook time: %s', 'recipes' ), '<time datetime="PT' . absint( $cook_time ) . 'M" itemprop="cookTime">' . absint( $cook_time ) . ' min</time>' ); ?>
 			<?php endif; ?>
+
 			<?php if ( $prep_time || $cook_time ) : ?>
 				<?php $total_time = absint( $prep_time ) + absint( $cook_time ); ?>
 				<?php printf( esc_html__( 'Total time: %s', 'recipes' ), '<time datetime="PT' . absint( $total_time ) . '" itemprop="totalTime">' . absint( $total_time ) . ' min</time>' ); ?>
 			<?php endif; ?>
+
 			<?php if ( $servings ) : ?>
 				<?php printf( esc_html__( 'Yield: %s' ), '<span itemprop="recipeYield">' . absint( $servings ) . ' servings</span>' ); ?>
 			<?php endif; ?>
+
 		</div>
+
 	</header>
 
 	<div class="entry-content">
@@ -74,4 +86,5 @@
 		</div>
 
 	</div>
+
 </div>

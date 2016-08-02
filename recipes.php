@@ -24,11 +24,13 @@
  * @return object Recipes
  */
 function recipes() {
+
 	global $recipes;
 	if ( ! $recipes ) {
 		$recipes = new Recipes();
 	}
 	return $recipes;
+
 }
 recipes();
 
@@ -97,12 +99,14 @@ class Recipes {
 	 * @access private
 	 */
 	private function includes() {
+
 		require_once( $this->plugin_path . 'includes/post-type.php' );
 		require_once( $this->plugin_path . 'includes/taxonomies.php' );
 		require_once( $this->plugin_path . 'includes/class-recipes-metabox.php' );
 		require_once( $this->plugin_path . 'includes/class-recipes-metabox-general-info.php' );
 		require_once( $this->plugin_path . 'includes/class-recipes-metabox-ingredients.php' );
 		require_once( $this->plugin_path . 'includes/class-recipes-metabox-steps.php' );
+
 	}
 
 	/**
@@ -112,7 +116,9 @@ class Recipes {
 	 * @access public
 	 */
 	public function enqueue_scripts() {
+
 		wp_enqueue_style( 'recipes', trailingslashit( $this->plugin_url ) . 'assets/css/styles.css' );
+
 	}
 
 
@@ -123,8 +129,10 @@ class Recipes {
 	 * @access public
 	 */
 	public function admin_enqueue_scripts() {
+
 		wp_enqueue_script( 'recipes', trailingslashit( $this->plugin_url ) . 'assets/js/recipes-admin.js', array( 'jquery' ) );
 		wp_enqueue_style( 'recipes-admin', $this->plugin_url . '/assets/css/admin-post-edit.css' );
+
 	}
 
 	/**
@@ -137,6 +145,7 @@ class Recipes {
 	 * @param string $name Default value: ''.
 	 */
 	public function get_template_part( $slug, $name = '' ) {
+
 		$template = '';
 
 		// Look in yourtheme/slug-name.php and yourtheme/recipes/slug-name.php.
@@ -167,6 +176,7 @@ class Recipes {
 		if ( $template ) {
 			load_template( $template, false );
 		}
+
 	}
 
 	/**
@@ -182,6 +192,7 @@ class Recipes {
 	 * @return string
 	 */
 	public function template_loader( $template ) {
+
 		$find = array( 'recipes.php' );
 		$file = '';
 
@@ -207,6 +218,7 @@ class Recipes {
 		}
 
 		return apply_filters( 'recipes/template_loader', $template );
+
 	}
 
 	/**
@@ -220,11 +232,13 @@ class Recipes {
 	 * @return array
 	 */
 	public function attachment_image_attributes( $attr, $attachment, $size ) {
+
 		global $post;
 		if ( 'recipe' === $post->post_type ) {
 			$attr['itemprop'] = 'image';
 		}
-		return $attr;
+		return apply_filters( 'recipes/attachment_image_attributes', $attr );
+
 	}
 
 	/**

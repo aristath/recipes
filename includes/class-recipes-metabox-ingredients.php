@@ -13,6 +13,7 @@ if ( ! class_exists( 'Recipes_Metabox_Ingredients' ) ) {
 		 * @access public
 		 */
 		public function __construct() {
+
 			$this->metabox_args = array(
 				'id'       => 'recipe_ingredients',
 				'title'    => esc_attr__( 'Recipe Ingredients', 'recipes' ),
@@ -21,7 +22,9 @@ if ( ! class_exists( 'Recipes_Metabox_Ingredients' ) ) {
 			);
 			$this->template['id'] = 'recipe-ingredients';
 			parent::__construct();
+
 		}
+
 		/**
 		 * Save the meta when the post is saved.
 		 *
@@ -67,6 +70,7 @@ if ( ! class_exists( 'Recipes_Metabox_Ingredients' ) ) {
 
 			// Update the meta field.
 			update_post_meta( $post_id, 'ingredients', $sanitized_ingredients );
+
 		}
 
 		/**
@@ -93,6 +97,7 @@ if ( ! class_exists( 'Recipes_Metabox_Ingredients' ) ) {
 			wp_nonce_field( 'recipes_inner_custom_box', 'recipes_ingredients_nonce' );
 
 			echo '<div id="' . esc_attr( $this->template['id'] ) . '"></div>';
+
 		}
 	}
 }

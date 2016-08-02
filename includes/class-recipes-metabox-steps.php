@@ -13,6 +13,7 @@ if ( ! class_exists( 'Recipes_Metabox_Steps' ) ) {
 		 * @access public
 		 */
 		public function __construct() {
+
 			$this->metabox_args = array(
 				'id'       => 'recipe_steps',
 				'title'    => esc_attr__( 'Recipe Steps', 'recipes' ),
@@ -21,7 +22,9 @@ if ( ! class_exists( 'Recipes_Metabox_Steps' ) ) {
 			);
 			$this->template['id'] = 'recipe-steps';
 			parent::__construct();
+
 		}
+
 		/**
 		 * Save the meta when the post is saved.
 		 *
@@ -66,6 +69,7 @@ if ( ! class_exists( 'Recipes_Metabox_Steps' ) ) {
 
 			// Update the meta field.
 			update_post_meta( $post_id, 'steps', $sanitized_steps );
+
 		}
 
 		/**
@@ -92,6 +96,7 @@ if ( ! class_exists( 'Recipes_Metabox_Steps' ) ) {
 			wp_nonce_field( 'recipes_inner_custom_box', 'recipes_steps_nonce' );
 
 			echo '<div id="' . esc_attr( $this->template['id'] ) . '"></div>';
+
 		}
 	}
 }

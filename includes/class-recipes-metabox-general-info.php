@@ -13,6 +13,7 @@ if ( ! class_exists( 'Recipes_Metabox_General_Info' ) ) {
 		 * @access public
 		 */
 		public function __construct() {
+
 			$this->metabox_args = array(
 				'id'       => 'recipe_general_info',
 				'title'    => esc_attr__( 'Recipe General Info', 'recipes' ),
@@ -21,7 +22,9 @@ if ( ! class_exists( 'Recipes_Metabox_General_Info' ) ) {
 			);
 			$this->template['id'] = 'recipe-general-info-metabox';
 			parent::__construct();
+
 		}
+
 		/**
 		 * Save the meta when the post is saved.
 		 *
@@ -63,6 +66,7 @@ if ( ! class_exists( 'Recipes_Metabox_General_Info' ) ) {
 			update_post_meta( $post_id, 'prep_time', $prep_time );
 			update_post_meta( $post_id, 'cook_time', $cook_time );
 			update_post_meta( $post_id, 'description', $description );
+
 		}
 
 
@@ -95,6 +99,7 @@ if ( ! class_exists( 'Recipes_Metabox_General_Info' ) ) {
 			wp_nonce_field( 'recipes_inner_custom_box', 'recipes_general_info_nonce' );
 
 			echo '<div id="' . esc_attr( $this->template['id'] ) . '"></div>';
+
 		}
 	}
 }
