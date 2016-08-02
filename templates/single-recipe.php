@@ -3,7 +3,6 @@
  * The Template for displaying all single recipes.
  * This template can be overridden by copying it to yourtheme/recipes/single-recipe.php.
  *
- * @see 	    http://docs.woothemes.com/document/template-structure/
  * @author 		Aristeides Stathopoulos
  * @package 	Recipes/Templates
  * @version     1.0.0
