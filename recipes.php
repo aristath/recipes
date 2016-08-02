@@ -206,7 +206,7 @@ class Recipes {
 			}
 		}
 
-		return $template;
+		return apply_filters( 'recipes/template_loader', $template );
 	}
 
 	/**
