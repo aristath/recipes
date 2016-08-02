@@ -13,7 +13,8 @@ Recipes for WordPress done right.
 
 The Recipes plugin allows you to write recipes, add ingredients and steps with simplicity in mind.
 
-It includes a custom post type for recipes as well as a recipe-categories custom taxonomy.
+Create your recipes, add ingredients, steps, a short description as well as a full description and recipe categories!
+Includes support for featured images and an easy to use template.
 
 == Installation ==
 
