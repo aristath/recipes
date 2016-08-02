@@ -19,12 +19,6 @@
 		<div class="recipe-intro" itemprop="recipe-description">
 			<blockquote><?php echo wp_kses_post( get_post_meta( get_the_ID(), 'description', true ) ); ?></blockquote>
 		</div>
-		<div class="recipe-rating">
-			<span itemprop="aggregateRating" itemscope itemtype="http://schema.org/AggregateRating">
-				<span itemprop="ratingValue">4.0</span> stars based on
-				<span itemprop="reviewCount">35</span> reviews
-			</span>
-		</div>
 		<div class="recipe-general-info">
 			<?php $servings  = get_post_meta( get_the_ID(), 'servings', true ); ?>
 			<?php $prep_time = get_post_meta( get_the_ID(), 'prep_time', true ); ?>

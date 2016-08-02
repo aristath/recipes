@@ -95,7 +95,7 @@ if ( ! class_exists( 'Recipes_Metabox' ) ) {
 			<script type="text/javascript">
 				jQuery( document ).ready( function() {
 					var post_template = wp.template( '<?php echo esc_attr( $this->template['id'] ); ?>' );
-					jQuery( '#<?php echo esc_attr( $this->template['id'] ); ?>' ).append(post_template( <?php echo wp_json_encode( $this->template['data'] ); ?> ) );
+					jQuery( '#<?php echo esc_attr( $this->template['id'] ); ?>' ).append( post_template( <?php echo wp_json_encode( $this->template['data'] ); ?> ) );
 				} );
 			</script>
 			<script type="text/html" id="tmpl-<?php echo esc_attr( $this->template['id'] ); ?>">
