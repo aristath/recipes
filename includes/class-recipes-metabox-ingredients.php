@@ -85,8 +85,8 @@ if ( ! class_exists( 'Recipes_Metabox_Ingredients' ) ) {
 			$this->template['path'] = 'template-ingredients.php';
 			$this->template['data']['l10n'] = array(
 				'ingredient'  => esc_attr__( 'Ingredient', 'recipes' ),
-				'add'         => esc_attr__( 'Add', 'recipes' ),
-				'description' => esc_attr__( 'Please add the ingredients for your recipe below. Empty fields will be automatically removed on save. (Example: 1/2 Kg Potatoes)', 'recipes' ),
+				'add'         => esc_attr__( 'Add New Ingredient', 'recipes' ),
+				'description' => esc_attr__( 'Please add the ingredients for your recipe below. Use a single line for each ingredient (Example: 1/2 Kg Potatoes) and press the "Add new ingredient" button if you want to add a new ingredient. Empty fields will be automatically removed on save.', 'recipes' ),
 			);
 			$this->template['data']['value'] = get_post_meta( $post->ID, 'ingredients', true );
 			if ( empty( $this->template['data']['value'] ) ) {

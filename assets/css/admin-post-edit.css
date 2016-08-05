@@ -1,50 +1,54 @@
-.recipes.general-info.fields-wrapper {
+#recipe_general_info p {
+  font-size: 1.2em; }
+#recipe_general_info .general-info.fields-wrapper {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-}
+  justify-content: space-between;
+  font-size: 1.2em; }
+  #recipe_general_info .general-info.fields-wrapper .servings-wrapper,
+  #recipe_general_info .general-info.fields-wrapper .prep-time-wrapper,
+  #recipe_general_info .general-info.fields-wrapper .cook-time-wrapper {
+    width: 30%; }
+    #recipe_general_info .general-info.fields-wrapper .servings-wrapper input,
+    #recipe_general_info .general-info.fields-wrapper .prep-time-wrapper input,
+    #recipe_general_info .general-info.fields-wrapper .cook-time-wrapper input {
+      width: 100%;
+      font-size: 1.1em;
+      padding: 1em;
+      text-align: center; }
+  #recipe_general_info .general-info.fields-wrapper .description-wrapper {
+    width: 100%;
+    margin-top: 1em; }
+    #recipe_general_info .general-info.fields-wrapper .description-wrapper label {
+      margin-bottom: .5em; }
+    #recipe_general_info .general-info.fields-wrapper .description-wrapper textarea {
+      width: 100%;
+      min-height: 150px;
+      font-size: 1.1em;
+      padding: 1em; }
+  #recipe_general_info .general-info.fields-wrapper .servings-wrapper label,
+  #recipe_general_info .general-info.fields-wrapper .prep-time-wrapper label,
+  #recipe_general_info .general-info.fields-wrapper .cook-time-wrapper label,
+  #recipe_general_info .general-info.fields-wrapper .description-wrapper label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: .5em; }
 
-.recipes.servings-wrapper,
-.recipes.prep_time_wrapper,
-.recipes.cook_time_wrapper {
-  width: 33.3333%;
-}
-
-.recipes.description_wrapper {
-  width: 100%;
-}
-
-.recipes.servings-wrapper label,
-.recipes.prep_time_wrapper label,
-.recipes.cook_time_wrapper label,
-.recipes.description_wrapper label {
-  display: block;
-  font-weight: bold;
-}
-
-.recipes.servings-wrapper input,
-.recipes.prep_time_wrapper input,
-.recipes.cook_time_wrapper input {
-  width: 90%;
-}
-
-.recipes.description_wrapper textarea {
-  width: 100%;
-  min-height: 150px;
-}
-
-.recipe-ingredients-list input {
-  margin-bottom: 10px;
-  width: 100%;
-}
-
-.ingredients-description {
-  padding: 1rem 0;
-}
+#recipe_ingredients {
+  font-size: 1.2em; }
+  #recipe_ingredients p {
+    font-size: 1.2em; }
+  #recipe_ingredients .ingredients-description p {
+    padding: 1rem 0; }
+  #recipe_ingredients .recipe-ingredients-list input {
+    margin-bottom: 10px;
+    width: 100%;
+    font-size: 1.2em;
+    padding: .6em 1em; }
 
 .recipe-steps-list textarea {
   display: block;
   width: 100%;
   margin-bottom: 1rem;
-  min-height: 150px;
-}
+  min-height: 150px; }

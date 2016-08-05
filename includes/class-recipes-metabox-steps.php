@@ -17,7 +17,7 @@ if ( ! class_exists( 'Recipes_Metabox_Steps' ) ) {
 			$this->metabox_args = array(
 				'id'       => 'recipe_steps',
 				'title'    => esc_attr__( 'Recipe Steps', 'recipes' ),
-				'context'  => 'normal',
+				'context'  => 'above-editor',
 				'priority' => 'high',
 			);
 			$this->template['id'] = 'recipe-steps';
@@ -84,7 +84,7 @@ if ( ! class_exists( 'Recipes_Metabox_Steps' ) ) {
 			$this->template['path'] = 'template-steps.php';
 			$this->template['data']['l10n'] = array(
 				'step'        => esc_attr__( 'Step', 'recipes' ),
-				'add'         => esc_attr__( 'Add', 'recipes' ),
+				'add'         => esc_attr__( 'Add Step', 'recipes' ),
 				'description' => esc_attr__( 'Please add the steps for your recipe below. Empty fields will be automatically removed on save.', 'recipes' ),
 			);
 			$this->template['data']['value'] = get_post_meta( $post->ID, 'steps', true );

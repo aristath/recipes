@@ -81,10 +81,10 @@ if ( ! class_exists( 'Recipes_Metabox_General_Info' ) ) {
 
 			$this->template['data']['l10n'] = array(
 				'servings'    => esc_attr__( 'Servings', 'recipes' ),
-				'prepTime'    => esc_attr__( 'Preparation Time (minutes)', 'recipes' ),
-				'cookTime'    => esc_attr__( 'Cook Time (minutes)', 'recipes' ),
+				'prepTime'    => esc_attr__( 'Prep. Time', 'recipes' ),
+				'cookTime'    => esc_attr__( 'Cook Time', 'recipes' ),
 				'description' => esc_attr__( 'Description', 'recipes' ),
-				'label'       => esc_attr__( 'Enter basic info about your recipe and a short intruduction.', 'recipes' ),
+				'label'       => esc_attr__( 'Enter basic info about your recipe and a short intruduction. You should include the servings nr, preparation time (in minutes) and cook time (in minutes). The short description you enter will be displayed below the recipe photo as an introduction to your recipe.', 'recipes' ),
 			);
 
 			$this->template['data']['value'] = array(

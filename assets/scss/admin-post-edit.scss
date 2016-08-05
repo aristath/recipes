@@ -1,0 +1,85 @@
+#recipe_general_info {
+
+  p {
+    font-size: 1.2em;
+  }
+
+  .general-info.fields-wrapper {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    font-size: 1.2em;
+
+    .servings-wrapper,
+    .prep-time-wrapper,
+    .cook-time-wrapper {
+      width: 30%;
+
+      input {
+        width: 100%;
+        font-size: 1.1em;
+        padding: 1em;
+        text-align: center;
+      }
+    }
+
+    .description-wrapper {
+      width: 100%;
+      margin-top: 1em;
+
+      label {
+        margin-bottom: .5em;
+      }
+
+      textarea {
+        width: 100%;
+        min-height: 150px;
+        font-size: 1.1em;
+        padding: 1em;
+      }
+    }
+
+    .servings-wrapper,
+    .prep-time-wrapper,
+    .cook-time-wrapper,
+    .description-wrapper {
+      label {
+        display: block;
+        font-weight: bold;
+        margin-bottom: .5em;
+      }
+    }
+  }
+}
+
+#recipe_ingredients {
+  font-size: 1.2em;
+
+  p {
+    font-size: 1.2em;
+  }
+
+  .ingredients-description p {
+    padding: 1rem 0;
+  }
+
+  .recipe-ingredients-list {
+    input {
+      margin-bottom: 10px;
+      width: 100%;
+      font-size: 1.2em;
+      padding: .6em 1em;
+    }
+  }
+}
+
+
+.recipe-steps-list {
+  textarea {
+    display: block;
+    width: 100%;
+    margin-bottom: 1rem;
+    min-height: 150px;
+  }
+}

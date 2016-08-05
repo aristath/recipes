@@ -1,4 +1,4 @@
-<div class="steps-description">{{ data.l10n.description }}</div>
+<p>{{ data.l10n.description }}</p>
 
 <div id="recipe-steps" class="recipe-steps-list">
 
