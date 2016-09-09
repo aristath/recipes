@@ -156,8 +156,13 @@ class Recipes_Customizer {
 	}
 }
 
-
-class Kirki_Installer_Control extends WP_Customize_Control {
+if ( class_exists( 'WP_Customize_Control' ) ) {
+	/**
+	 * A simple custom control for labels.
+	 *
+	 * @since 1.1.0
+	 */
+	class Recipes_Label_Control extends WP_Customize_Control {
 
 		/**
 		 * The control-type.
