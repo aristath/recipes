@@ -83,6 +83,7 @@ class Recipes {
 		new Recipes_Metabox_General_Info();
 		new Recipes_Metabox_Ingredients();
 		new Recipes_Metabox_Steps();
+		new Recipes_Customizer();
 
 		add_action( 'admin_enqueue_scripts', array( $this, 'admin_enqueue_scripts' ) );
 		add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
@@ -106,6 +107,7 @@ class Recipes {
 		require_once( $this->plugin_path . 'includes/class-recipes-metabox-general-info.php' );
 		require_once( $this->plugin_path . 'includes/class-recipes-metabox-ingredients.php' );
 		require_once( $this->plugin_path . 'includes/class-recipes-metabox-steps.php' );
+		require_once( $this->plugin_path . 'includes/customizer.php' );
 
 	}
 

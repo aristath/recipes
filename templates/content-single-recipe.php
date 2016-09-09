@@ -15,14 +15,20 @@
 	<header class="entry-header">
 
 		<h1 itemprop="name" class="entry-title"><?php the_title(); ?></h1>
-
-		<?php if ( has_post_thumbnail() ) : ?>
+		<?php if ( (bool) get_theme_mod( 'recipes_show_featured_image', true ) && has_post_thumbnail() ) : ?>
 			<?php the_post_thumbnail(); ?>
 		<?php endif; ?>
 
-		<div class="recipe-intro" itemprop="recipe-description">
-			<blockquote><?php echo wp_kses_post( get_post_meta( get_the_ID(), 'description', true ) ); ?></blockquote>
-		</div>
+		<?php $intro_style = get_theme_mod( 'recipes_intro_style', 'blockquote' ); ?>
+		<?php if ( 'hidden' !== $intro_style ) : ?>
+			<div class="recipe-intro" itemprop="recipe-description">
+				<?php if ( 'blockquote' === $intro_style ) : ?>
+					<blockquote><?php echo wp_kses_post( get_post_meta( get_the_ID(), 'description', true ) ); ?></blockquote>
+				<?php elseif ( 'custom' === $intro_style ) : ?>
+					<div class="recipe-intro"><?php echo wp_kses_post( get_post_meta( get_the_ID(), 'description', true ) ); ?></div>
+				<?php endif; ?>
+			</div>
+		<?php endif; ?>
 
 		<div class="recipe-general-info">
 
