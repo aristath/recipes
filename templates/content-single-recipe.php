@@ -37,20 +37,28 @@
 			<?php $cook_time = get_post_meta( get_the_ID(), 'cook_time', true ); ?>
 
 			<?php if ( $prep_time ) : ?>
-				<?php printf( esc_html__( 'Prep time: %s', 'recipes' ), '<time datetime="PT' . absint( $prep_time ) . 'M" itemprop="prepTime"><span class="dashicons dashicons-clock"></span>' . absint( $prep_time ) . ' min</time>' ); ?>
+				<div class="recipe-general-info-element prep-time">
+					<?php printf( esc_html__( '%1$s Prep time: %2$s min', 'recipes' ), '<span class="dashicons dashicons-clock"></span>', '<time datetime="PT' . absint( $prep_time ) . 'M" itemprop="prepTime">' . absint( $prep_time ) . '</time>' ); ?>
+				</div>
 			<?php endif; ?>
 
 			<?php if ( $cook_time ) : ?>
-				<?php printf( esc_html__( 'Cook time: %s', 'recipes' ), '<time datetime="PT' . absint( $cook_time ) . 'M" itemprop="cookTime"><span class="dashicons dashicons-clock"></span>' . absint( $cook_time ) . ' min</time>' ); ?>
+				<div class="recipe-general-info-element cook-time">
+					<?php printf( esc_html__( '%1$s Cook time: %2$s min', 'recipes' ), '<span class="dashicons dashicons-clock"></span>', '<time datetime="PT' . absint( $cook_time ) . 'M" itemprop="cookTime">' . absint( $cook_time ) . '</time>' ); ?>
+				</div>
 			<?php endif; ?>
 
-			<?php if ( $prep_time || $cook_time ) : ?>
-				<?php $total_time = absint( $prep_time ) + absint( $cook_time ); ?>
-				<?php printf( esc_html__( 'Total time: %s', 'recipes' ), '<time datetime="PT' . absint( $total_time ) . '" itemprop="totalTime"><span class="dashicons dashicons-clock"></span>' . absint( $total_time ) . ' min</time>' ); ?>
+			<?php if ( $prep_time && $cook_time ) : ?>
+				<div class="recipe-general-info-element total-time">
+					<?php $total_time = absint( $prep_time ) + absint( $cook_time ); ?>
+					<?php printf( esc_html__( '%1$s Total time: %2$s min', 'recipes' ), '<span class="dashicons dashicons-clock"></span>', '<time datetime="PT' . absint( $total_time ) . '" itemprop="totalTime">' . absint( $total_time ) . '</time>' ); ?>
+				</div>
 			<?php endif; ?>
 
 			<?php if ( $servings ) : ?>
-				<?php printf( esc_html__( 'Yield: %s' ), '<span itemprop="recipeYield"><span class="dashicons dashicons-groups"></span>' . absint( $servings ) . ' servings</span>' ); ?>
+				<div class="recipe-general-info-element servings">
+					<?php printf( esc_html__( '%1$s Yield: %2$s servings', 'recipes' ), '<span class="dashicons dashicons-groups"></span>', '<span itemprop="recipeYield">' . absint( $servings ) . '</span>' ); ?>
+				</div>
 			<?php endif; ?>
 
 		</div>

@@ -1,9 +1,13 @@
 .recipe.content .recipe-intro {
   margin-top: 1em;
   margin-bottom: 1em; }
-.recipe.content .recipe-general-info .dashicons {
-  font-size: 1em;
-  vertical-align: text-bottom; }
+.recipe.content .recipe-general-info {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between; }
+  .recipe.content .recipe-general-info .dashicons {
+    font-size: 1em;
+    vertical-align: text-bottom; }
 .recipe.content .recipe-execution-wrapper {
   display: flex; }
   .recipe.content .recipe-execution-wrapper > div.ingredients {

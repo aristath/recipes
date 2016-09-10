@@ -4,6 +4,11 @@
     margin-bottom: 1em;
   }
   .recipe-general-info {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    .recipe-general-info-element {
+    }
     .dashicons {
       font-size: 1em;
       vertical-align: text-bottom;
