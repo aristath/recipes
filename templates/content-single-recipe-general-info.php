@@ -1,3 +1,14 @@
+<?php
+/**
+ * The Template for displaying the general info for single recipes.
+ * This template can be overridden by copying it to yourtheme/recipes/content-single-recipe-general-info.php.
+ *
+ * @author 		Aristeides Stathopoulos
+ * @package 	Recipes/Templates
+ * @version     1.1.0
+ */
+
+?>
 <div class="recipe-general-info">
 
 	<?php $servings  = get_post_meta( get_the_ID(), 'servings', true ); ?>

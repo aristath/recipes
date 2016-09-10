@@ -1,3 +1,14 @@
+<?php
+/**
+ * The Template for displaying the execution instructions for single recipes.
+ * This template can be overridden by copying it to yourtheme/recipes/content-single-recipe-execution.php.
+ *
+ * @author 		Aristeides Stathopoulos
+ * @package 	Recipes/Templates
+ * @version     1.1.0
+ */
+
+?>
 <div class="recipe-execution-wrapper">
 
 	<?php $ingredients = get_post_meta( get_the_ID(), 'ingredients', true ); ?>
