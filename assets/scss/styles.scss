@@ -3,6 +3,12 @@
     margin-top: 1em;
     margin-bottom: 1em;
   }
+  .recipe-general-info {
+    .dashicons {
+      font-size: 1em;
+      vertical-align: text-bottom;
+    }
+  }
   .recipe-execution-wrapper {
     display: flex;
     > div.ingredients {

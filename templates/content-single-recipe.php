@@ -37,20 +37,20 @@
 			<?php $cook_time = get_post_meta( get_the_ID(), 'cook_time', true ); ?>
 
 			<?php if ( $prep_time ) : ?>
-				<?php printf( esc_html__( 'Prep time: %s', 'recipes' ), '<time datetime="PT' . absint( $prep_time ) . 'M" itemprop="prepTime">' . absint( $prep_time ) . ' min</time>' ); ?>
+				<?php printf( esc_html__( 'Prep time: %s', 'recipes' ), '<time datetime="PT' . absint( $prep_time ) . 'M" itemprop="prepTime"><span class="dashicons dashicons-clock"></span>' . absint( $prep_time ) . ' min</time>' ); ?>
 			<?php endif; ?>
 
 			<?php if ( $cook_time ) : ?>
-				<?php printf( esc_html__( 'Cook time: %s', 'recipes' ), '<time datetime="PT' . absint( $cook_time ) . 'M" itemprop="cookTime">' . absint( $cook_time ) . ' min</time>' ); ?>
+				<?php printf( esc_html__( 'Cook time: %s', 'recipes' ), '<time datetime="PT' . absint( $cook_time ) . 'M" itemprop="cookTime"><span class="dashicons dashicons-clock"></span>' . absint( $cook_time ) . ' min</time>' ); ?>
 			<?php endif; ?>
 
 			<?php if ( $prep_time || $cook_time ) : ?>
 				<?php $total_time = absint( $prep_time ) + absint( $cook_time ); ?>
-				<?php printf( esc_html__( 'Total time: %s', 'recipes' ), '<time datetime="PT' . absint( $total_time ) . '" itemprop="totalTime">' . absint( $total_time ) . ' min</time>' ); ?>
+				<?php printf( esc_html__( 'Total time: %s', 'recipes' ), '<time datetime="PT' . absint( $total_time ) . '" itemprop="totalTime"><span class="dashicons dashicons-clock"></span>' . absint( $total_time ) . ' min</time>' ); ?>
 			<?php endif; ?>
 
 			<?php if ( $servings ) : ?>
-				<?php printf( esc_html__( 'Yield: %s' ), '<span itemprop="recipeYield">' . absint( $servings ) . ' servings</span>' ); ?>
+				<?php printf( esc_html__( 'Yield: %s' ), '<span itemprop="recipeYield"><span class="dashicons dashicons-groups"></span>' . absint( $servings ) . ' servings</span>' ); ?>
 			<?php endif; ?>
 
 		</div>

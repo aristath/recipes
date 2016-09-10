@@ -122,7 +122,7 @@ class Recipes {
 	 */
 	public function enqueue_scripts() {
 
-		wp_enqueue_style( 'recipes', trailingslashit( self::$plugin_url ) . 'assets/css/styles.css' );
+		wp_enqueue_style( 'recipes', trailingslashit( self::$plugin_url ) . 'assets/css/styles.css', array( 'dashicons' ) );
 
 	}
 
