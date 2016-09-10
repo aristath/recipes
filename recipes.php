@@ -42,29 +42,32 @@ class Recipes {
 	/**
 	 * The plugin path.
 	 *
+	 * @static
 	 * @since 1.0.0
-	 * @access protected
+	 * @access public
 	 * @var string
 	 */
-	protected $plugin_path;
+	public static $plugin_path;
 
 	/**
 	 * The templates path.
 	 *
+	 * @static
 	 * @since 1.0.0
-	 * @access protected
+	 * @access public
 	 * @var string
 	 */
-	protected $templates_path;
+	public static $templates_path;
 
 	/**
 	 * The plugin URL.
 	 *
+	 * @static
 	 * @since 1.0.0
-	 * @access protected
+	 * @access public
 	 * @var string
 	 */
-	protected $plugin_url;
+	public static $plugin_url;
 
 	/**
 	 * Constructor.
@@ -72,9 +75,9 @@ class Recipes {
 	public function __construct() {
 
 		// Set the object properties.
-		$this->plugin_path    = plugin_dir_path( __FILE__ );
-		$this->templates_path = wp_normalize_path( $this->plugin_path . '/templates/' );
-		$this->plugin_url     = plugins_url( '', __FILE__ );
+		self::$plugin_path    = plugin_dir_path( __FILE__ );
+		self::$templates_path = wp_normalize_path( self::$plugin_path . '/templates/' );
+		self::$plugin_url     = plugins_url( '', __FILE__ );
 
 		// Include files.
 		$this->includes();
@@ -101,13 +104,13 @@ class Recipes {
 	 */
 	private function includes() {
 
-		require_once( $this->plugin_path . 'includes/post-type.php' );
-		require_once( $this->plugin_path . 'includes/taxonomies.php' );
-		require_once( $this->plugin_path . 'includes/class-recipes-metabox.php' );
-		require_once( $this->plugin_path . 'includes/class-recipes-metabox-general-info.php' );
-		require_once( $this->plugin_path . 'includes/class-recipes-metabox-ingredients.php' );
-		require_once( $this->plugin_path . 'includes/class-recipes-metabox-steps.php' );
-		require_once( $this->plugin_path . 'includes/customizer.php' );
+		require_once( self::$plugin_path . 'includes/post-type.php' );
+		require_once( self::$plugin_path . 'includes/taxonomies.php' );
+		require_once( self::$plugin_path . 'includes/class-recipes-metabox.php' );
+		require_once( self::$plugin_path . 'includes/class-recipes-metabox-general-info.php' );
+		require_once( self::$plugin_path . 'includes/class-recipes-metabox-ingredients.php' );
+		require_once( self::$plugin_path . 'includes/class-recipes-metabox-steps.php' );
+		require_once( self::$plugin_path . 'includes/customizer.php' );
 
 	}
 
@@ -119,7 +122,7 @@ class Recipes {
 	 */
 	public function enqueue_scripts() {
 
-		wp_enqueue_style( 'recipes', trailingslashit( $this->plugin_url ) . 'assets/css/styles.css' );
+		wp_enqueue_style( 'recipes', trailingslashit( self::$plugin_url ) . 'assets/css/styles.css' );
 
 	}
 
@@ -132,8 +135,8 @@ class Recipes {
 	 */
 	public function admin_enqueue_scripts() {
 
-		wp_enqueue_script( 'recipes', trailingslashit( $this->plugin_url ) . 'assets/js/recipes-admin.js', array( 'jquery' ) );
-		wp_enqueue_style( 'recipes-admin', $this->plugin_url . '/assets/css/admin-post-edit.css' );
+		wp_enqueue_script( 'recipes', trailingslashit( self::$plugin_url ) . 'assets/js/recipes-admin.js', array( 'jquery' ) );
+		wp_enqueue_style( 'recipes-admin', self::$plugin_url . '/assets/css/admin-post-edit.css' );
 
 	}
 
@@ -159,8 +162,8 @@ class Recipes {
 		}
 
 		// Get default slug-name.php.
-		if ( ! $template && $name && file_exists( $this->templates_path . "{$slug}-{$name}.php" ) ) {
-			$template = $this->templates_path . "{$slug}-{$name}.php";
+		if ( ! $template && $name && file_exists( self::$templates_path . "{$slug}-{$name}.php" ) ) {
+			$template = self::$templates_path . "{$slug}-{$name}.php";
 		}
 
 		// If template file doesn't exist, look in yourtheme/slug.php and yourtheme/recipes/slug.php.
@@ -168,7 +171,7 @@ class Recipes {
 			$template = locate_template( array(
 				"{$slug}.php",
 				"recipes/{$slug}.php",
-				$this->templates_path . "{$slug}.php",
+				self::$templates_path . "{$slug}.php",
 			) );
 		}
 
@@ -202,20 +205,20 @@ class Recipes {
 
 			$file 	= 'single-recipe.php';
 			$find[] = $file;
-			$find[] = $this->templates_path . $file;
+			$find[] = self::$templates_path . $file;
 
 		} elseif ( is_post_type_archive( 'product' ) ) {
 
 			$file 	= 'archive-recipe.php';
 			$find[] = $file;
-			$find[] = $this->templates_path . $file;
+			$find[] = self::$templates_path . $file;
 
 		}
 
 		if ( $file ) {
 			$template = locate_template( array_unique( $find ) );
 			if ( ! $template ) {
-				$template = $this->templates_path . $file;
+				$template = self::$templates_path . $file;
 			}
 		}
 

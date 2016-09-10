@@ -27,6 +27,8 @@ class Recipes_Customizer {
 		add_action( 'customize_register', array( $this, 'settings' ) );
 		// Add Controls.
 		add_action( 'customize_register', array( $this, 'controls' ) );
+		// Enqueue Customizer Scripts
+		add_action( 'customize_controls_enqueue_scripts', array( $this, 'customize_controls_enqueue_scripts' ) );
 
 	}
 
@@ -85,7 +87,7 @@ class Recipes_Customizer {
 			'capability'        => 'edit_theme_options',
 			'default'           => 'blockquote',
 			'transport'         => 'refresh',
-			'sanitize_callback' => array( $this, 'sanitize_recipes_intro_style' ),
+			'sanitize_callback' => array( $this, 'sanitize_intro_style' ),
 		) );
 
 	}
@@ -141,7 +143,7 @@ class Recipes_Customizer {
 	 * @param string $value The value to sanitize.
 	 * @return string
 	 */
-	public function sanitize_recipes_intro_style( $value ) {
+	public function sanitize_intro_style( $value ) {
 
 		$valid_values = array(
 			'blockquote',
@@ -154,31 +156,14 @@ class Recipes_Customizer {
 		return $value;
 
 	}
-}
 
-if ( class_exists( 'WP_Customize_Control' ) ) {
 	/**
-	 * A simple custom control for labels.
+	 * Enqueues scripts for the customizer.
 	 *
+	 * @access public
 	 * @since 1.1.0
 	 */
-	class Recipes_Label_Control extends WP_Customize_Control {
-
-		/**
-		 * The control-type.
-		 *
-		 * @access public
-		 * @var string
-		 */
-		public $type = 'recipes-custom-notice';
-
-		/**
-		 * Renders the control.
-		 *
-		 * @access public
-		 */
-		public function render_content() {
-			echo '<div>' . wp_kses_post( $this->default ) . '</div>';
-		}
+	public function customize_controls_enqueue_scripts() {
+		wp_enqueue_script( 'recipes-customize', trailingslashit( Recipes::$plugin_url ) . 'assets/js/customize.js', array( 'jquery', 'customize-controls' ), false, true );
 	}
 }
