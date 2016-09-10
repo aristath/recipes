@@ -29,7 +29,19 @@ class Recipes_Customizer {
 		add_action( 'customize_register', array( $this, 'controls' ) );
 		// Enqueue Customizer Scripts
 		add_action( 'customize_controls_enqueue_scripts', array( $this, 'customize_controls_enqueue_scripts' ) );
+		// Add the Kirki installer control.
+		add_action( 'init', array( $this, 'recommend_kirki' ) );
 
+	}
+
+	/**
+	 * Recommend the installation of the Kirki plugin.
+	 *
+	 * @access public
+	 * @since 1.1.0
+	 */
+	public function recommend_kirki() {
+		include_once wp_normalize_path( Recipes::$plugin_path . '/includes/recommend-kirki.php' );
 	}
 
 	/**
