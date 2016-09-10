@@ -106,31 +106,6 @@ class Recipes_Customizer {
 	private function fields() {
 
 		Kirki::add_field( 'recipes', array(
-			'settings'          => 'recipes_show_featured_image',
-			'type'              => 'checkbox',
-			'section'           => 'recipes',
-			'label'             => esc_attr__( 'Show Featured Image', 'recipes' ),
-			'description'       => esc_attr__( 'Check to show featured images, uncheck to hide them.', 'recipes' ),
-			'default'           => 1,
-			'transport'         => 'refresh',
-			'sanitize_callback' => array( $this, 'sanitize_checkbox' ),
-		) );
-
-		Kirki::add_field( 'recipes', array(
-			'settings'          => 'recipes_intro_style',
-			'type'              => 'radio',
-			'section'           => 'recipes',
-			'label'             => esc_attr__( 'Recipe Intro style', 'recipes' ),
-			'default'           => 'blockquote',
-			'transport'         => 'refresh',
-			'sanitize_callback' => array( $this, 'sanitize_intro_style' ),
-			'choices'           => array(
-				'blockquote' => esc_attr__( 'Blockquote', 'recipes' ),
-				'custom'     => esc_attr__( 'Custom', 'recipes' ),
-			),
-		) );
-
-		Kirki::add_field( 'recipes', array(
 			'type'        => 'sortable',
 			'settings'    => 'recipe_elements_order_header',
 			'label'       => esc_attr__( 'Recipe Elements Order And Visibility (Header).', 'recipes' ),
@@ -166,6 +141,27 @@ class Recipes_Customizer {
 				'execution',
 			),
 			'priority'    => 10,
+		) );
+
+		Kirki::add_field( 'recipes', array(
+			'settings'          => 'recipes_intro_style',
+			'type'              => 'radio',
+			'section'           => 'recipes',
+			'label'             => esc_attr__( 'Recipe Intro style', 'recipes' ),
+			'default'           => 'blockquote',
+			'transport'         => 'refresh',
+			'sanitize_callback' => array( $this, 'sanitize_intro_style' ),
+			'choices'           => array(
+				'blockquote' => esc_attr__( 'Blockquote', 'recipes' ),
+				'custom'     => esc_attr__( 'Custom', 'recipes' ),
+			),
+			'active_callback'   => array(
+				array(
+					'setting'  => 'recipe_elements_order_header',
+					'operator' => 'contains',
+					'value'    => 'intro',
+				),
+			),
 		) );
 
 	}
