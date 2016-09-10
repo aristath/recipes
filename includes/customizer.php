@@ -19,18 +19,24 @@ class Recipes_Customizer {
 	 */
 	public function __construct() {
 
-		// Add Panels.
-		add_action( 'customize_register', array( $this, 'panels' ) );
-		// Add Sections.
-		add_action( 'customize_register', array( $this, 'sections' ) );
-		// Add Settings.
-		add_action( 'customize_register', array( $this, 'settings' ) );
-		// Add Controls.
-		add_action( 'customize_register', array( $this, 'controls' ) );
-		// Enqueue Customizer Scripts
-		add_action( 'customize_controls_enqueue_scripts', array( $this, 'customize_controls_enqueue_scripts' ) );
 		// Add the Kirki installer control.
 		add_action( 'init', array( $this, 'recommend_kirki' ) );
+
+		// Do not proceed any further if Kirki is not installed.
+		if ( ! class_exists( 'Kirki' ) ) {
+			return;
+		}
+		// Add config.
+		$this->config();
+		// Add Panels.
+		$this->panels();
+		// Add Sections.
+		$this->sections();
+		// Add Fields.
+		$this->fields();
+
+		// Enqueue Customizer Scripts
+		add_action( 'customize_controls_enqueue_scripts', array( $this, 'customize_controls_enqueue_scripts' ) );
 
 	}
 
@@ -45,14 +51,27 @@ class Recipes_Customizer {
 	}
 
 	/**
+	 * Add Kirki Config.
+	 *
+	 * @since 1.1.0
+	 * @access private
+	 */
+	private function config() {
+		Kirki::add_config( 'recipes', array(
+			'option_type' => 'theme_mod',
+			'capability'  => 'edit_theme_options',
+		) );
+	}
+
+	/**
 	 * Create Panels
 	 *
 	 * @since 1.1.0
-	 * @access public
+	 * @access private
 	 */
-	public function panels( $wp_customize ) {
+	private function panels() {
 
-		$wp_customize->add_panel( 'recipes', array(
+		Kirki::add_panel( 'recipes', array(
 			'title'       => esc_attr__( 'Recipes', 'recipes' ),
 			'description' => esc_attr__( 'Edit the way your recipes appear', 'recipes' ),
 			'priority'    => 160,
@@ -64,11 +83,11 @@ class Recipes_Customizer {
 	 * Create Sections
 	 *
 	 * @since 1.1.0
-	 * @access public
+	 * @access private
 	 */
-	public function sections( $wp_customize ) {
+	private function sections() {
 
-		$wp_customize->add_section( 'recipes', array(
+		Kirki::add_section( 'recipes', array(
 			'title'       => esc_attr__( 'Recipes', 'recipes' ),
 			'description' => esc_attr__( 'Edit the recipes options.', 'recipes' ),
 			// 'panel'       => 'recipes',
@@ -82,48 +101,30 @@ class Recipes_Customizer {
 	 * Create Settings
 	 *
 	 * @since 1.1.0
-	 * @access public
+	 * @access private
 	 */
-	public function settings( $wp_customize ) {
+	private function fields() {
 
-		$wp_customize->add_setting( 'recipes_show_featured_image', array(
-			'type'              => 'theme_mod',
-			'capability'        => 'edit_theme_options',
+		Kirki::add_field( 'recipes', array(
+			'settings'          => 'recipes_show_featured_image',
+			'type'              => 'checkbox',
+			'section'           => 'recipes',
+			'label'             => esc_attr__( 'Show Featured Image', 'recipes' ),
+			'description'       => esc_attr__( 'Check to show featured images, uncheck to hide them.', 'recipes' ),
 			'default'           => 1,
 			'transport'         => 'refresh',
 			'sanitize_callback' => array( $this, 'sanitize_checkbox' ),
 		) );
 
-		$wp_customize->add_setting( 'recipes_intro_style', array(
-			'type'              => 'theme_mod',
-			'capability'        => 'edit_theme_options',
+		Kirki::add_field( 'recipes', array(
+			'settings'          => 'recipes_intro_style',
+			'type'              => 'radio',
+			'section'           => 'recipes',
+			'label'             => esc_attr__( 'Recipe Intro style', 'recipes' ),
 			'default'           => 'blockquote',
 			'transport'         => 'refresh',
 			'sanitize_callback' => array( $this, 'sanitize_intro_style' ),
-		) );
-
-	}
-
-	/**
-	 * Create Controls
-	 *
-	 * @since 1.1.0
-	 * @access public
-	 */
-	public function controls( $wp_customize ) {
-
-		$wp_customize->add_control( 'recipes_show_featured_image', array(
-			'type'        => 'checkbox',
-			'section'     => 'recipes',
-			'label'       => esc_attr__( 'Show Featured Image', 'recipes' ),
-			'description' => esc_attr__( 'Check to show featured images, uncheck to hide them.', 'recipes' ),
-		) );
-
-		$wp_customize->add_control( 'recipes_intro_style', array(
-			'type'        => 'radio',
-			'section'     => 'recipes',
-			'label'       => esc_attr__( 'Recipe "intro" style', 'recipes' ),
-			'choices'     => array(
+			'choices'           => array(
 				'blockquote' => esc_attr__( 'Blockquote', 'recipes' ),
 				'custom'     => esc_attr__( 'Custom', 'recipes' ),
 			),
