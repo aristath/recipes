@@ -114,7 +114,6 @@ class Recipes_Customizer {
 			'choices'     => array(
 				'blockquote' => esc_attr__( 'Blockquote', 'recipes' ),
 				'custom'     => esc_attr__( 'Custom', 'recipes' ),
-				'hidden'     => esc_attr__( 'Hide', 'recipes' ),
 			),
 		) );
 
@@ -148,7 +147,6 @@ class Recipes_Customizer {
 		$valid_values = array(
 			'blockquote',
 			'custom',
-			'hidden',
 		);
 		if ( ! in_array( $value, $valid_values ) ) {
 			return 'blockquote';
