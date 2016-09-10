@@ -5,7 +5,7 @@
  * Description:   Recipes plugin with simplicity in mind.
  * Author:        Aristeides Stathopoulos
  * Author URI:    http://aristeides.com
- * Version:       1.0.0
+ * Version:       1.1.0
  * Text Domain:   recipes
  *
  * @package     Recipes
