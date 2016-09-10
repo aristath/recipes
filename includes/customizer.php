@@ -130,6 +130,44 @@ class Recipes_Customizer {
 			),
 		) );
 
+		Kirki::add_field( 'recipes', array(
+			'type'        => 'sortable',
+			'settings'    => 'recipe_elements_order_header',
+			'label'       => esc_attr__( 'Recipe Elements Order And Visibility (Header).', 'recipes' ),
+			'description' => esc_attr__( 'Select which elements to display in the header area for recipes, and their order.', 'recipes' ),
+			'section'     => 'recipes',
+			'choices'     => array(
+				'title'          => esc_attr__( 'Title', 'recipes' ),
+				'featured-image' => esc_attr__( 'Featured Image', 'recipes' ),
+				'intro'          => esc_attr__( 'Intro', 'recipes' ),
+				'general-info'   => esc_attr__( 'General Info', 'recipes' ),
+			),
+			'default'     => array(
+				'title',
+				'featured-image',
+				'intro',
+				'general-info',
+			),
+			'priority'    => 10,
+		) );
+
+		Kirki::add_field( 'recipes', array(
+			'type'        => 'sortable',
+			'settings'    => 'recipe_elements_order_content',
+			'label'       => esc_attr__( 'Recipe Elements Order And Visibility (Content).', 'recipes' ),
+			'description' => esc_attr__( 'Select which elements to display in the main content area for recipes, and their order.', 'recipes' ),
+			'section'     => 'recipes',
+			'choices'     => array(
+				'content'        => esc_attr__( 'Content', 'recipes' ),
+				'execution'      => esc_attr__( 'Execution', 'recipes' ),
+			),
+			'default'     => array(
+				'content',
+				'execution',
+			),
+			'priority'    => 10,
+		) );
+
 	}
 
 	/**

@@ -13,17 +13,33 @@
 <div class="recipe content" itemscope itemtype="http://schema.org/Recipe">
 
 	<header class="entry-header">
+		<?php
+		$header_elements = get_theme_mod( 'recipe_elements_order_header', array(
+			'title',
+			'featured-image',
+			'intro',
+			'general-info',
+		) );
 
-		<?php recipes()->get_template_part( 'content', 'single-recipe-title' ); ?>
-		<?php recipes()->get_template_part( 'content', 'single-recipe-intro' ); ?>
-		<?php recipes()->get_template_part( 'content', 'single-recipe-general-info' ); ?>
+		foreach ( $header_elements as $header_element ) {
+			recipes()->get_template_part( 'content', 'single-recipe-' . $header_element );
+		}
+		?>
 
 	</header>
 
 	<div class="entry-content">
 
-		<?php recipes()->get_template_part( 'content', 'single-recipe-content' ); ?>
-		<?php recipes()->get_template_part( 'content', 'single-recipe-execution' ); ?>
+		<?php
+		$header_elements = get_theme_mod( 'recipe_elements_order_content', array(
+			'content',
+			'execution',
+		) );
+
+		foreach ( $header_elements as $header_element ) {
+			recipes()->get_template_part( 'content', 'single-recipe-' . $header_element );
+		}
+		?>
 
 	</div>
 
