@@ -137,7 +137,7 @@ class Recipes {
 	public function admin_enqueue_scripts() {
 
 		global $post;
-		if ( 'recipe' !== $post->post_type ) {
+		if ( $post && is_object( $post ) && 'recipe' !== $post->post_type ) {
 			return;
 		}
 
