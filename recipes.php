@@ -205,25 +205,28 @@ class Recipes {
 		if ( is_single() && 'recipe' === get_post_type() ) {
 
 			$file 	= 'single-recipe.php';
-			$find[] = $file;
+			$find[] = 'recipes/' . $file;
 			$find[] = self::$templates_path . $file;
 
-		} elseif ( is_post_type_archive( 'product' ) ) {
+		} elseif ( is_post_type_archive( 'recipe' ) ) {
 
 			$file 	= 'archive-recipe.php';
-			$find[] = $file;
-			$find[] = self::$templates_path . $file;
+			$find[] = 'recipes/' . $file;
 
 		}
 
 		if ( $file ) {
-			$template = locate_template( array_unique( $find ) );
-			if ( ! $template ) {
-				$template = self::$templates_path . $file;
+			$path = locate_template( array_unique( $find ) );
+			if ( ! $path ) {
+				$path = self::$templates_path . $file;
 			}
 		}
 
-		return apply_filters( 'recipes/template_loader', $template );
+		if ( ! file_exists( $path ) ) {
+			return $template;
+		}
+
+		return apply_filters( 'recipes/template_loader', $path );
 
 	}
 
