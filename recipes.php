@@ -136,6 +136,11 @@ class Recipes {
 	 */
 	public function admin_enqueue_scripts() {
 
+		global $post;
+		if ( 'recipe' !== $post->post_type ) {
+			return;
+		}
+
 		wp_enqueue_script( 'recipes', trailingslashit( self::$plugin_url ) . 'assets/js/recipes-admin.js', array( 'jquery', 'underscore', 'wp-util' ) );
 		wp_enqueue_style( 'recipes-admin', self::$plugin_url . '/assets/css/admin-post-edit.css' );
 
