@@ -2,8 +2,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Recipes\n"
-"POT-Creation-Date: 2017-02-05 09:48+0200\n"
-"PO-Revision-Date: 2017-02-05 09:48+0200\n"
+"POT-Creation-Date: 2017-02-05 11:23+0200\n"
+"PO-Revision-Date: 2017-02-05 11:23+0200\n"
 "Last-Translator: Stathopoulos Aristeides <info@aristeides.com>\n"
 "Language-Team: Stathopoulos Aristeides <info@aristeides.com>\n"
 "MIME-Version: 1.0\n"
@@ -153,6 +153,34 @@ msgstr ""
 
 #: includes/customizer.php:156
 msgid "Custom"
+msgstr ""
+
+#: includes/customizer.php:171
+msgid "Steps Counter Color"
+msgstr ""
+
+#: includes/customizer.php:186
+msgid "Display Steps Before Ingredients"
+msgstr ""
+
+#: includes/customizer.php:194
+msgid "Ingredients Column Width"
+msgstr ""
+
+#: includes/customizer.php:195
+msgid ""
+"The width of the ingredients column. The steps column will be automatically "
+"resized to fit."
+msgstr ""
+
+#: includes/customizer.php:217
+msgid "Steps Column Width"
+msgstr ""
+
+#: includes/customizer.php:218
+msgid ""
+"The width of the steps column. The ingredients column will be automatically "
+"resized to fit."
 msgstr ""
 
 #: includes/post-type.php:16
