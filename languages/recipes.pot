@@ -1,0 +1,406 @@
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Recipes\n"
+"POT-Creation-Date: 2017-02-05 09:48+0200\n"
+"PO-Revision-Date: 2017-02-05 09:48+0200\n"
+"Last-Translator: Stathopoulos Aristeides <info@aristeides.com>\n"
+"Language-Team: Stathopoulos Aristeides <info@aristeides.com>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.8.2\n"
+"X-Poedit-Basepath: ..\n"
+"X-Poedit-WPHeader: recipes.php\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;"
+"esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;_n_noop:1,2;"
+"_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPathExcluded-0: *.js\n"
+
+#: includes/class-recipes-metabox-general-info.php:19
+msgid "Recipe General Info"
+msgstr ""
+
+#: includes/class-recipes-metabox-general-info.php:83
+msgid "Servings"
+msgstr ""
+
+#: includes/class-recipes-metabox-general-info.php:84
+msgid "Prep. Time (minutes)"
+msgstr ""
+
+#: includes/class-recipes-metabox-general-info.php:85
+msgid "Cook Time (minutes)"
+msgstr ""
+
+#: includes/class-recipes-metabox-general-info.php:86
+msgid "Description"
+msgstr ""
+
+#: includes/class-recipes-metabox-general-info.php:87
+msgid ""
+"Enter basic info about your recipe and a short intruduction. You should "
+"include the servings nr, preparation time (in minutes) and cook time (in "
+"minutes). The short description you enter will be displayed below the recipe "
+"photo as an introduction to your recipe."
+msgstr ""
+
+#: includes/class-recipes-metabox-ingredients.php:19
+msgid "Recipe Ingredients"
+msgstr ""
+
+#: includes/class-recipes-metabox-ingredients.php:87
+msgid "Ingredient"
+msgstr ""
+
+#: includes/class-recipes-metabox-ingredients.php:88
+msgid "Add New Ingredient"
+msgstr ""
+
+#: includes/class-recipes-metabox-ingredients.php:89
+msgid ""
+"Please add the ingredients for your recipe below. Use a single line for each "
+"ingredient (Example: 1/2 Kg Potatoes) and press the \"Add new ingredient\" "
+"button if you want to add a new ingredient. Empty fields will be "
+"automatically removed on save."
+msgstr ""
+
+#: includes/class-recipes-metabox-steps.php:19
+msgid "Recipe Steps"
+msgstr ""
+
+#: includes/class-recipes-metabox-steps.php:86
+msgid "Step"
+msgstr ""
+
+#: includes/class-recipes-metabox-steps.php:87
+msgid "Add Step"
+msgstr ""
+
+#: includes/class-recipes-metabox-steps.php:88
+msgid ""
+"Please add the steps for your recipe below. Empty fields will be "
+"automatically removed on save."
+msgstr ""
+
+#. Plugin Name of the plugin/theme
+#: includes/customizer.php:75 includes/customizer.php:91
+#: includes/post-type.php:18
+msgid "Recipes"
+msgstr ""
+
+#: includes/customizer.php:76
+msgid "Edit the way your recipes appear"
+msgstr ""
+
+#: includes/customizer.php:92
+msgid "Edit the recipes options."
+msgstr ""
+
+#: includes/customizer.php:111
+msgid "Recipe Elements Order And Visibility (Header)."
+msgstr ""
+
+#: includes/customizer.php:112
+msgid ""
+"Select which elements to display in the header area for recipes, and their "
+"order."
+msgstr ""
+
+#: includes/customizer.php:115
+msgid "Title"
+msgstr ""
+
+#: includes/customizer.php:116
+msgid "Featured Image"
+msgstr ""
+
+#: includes/customizer.php:117
+msgid "Intro"
+msgstr ""
+
+#: includes/customizer.php:118
+msgid "General Info"
+msgstr ""
+
+#: includes/customizer.php:132
+msgid "Recipe Elements Order And Visibility (Content)."
+msgstr ""
+
+#: includes/customizer.php:133
+msgid ""
+"Select which elements to display in the main content area for recipes, and "
+"their order."
+msgstr ""
+
+#: includes/customizer.php:136
+msgid "Content"
+msgstr ""
+
+#: includes/customizer.php:137
+msgid "Execution"
+msgstr ""
+
+#: includes/customizer.php:150
+msgid "Recipe Intro style"
+msgstr ""
+
+#: includes/customizer.php:155
+msgid "Blockquote"
+msgstr ""
+
+#: includes/customizer.php:156
+msgid "Custom"
+msgstr ""
+
+#: includes/post-type.php:16
+msgctxt "Post Type General Name"
+msgid "Recipes"
+msgstr ""
+
+#: includes/post-type.php:17
+msgctxt "Post Type Singular Name"
+msgid "Recipe"
+msgstr ""
+
+#: includes/post-type.php:19 includes/post-type.php:35
+msgid "Recipe"
+msgstr ""
+
+#: includes/post-type.php:20
+msgid "Parent Item:"
+msgstr ""
+
+#: includes/post-type.php:21
+msgid "All Recipes"
+msgstr ""
+
+#: includes/post-type.php:22
+msgid "Add New Recipe"
+msgstr ""
+
+#: includes/post-type.php:23
+msgid "Add New"
+msgstr ""
+
+#: includes/post-type.php:24
+msgid "New Item"
+msgstr ""
+
+#: includes/post-type.php:25
+msgid "Edit Item"
+msgstr ""
+
+#: includes/post-type.php:26
+msgid "Update Item"
+msgstr ""
+
+#: includes/post-type.php:27
+msgid "View Item"
+msgstr ""
+
+#: includes/post-type.php:28
+msgid "Search Item"
+msgstr ""
+
+#: includes/post-type.php:29
+msgid "Not found"
+msgstr ""
+
+#: includes/post-type.php:30
+msgid "Not found in Trash"
+msgstr ""
+
+#: includes/post-type.php:34
+msgid "recipe"
+msgstr ""
+
+#: includes/recommend-kirki.php:59
+msgid ""
+"Please install the <a href=\"\">Kirki</a> plugin to edit the Recipes options."
+msgstr ""
+
+#: includes/recommend-kirki.php:61
+msgid "Install Now"
+msgstr ""
+
+#: includes/recommend-kirki.php:66
+#, php-format
+msgid ""
+"The plugin is installed but not activated. Please <a href=\"%s\">activate "
+"it</a>."
+msgstr ""
+
+#: includes/taxonomies.php:17
+msgctxt "Taxonomy General Name"
+msgid "Categories"
+msgstr ""
+
+#: includes/taxonomies.php:18
+msgctxt "Taxonomy Singular Name"
+msgid "Category"
+msgstr ""
+
+#: includes/taxonomies.php:19
+msgid "Recipe Category"
+msgstr ""
+
+#: includes/taxonomies.php:20
+msgid "All Categories"
+msgstr ""
+
+#: includes/taxonomies.php:21
+msgid "Parent Category"
+msgstr ""
+
+#: includes/taxonomies.php:22
+msgid "Parent Category:"
+msgstr ""
+
+#: includes/taxonomies.php:23
+msgid "New Recipe Category"
+msgstr ""
+
+#: includes/taxonomies.php:24
+msgid "Add New Category"
+msgstr ""
+
+#: includes/taxonomies.php:25
+msgid "Edit Category"
+msgstr ""
+
+#: includes/taxonomies.php:26
+msgid "Update Category"
+msgstr ""
+
+#: includes/taxonomies.php:27
+msgid "View Category"
+msgstr ""
+
+#: includes/taxonomies.php:28
+msgid "Separate categories with commas"
+msgstr ""
+
+#: includes/taxonomies.php:29
+msgid "Add or remove categories"
+msgstr ""
+
+#: includes/taxonomies.php:30
+msgid "Choose from the most used recipe categories"
+msgstr ""
+
+#: includes/taxonomies.php:31
+msgid "Popular Categories"
+msgstr ""
+
+#: includes/taxonomies.php:32
+msgid "Search Recipe Categories"
+msgstr ""
+
+#: includes/taxonomies.php:33 includes/taxonomies.php:64
+msgid "Not Found"
+msgstr ""
+
+#: includes/taxonomies.php:50
+msgctxt "Taxonomy General Name"
+msgid "Tags"
+msgstr ""
+
+#: includes/taxonomies.php:51
+msgctxt "Taxonomy Singular Name"
+msgid "Tag"
+msgstr ""
+
+#: includes/taxonomies.php:52
+msgid "Recipe Tag"
+msgstr ""
+
+#: includes/taxonomies.php:53
+msgid "All Tags"
+msgstr ""
+
+#: includes/taxonomies.php:54
+msgid "New Recipe Tag"
+msgstr ""
+
+#: includes/taxonomies.php:55
+msgid "Add New Tag"
+msgstr ""
+
+#: includes/taxonomies.php:56
+msgid "Edit Tag"
+msgstr ""
+
+#: includes/taxonomies.php:57
+msgid "Update Tag"
+msgstr ""
+
+#: includes/taxonomies.php:58
+msgid "View Tag"
+msgstr ""
+
+#: includes/taxonomies.php:59
+msgid "Separate tags with commas"
+msgstr ""
+
+#: includes/taxonomies.php:60
+msgid "Add or remove tags"
+msgstr ""
+
+#: includes/taxonomies.php:61
+msgid "Choose from the most used recipe tags"
+msgstr ""
+
+#: includes/taxonomies.php:62
+msgid "Popular Tags"
+msgstr ""
+
+#: includes/taxonomies.php:63
+msgid "Search Recipe Tags"
+msgstr ""
+
+#: templates/content-single-recipe-execution.php:17
+msgid "Ingredients"
+msgstr ""
+
+#: templates/content-single-recipe-execution.php:29
+msgid "Steps"
+msgstr ""
+
+#: templates/content-single-recipe-general-info.php:20
+#, php-format
+msgid "%1$s Prep time: %2$s min"
+msgstr ""
+
+#: templates/content-single-recipe-general-info.php:26
+#, php-format
+msgid "%1$s Cook time: %2$s min"
+msgstr ""
+
+#: templates/content-single-recipe-general-info.php:33
+#, php-format
+msgid "%1$s Total time: %2$s min"
+msgstr ""
+
+#: templates/content-single-recipe-general-info.php:39
+#, php-format
+msgid "%1$s Yield: %2$s servings"
+msgstr ""
+
+#. Plugin URI of the plugin/theme
+msgid "https://wordpress.org/plugins/recipes/"
+msgstr ""
+
+#. Description of the plugin/theme
+msgid "Recipes plugin with simplicity in mind."
+msgstr ""
+
+#. Author of the plugin/theme
+msgid "Aristeides Stathopoulos"
+msgstr ""
+
+#. Author URI of the plugin/theme
+msgid "http://aristeides.com"
+msgstr ""

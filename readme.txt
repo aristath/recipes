@@ -1,7 +1,7 @@
 === Recipes ===
 Contributors: aristath
 Tags: recipes, cooking, chef, custom post type, custom taxonomy
-Requires at least: 4.5
+Requires at least: 4.6
 Tested up to: 4.6.1
 Stable tag: 1.1.0
 License: GPLv3 or later

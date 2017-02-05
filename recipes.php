@@ -7,6 +7,7 @@
  * Author URI:    http://aristeides.com
  * Version:       1.1.0
  * Text Domain:   recipes
+ * Domain Path:   /languages
  *
  * @package     Recipes
  * @category    Core
