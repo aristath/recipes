@@ -9,7 +9,8 @@
     font-size: 1em;
     vertical-align: text-bottom; }
 .recipe.content .recipe-execution-wrapper {
-  display: flex; }
+  display: flex;
+  flex-wrap: wrap; }
   .recipe.content .recipe-execution-wrapper > div.ingredients {
     padding-right: 2rem; }
   .recipe.content .recipe-execution-wrapper > div.steps {

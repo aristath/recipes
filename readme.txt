@@ -2,8 +2,8 @@
 Contributors: aristath
 Tags: recipes, cooking, chef, custom post type, custom taxonomy
 Requires at least: 4.6
-Tested up to: 4.6.1
-Stable tag: 1.1.0
+Tested up to: 4.7.2
+Stable tag: 1.2.0
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -37,7 +37,19 @@ Simply install as a normal WordPress plugin and activate.
 
 == Changelog ==
 
-= 1.1.0 =
+= 1.2.0 =
+
+February 5, 2017. Development time: 1 hour.
+
+* Fix: Added translation file & made the plugin translatable.
+* Fix: Templating issue with `single-template.php`.
+* Fix: Admin scripts now only loaded when editing a recipe.
+* Fix: added the `wp-util` dependency to admin scripts to make sure no JS errors occur in some instances.
+* New: Added new customizer controls to change the ingredients & steps column widths.
+* New: Added new customizer controls the change the order of the steps & ingredients columns.
+* New: Added new customizer control to change the steps counter color.
+
+= 1.1.1 =
 
 September 10, 2016. Development time: 13 hours.
 

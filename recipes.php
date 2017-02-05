@@ -5,7 +5,7 @@
  * Description:   Recipes plugin with simplicity in mind.
  * Author:        Aristeides Stathopoulos
  * Author URI:    http://aristeides.com
- * Version:       1.1.0
+ * Version:       1.2.0
  * Text Domain:   recipes
  * Domain Path:   /languages
  *
@@ -124,6 +124,12 @@ class Recipes {
 	public function enqueue_scripts() {
 
 		wp_enqueue_style( 'recipes', trailingslashit( self::$plugin_url ) . 'assets/css/styles.css', array( 'dashicons' ) );
+		if ( true === get_theme_mod( 'recipes_steps_before_ingredients', false ) ) {
+			wp_add_inline_style(
+				'recipes',
+				'.recipe.content .recipe-execution-wrapper > div.ingredients { order: 2; }'
+			);
+		}
 
 	}
 

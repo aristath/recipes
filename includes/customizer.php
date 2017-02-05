@@ -164,6 +164,75 @@ class Recipes_Customizer {
 			),
 		) );
 
+		Kirki::add_field( 'recipes', array(
+			'settings'          => 'recipes_steps_counters_color',
+			'type'              => 'color',
+			'section'           => 'recipes',
+			'label'             => esc_attr__( 'Steps Counter Color', 'recipes' ),
+			'default'           => '#555555',
+			'transport'         => 'auto',
+			'output'            => array(
+				array(
+					'element'  => '.recipe.content .recipe-execution-wrapper > div.steps ol li:before',
+					'property' => 'background-color',
+				),
+			),
+		) );
+
+		Kirki::add_field( 'recipes', array(
+			'settings'          => 'recipes_steps_before_ingredients',
+			'type'              => 'checkbox',
+			'section'           => 'recipes',
+			'label'             => esc_attr__( 'Display Steps Before Ingredients', 'recipes' ),
+			'default'           => false,
+		) );
+
+		Kirki::add_field( 'recipes', array(
+			'settings'          => 'recipes_ingredients_width',
+			'type'              => 'dimension',
+			'section'           => 'recipes',
+			'label'             => esc_attr__( 'Ingredients Column Width', 'recipes' ),
+			'description'       => esc_attr__( 'The width of the ingredients column. The steps column will be automatically resized to fit.', 'recipes' ),
+			'default'           => '30%',
+			'transport'         => 'auto',
+			'output'            => array(
+				array(
+					'element'  => '.recipe-execution-wrapper .ingredients',
+					'property' => 'width',
+				),
+			),
+			'active_callback'   => array(
+				array(
+					'setting'  => 'recipes_steps_before_ingredients',
+					'operator' => '==',
+					'value'    => false,
+				),
+			),
+		) );
+
+		Kirki::add_field( 'recipes', array(
+			'settings'          => 'recipes_steps_width',
+			'type'              => 'dimension',
+			'section'           => 'recipes',
+			'label'             => esc_attr__( 'Steps Column Width', 'recipes' ),
+			'description'       => esc_attr__( 'The width of the steps column. The ingredients column will be automatically resized to fit.', 'recipes' ),
+			'default'           => '30%',
+			'transport'         => 'auto',
+			'output'            => array(
+				array(
+					'element'  => '.recipe-execution-wrapper .steps',
+					'property' => 'width',
+				),
+			),
+			'active_callback'   => array(
+				array(
+					'setting'  => 'recipes_steps_before_ingredients',
+					'operator' => '==',
+					'value'    => true,
+				),
+			),
+		) );
+
 	}
 
 	/**
