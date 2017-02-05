@@ -3,7 +3,7 @@ Contributors: aristath
 Tags: recipes, cooking, chef, custom post type, custom taxonomy
 Requires at least: 4.6
 Tested up to: 4.7.2
-Stable tag: 1.2.0
+Stable tag: 1.2.1
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -36,6 +36,12 @@ Includes support for featured images and an easy to use template.
 Simply install as a normal WordPress plugin and activate.
 
 == Changelog ==
+
+= 1.2.1 =
+
+February 5, 2017.
+
+* Fix: Use TGMPA to require the installation of 3rd-party plugins.
 
 = 1.2.0 =
 

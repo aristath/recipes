@@ -5,7 +5,7 @@
  * Description:   Recipes plugin with simplicity in mind.
  * Author:        Aristeides Stathopoulos
  * Author URI:    http://aristeides.com
- * Version:       1.2.0
+ * Version:       1.2.1
  * Text Domain:   recipes
  * Domain Path:   /languages
  *
@@ -105,6 +105,7 @@ class Recipes {
 	 */
 	private function includes() {
 
+		require_once( self::$plugin_path . 'includes/required-plugins.php' );
 		require_once( self::$plugin_path . 'includes/post-type.php' );
 		require_once( self::$plugin_path . 'includes/taxonomies.php' );
 		require_once( self::$plugin_path . 'includes/class-recipes-metabox.php' );
@@ -212,6 +213,7 @@ class Recipes {
 
 		$find = array( 'recipes.php' );
 		$file = '';
+		$path = '';
 
 		if ( is_single() && 'recipe' === get_post_type() ) {
 

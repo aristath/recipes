@@ -19,9 +19,6 @@ class Recipes_Customizer {
 	 */
 	public function __construct() {
 
-		// Add the Kirki installer control.
-		add_action( 'init', array( $this, 'recommend_kirki' ) );
-
 		// Do not proceed any further if Kirki is not installed.
 		if ( ! class_exists( 'Kirki' ) ) {
 			return;
@@ -38,16 +35,6 @@ class Recipes_Customizer {
 		// Enqueue Customizer Scripts
 		add_action( 'customize_controls_enqueue_scripts', array( $this, 'customize_controls_enqueue_scripts' ) );
 
-	}
-
-	/**
-	 * Recommend the installation of the Kirki plugin.
-	 *
-	 * @access public
-	 * @since 1.1.0
-	 */
-	public function recommend_kirki() {
-		include_once wp_normalize_path( Recipes::$plugin_path . '/includes/recommend-kirki.php' );
 	}
 
 	/**
